@@ -1,0 +1,25 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{2}{section.2}%
+\contentsline {subsubsection}{\numberline {1.0.1}Current State of the Feedforward Recurrent Hypothesis}{2}{subsubsection.3}%
+\contentsline {subsubsection}{\numberline {1.0.2}Motivation for the Exploration}{2}{subsubsection.4}%
+\contentsline {subsubsection}{\numberline {1.0.3}Evolved Extensions}{2}{subsubsection.5}%
+\contentsline {section}{\numberline {2}Methods}{3}{section.6}%
+\contentsline {subsection}{\numberline {2.1}Symmetric Recurrent Network Model}{3}{subsection.7}%
+\contentsline {subsubsection}{\numberline {2.1.1}Symmetric Recurrent Interaction}{4}{subsubsection.10}%
+\contentsline {subsubsection}{\numberline {2.1.2}Model Inputs and Outputs}{4}{subsubsection.11}%
+\contentsline {subsubsection}{\numberline {2.1.3}Feedforward Recurrent Alignment for Symmetric Interactions}{4}{subsubsection.12}%
+\contentsline {subsubsection}{\numberline {2.1.4}Response Properties for Evaluation}{4}{subsubsection.13}%
+\contentsline {subsection}{\numberline {2.2}Asymmetric Recurrent Network Model}{4}{subsection.14}%
+\contentsline {subsubsection}{\numberline {2.2.1}Asymmetric Recurrent Interaction}{4}{subsubsection.15}%
+\contentsline {subsubsection}{\numberline {2.2.2}Modification of Feedforward Recurrent Alignment for Asymmetric Interactions}{4}{subsubsection.16}%
+\contentsline {subsubsection}{\numberline {2.2.3}Related Modification for Evaluation}{4}{subsubsection.17}%
+\contentsline {subsection}{\numberline {2.3}Low Rank Recurrent Network Model}{4}{subsection.18}%
+\contentsline {subsubsection}{\numberline {2.3.1}Construction of Low Rank Interactions}{4}{subsubsection.19}%
+\contentsline {subsubsection}{\numberline {2.3.2}Modification of Feedforward Recurrent Alignment for Low Rank Interactions}{4}{subsubsection.20}%
+\contentsline {subsection}{\numberline {2.4}Black Box Recurrent Network Model}{4}{subsection.21}%
+\contentsline {subsubsection}{\numberline {2.4.1}Approximation with White Noise Evoked Activity}{4}{subsubsection.22}%
+\contentsline {subsubsection}{\numberline {2.4.2}Iterative Approximation with Low Dimensional Inputs}{4}{subsubsection.23}%
+\contentsline {subsection}{\numberline {2.5}Hebbian Learning in Feedforward Recurrent Networks}{4}{subsection.24}%
+\contentsline {subsubsection}{\numberline {2.5.1}Model Setting}{4}{subsubsection.25}%
+\contentsline {subsubsection}{\numberline {2.5.2}Update Rules for Feedforward Network}{4}{subsubsection.26}%
+\contentsline {subsubsection}{\numberline {2.5.3}Projection of the Feedforward Weights on Eigenvectors}{4}{subsubsection.27}%

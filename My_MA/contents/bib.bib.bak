@@ -1,0 +1,26 @@
+% Encoding: UTF-8
+
+@Book{dayan2005theoretical,
+  author    = {Dayan, Peter and Abbott, Laurence F},
+  publisher = {MIT press},
+  title     = {Theoretical neuroscience: computational and mathematical modeling of neural systems},
+  year      = {2005},
+}
+
+@Article{tragenap2023nature,
+  author  = {Tr{\"a}genap, Sigrid and Whitney, David E and Fitzpatrick, David and Kaschube, Matthias},
+  journal = {bioRxiv},
+  title   = {The nature-nurture transform underlying the emergence of reliable cortical representations},
+  year    = {2023},
+  number  = {2022.11. 14.516507},
+}
+
+@Article{Soch2019,
+  author  = {Soch, Joram, et al.},
+  journal = {Proof: Linear transformation theorem for the multivariate normal distribution /Zenodo. https://doi.org/10.5281/ZENODO.4305949},
+  title   = {StatProofBook/StatProofBook.github.io: StatProofBook 2022 (Version 2022).},
+  year    = {2019},
+  url     = {Zenodo. https://doi.org/10.5281/ZENODO.4305949},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
