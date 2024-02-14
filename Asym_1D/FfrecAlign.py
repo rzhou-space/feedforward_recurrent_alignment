@@ -42,6 +42,18 @@ class FFRec_Alignment:
         return ffrec
 
 
+    def total_ffrec_align(self, h_det, interaction): # TODO: further step: distribution with eigenvalues.
+        """
+        Calculate the ffrec with (Jh)^* (Jh) where (Jh)^* the complex conjugate of the vector.
+        :param h_det: n x 1 dimensional array.
+        :param interaction: nxn asymmetric matrix.
+        """
+        h_norm = np.linalg.norm(h_det)
+        transform_vec = interaction @ h_det
+        ffrec = np.conjugate(transform_vec).T @ transform_vec/ h_norm**2
+        return ffrec
+
+
 
 ##############################################################################################################
 
@@ -79,18 +91,18 @@ class Eigval_Ffrec:
             # The i-th column is the corresponding eigenvector of i-th eigenvalue.
             h_det = self.eigvec[:, i]
             ffrec[i] = FFRec_Alignment.real_ffrec_align(self, h_det, self.interaction)
-        '''
+
         # Correlation between eigenvalues and ffrec-alignments.
         x = self.eigval.real
         y = self.eigval.imag
-        plt.title("Ffrec align in eigenvalue plane with h = Re($e_i$)")
-        plt.xlabel("Re($\lambda$)")
-        plt.ylabel("Im($\lambda$)")
+        #plt.title("Ffrec align in eigenvalue plane with h = Re($e_i$)")
+        plt.xlabel(r'Re($\lambda$)', fontsize=15)
+        plt.ylabel(r'Im($\lambda$)', fontsize=15)
         plt.scatter(x, y, c=ffrec, cmap = "PuBuGn")
         cbar = plt.colorbar()
-        cbar.set_label("ffrec align")
+        #cbar.set_label("ffrec align", fontsize=15)
         plt.show()
-        '''
+
         return ffrec
 
 
@@ -101,18 +113,18 @@ class Eigval_Ffrec:
             # The i-th column is the corresponding eigenvector of i-th eigenvalue.
             h_det = self.eigvec[:, i]
             ffrec[i] = FFRec_Alignment.mag_ffrec_align(self, h_det, self.interaction)
-        '''
+
         # Correlation between eigenvalues and ffrec-alignments.
         x = self.eigval.real
         y = self.eigval.imag
-        plt.title("Ffrec align in eigenvalue plane with h = |$e_i$|")
-        plt.xlabel("Re($\lambda$)")
-        plt.ylabel("Im($\lambda$)")
+        #plt.title("Ffrec align in eigenvalue plane with h = |$e_i$|")
+        plt.xlabel(r"Re($\lambda$)", fontsize=15)
+        plt.ylabel(r"Im($\lambda$)", fontsize=15)
         plt.scatter(x, y, c=ffrec, cmap = "PuBuGn")
         cbar = plt.colorbar()
-        cbar.set_label("ffrec align")
+        cbar.set_label("Feedforward recurrent alignment", fontsize=15, rotation=270, labelpad=15)
         plt.show()
-        '''
+
         return ffrec
 
 
@@ -131,21 +143,21 @@ class Eigval_Ffrec:
             h_det = sym_eigvec[:, i]
             # Calculate the ffrec still with the original asymmetrical interaction matrix.
             ffrec[i] = FFRec_Alignment.ffrec_align(self, h_det, self.interaction)
-        '''
+
         # Correlation between eigenvalues of original matrix and ffrec-alignments.
         #x = self.eigval.real
         #y = self.eigval.imag
-        plt.title("Ffrec align in eigenvalue plane with h = |$e_i$| of symmetrized J")
+        #plt.title("Ffrec align in eigenvalue plane with h = |$e_i$| of symmetrized J")
         #plt.xlabel("Re($\lambda$)")
         #plt.ylabel("Im($\lambda$)")
         #plt.scatter(x, y, c=ffrec, cmap = "PuBuGn")
-        plt.xlabel("eigenvalues")
-        plt.ylabel("ffrec")
+        plt.xlabel(r"$\tilde{\lambda}$", fontsize=15)
+        plt.ylabel("Feedforward recurrent alignment", fontsize=15)
         plt.scatter(sym_eigval, ffrec)
         #cbar = plt.colorbar()
         #cbar.set_label("ffrec align")
         plt.show()
-        '''
+
         return ffrec, sym_eigval  # ffrec-align calculated with original J, eigenvalues from symmetrized interaction J.
 
 
@@ -292,6 +304,8 @@ class Eigval_Ffrec:
 
 
 
+
+
 ############################################################################################################
 if __name__ == "__main__":
     n_neuron = 200
@@ -299,9 +313,9 @@ if __name__ == "__main__":
     num_sample = 500
 
     plots = Eigval_Ffrec(n_neuron, R, 1, 0.2, 0.5)
-    #plots.real_eigval_ffrec()
-    #plots.mag_eigval_ffrec()
-    #plots.sym_eigval_ffrec()
+    plots.real_eigval_ffrec()
+    plots.mag_eigval_ffrec()
+    plots.sym_eigval_ffrec()
     # plots.noise_eigval_ffrec(num_sample)
-    plots.all_plots(num_sample)
+    # plots.all_plots(num_sample)
 

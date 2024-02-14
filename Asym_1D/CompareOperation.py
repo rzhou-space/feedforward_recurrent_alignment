@@ -79,7 +79,7 @@ def compare_ttc_only_combi_inter(n_neuron, R, sigma_trial, N_trial, mode):
             ttc = results[1]
             plt.scatter(ffrec, ttc, c=colors[i], alpha=0.5, label="a="+str(a))
 
-    plt.legend()
+    plt.legend(fontsize = 15)
     plt.show()
 
 
@@ -170,7 +170,7 @@ def compare_its_only_combi_inter(n_neuron, R, dt_euler, dt_intra, T, sigma_time,
             its = results[1]
             plt.scatter(ffrec, its, c=colors[i], alpha=0.5, label="a="+str(a))
 
-    plt.legend()
+    #plt.legend(fontsize=15)
     plt.show()
 
 
@@ -224,6 +224,7 @@ def compare_dim_only_combi_inter(n_neuron, R, kappa, beta_dim, num_sample, mode)
         if mode == "real part":
             analytical_dim = dim_class.real_dim_to_ffrec(kappa, beta_dim)
             empir_dim = dim_class.real_dim_to_ffrec_empir(kappa, beta_dim, num_sample)
+            #ffrec = dim_class.real_ffrec_dim()
             # Plot the analytical dimensionality as line and the empirical dimensionality
             # as dots in the same color.
             plt.plot(ffrec, np.flip(analytical_dim), c=colors[i], alpha=0.5, label="a="+str(a))
@@ -240,7 +241,7 @@ def compare_dim_only_combi_inter(n_neuron, R, kappa, beta_dim, num_sample, mode)
             plt.plot(ffrec, np.flip(analytical_dim), c=colors[i], alpha=0.6, label="a="+str(a))
             plt.scatter(ffrec, np.flip(empir_dim), c=colors[i], alpha=0.6, label="a="+str(a))
 
-    plt.legend()
+    #plt.legend(bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left", mode="expand", ncol=5 ,  fontsize=15)
     plt.show()
 
 
@@ -302,13 +303,15 @@ def compare_align_spont_combi(n_neuron, R, kappa, beta_spont, beta_dim, num_samp
             ffrec = results[0]
             pattern_align = results[1]
             plt.scatter(ffrec, pattern_align, c=colors[i], alpha=0.5, label="a="+str(a))
+            plt.xlabel("Feedforward recurrent alignment", fontsize = 15)
+            plt.ylabel("Alignment to spontaneous activity", fontsize=15)
         elif mode == "white noise":
             results = align_class.noise_pattern_align(kappa, beta_spont, beta_dim, num_sample)
             ffrec = results[0]
             pattern_align = results[1]
             plt.scatter(ffrec, pattern_align, c=colors[i], alpha=0.6, label="a="+str(a))
 
-    plt.legend()
+    plt.legend(fontsize=15)
     plt.show()
 
 
@@ -361,15 +364,15 @@ if __name__ == "__main__":
     sigma_2 = 2
 
 ##############################################################################################################
-    # Results of applying combined interaction matrix J = a*J_sym + (1-1)*J_asym
+    # Results of applying combined interaction matrix J = a*J_sym + (1-a)*J_asym
 
     #compare_ttc_only_combi_inter(n_neuron, R, sigma_trial, N_trial, "real part")
 
-    #compare_its_only_combi_inter(n_neuron, R, dt_euler, dt_intra, T, sigma_time, "real part")
+    #compare_its_only_combi_inter(n_neuron, R, dt_euler, dt_intra, T, sigma_time, "symmetrized")
 
     #compare_dim_only_combi_inter(n_neuron, R, kappa, beta_dim, num_sample, "real part")
 
-    #compare_align_spont_combi(n_neuron, R, kappa, beta_spont, beta_dim, num_sample, "real part")
+    #compare_align_spont_combi(n_neuron, R, kappa, beta_spont, beta_dim, num_sample, "symmetrized")
 
 ##############################################################################################################
 
