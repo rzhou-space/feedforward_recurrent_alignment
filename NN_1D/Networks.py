@@ -101,6 +101,7 @@ class LowRank:
         eigvals = np.linalg.eigvalsh(self.interaction) # Eigenvalues are real numbers.
         plt.figure()
         plt.scatter(eigvals, np.zeros(len(eigvals)))
+        plt.yticks([])
         plt.show()
         return eigvals
 
@@ -184,11 +185,8 @@ if __name__ == "__main__":
     sigma_trial = 0.02
     N_trial = 100
 
-    '''    nD_lowrank = NoisedLowRank_nD(n_neuron, R, 50)
-    nD_lowrank.eigval_distriution()'''
-
-    sym = LinearRecurrentNetwork(n_neuron, R)
-    sym.eigval_distribution()
+    sym_low_rank = LowRank(200, 1, R)
+    print(sym_low_rank.eigval_distribution())
 
 
 
