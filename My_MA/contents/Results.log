@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2023.1.2)  4 FEB 2024 18:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2023.1.2)  20 FEB 2024 16:04
 entering extended mode
 **./Results.tex
 (Results.tex
@@ -495,7 +495,14 @@ nd-pdftex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count294
 \l__pdf_internal_box=\box56
-) (Results.aux)
+) (Results.aux
+
+LaTeX Warning: Label `' multiply defined.
+
+
+LaTeX Warning: Label `sub@' multiply defined.
+
+)
 \openout1 = `Results.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
@@ -728,215 +735,539 @@ put line 54.
 
 LaTeX Warning: Reference `eq:ttc_sym' on page 2 undefined on input line 54.
 
-<../figures/ttc_sym.png, id=47, 462.528pt x 346.896pt>
+<../figures/ttc_sym.png, id=71, 462.528pt x 346.896pt>
 File: ../figures/ttc_sym.png Graphic file (type png)
 <use ../figures/ttc_sym.png>
 Package pdftex.def Info: ../figures/ttc_sym.png  used on input line 59.
 (pdftex.def)             Requested size: 199.16928pt x 149.37938pt.
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 6
-0.
+1.
 (C:\Users\Rutian Zhou\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 60.
+(Font)              <10> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 60.
+(Font)              <7> on input line 61.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 60.
+(Font)              <5> on input line 61.
 
-Underfull \hbox (badness 2894) in paragraph at lines 60--60
+Underfull \hbox (badness 2894) in paragraph at lines 61--61
 \T1/lmr/bx/n/10 for-ward re-cur-rent align-ment and
  []
 
 
-Underfull \hbox (badness 1859) in paragraph at lines 60--60
+Underfull \hbox (badness 1859) in paragraph at lines 61--61
 \T1/lmr/bx/n/10 trial to trial cor-re-la-tion. \T1/lmr/m/n/10 In-puts
  []
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 2 undefined on input line 
-62.
+63.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 2 undefined on input line 
-70.
+71.
 
 [2 <../figures/ttc_sym.png>]
 
-LaTeX Warning: Reference `eq:its_sym' on page 3 undefined on input line 72.
+LaTeX Warning: Reference `eq:its_sym' on page 3 undefined on input line 73.
 
-<../figures/its_sym.png, id=64, 462.528pt x 346.896pt>
+<../figures/its_sym.png, id=88, 462.528pt x 346.896pt>
 File: ../figures/its_sym.png Graphic file (type png)
 <use ../figures/its_sym.png>
-Package pdftex.def Info: ../figures/its_sym.png  used on input line 77.
+Package pdftex.def Info: ../figures/its_sym.png  used on input line 78.
 (pdftex.def)             Requested size: 199.16928pt x 149.37938pt.
 
-Underfull \hbox (badness 2894) in paragraph at lines 79--79
+Underfull \hbox (badness 2894) in paragraph at lines 80--80
 \T1/lmr/bx/n/10 for-ward re-cur-rent align-ment and
  []
 
 
 LaTeX Warning: Citation `bartolo2020dimensionality' on page 3 undefined on inpu
-t line 87.
+t line 88.
 
 
 LaTeX Warning: Citation `badre2021dimensionality' on page 3 undefined on input 
-line 87.
+line 88.
 
 
 LaTeX Warning: Citation `badre2021dimensionality' on page 3 undefined on input 
-line 87.
+line 88.
 
 [3 <../figures/its_sym.png>]
 
 LaTeX Warning: Citation `tragenap2023nature' on page 4 undefined on input line 
-89.
+90.
 
 
-LaTeX Warning: Reference `eq:Sigma_dim' on page 4 undefined on input line 98.
+LaTeX Warning: Reference `eq:Sigma_dim' on page 4 undefined on input line 99.
 
 
 LaTeX Warning: Reference `eq:dim_analytical_sym' on page 4 undefined on input l
-ine 98.
+ine 99.
 
 
 LaTeX Warning: Reference `eq:dim_empirical_sym' on page 4 undefined on input li
-ne 98.
+ne 99.
 
-<../figures/dim_align_rand_sym.png, id=76, 462.528pt x 346.896pt>
+<../figures/dim_align_rand_sym.png, id=100, 462.528pt x 346.896pt>
 File: ../figures/dim_align_rand_sym.png Graphic file (type png)
 <use ../figures/dim_align_rand_sym.png>
 Package pdftex.def Info: ../figures/dim_align_rand_sym.png  used on input line 
-103.
+104.
 (pdftex.def)             Requested size: 179.25113pt x 134.43668pt.
-<../figures/dim_sym.png, id=77, 462.528pt x 346.896pt>
+<../figures/dim_sym.png, id=101, 462.528pt x 346.896pt>
 File: ../figures/dim_sym.png Graphic file (type png)
 <use ../figures/dim_sym.png>
-Package pdftex.def Info: ../figures/dim_sym.png  used on input line 107.
+Package pdftex.def Info: ../figures/dim_sym.png  used on input line 108.
 (pdftex.def)             Requested size: 179.25113pt x 134.43668pt.
 
 LaTeX Warning: Citation `tragenap2023nature' on page 4 undefined on input line 
-111.
+113.
 
 
 LaTeX Warning: Reference `eq:dim_analytical_sym' on page 4 undefined on input l
-ine 111.
+ine 113.
 
 
 LaTeX Warning: Reference `eq:dim_empirical_sym' on page 4 undefined on input li
-ne 111.
+ne 113.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 4 undefined on input line 
-111.
+113.
 
 
 LaTeX Warning: Reference `eq:dim_analytical_sym' on page 4 undefined on input l
-ine 111.
+ine 113.
 
 
 LaTeX Warning: Reference `eq:dim_empirical_sym' on page 4 undefined on input li
-ne 111.
+ne 113.
 
 [4]
 
 LaTeX Warning: Citation `tragenap2023nature' on page 5 undefined on input line 
-115.
+117.
 
 
 LaTeX Warning: Reference `eq:dim_analytical_sym' on page 5 undefined on input l
-ine 117.
+ine 119.
 
 
 LaTeX Warning: Citation `imaizumi2018spontaneous' on page 5 undefined on input 
-line 124.
+line 126.
 
 [5 <../figures/dim_align_rand_sym.png> <../figures/dim_sym.png>]
 
 LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
-126.
+128.
 
-<../figures/align_to_spont_act_variance_ratio.png, id=93, 462.528pt x 346.896pt
->
+<../figures/align_to_spont_act_variance_ratio.png, id=117, 462.528pt x 346.896p
+t>
 File: ../figures/align_to_spont_act_variance_ratio.png Graphic file (type png)
 <use ../figures/align_to_spont_act_variance_ratio.png>
 Package pdftex.def Info: ../figures/align_to_spont_act_variance_ratio.png  used
- on input line 131.
+ on input line 133.
 (pdftex.def)             Requested size: 179.25113pt x 134.43668pt.
-<../figures/spont_align_ffrec_sym.png, id=94, 462.528pt x 346.896pt>
+<../figures/spont_align_ffrec_sym.png, id=118, 462.528pt x 346.896pt>
 File: ../figures/spont_align_ffrec_sym.png Graphic file (type png)
 <use ../figures/spont_align_ffrec_sym.png>
 Package pdftex.def Info: ../figures/spont_align_ffrec_sym.png  used on input li
-ne 135.
+ne 138.
 (pdftex.def)             Requested size: 179.25113pt x 134.43668pt.
 
 LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
-139.
+143.
 
 
 LaTeX Warning: Reference `eq:var_explain_spont_act_sym' on page 6 undefined on 
-input line 139.
+input line 143.
 
 
 LaTeX Warning: Reference `eq:align_to_spont_act_sym' on page 6 undefined on inp
-ut line 139.
-
-
-LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
-139.
-
-
-LaTeX Warning: Reference `eq:var_explain_spont_act_sym' on page 6 undefined on 
-input line 139.
-
-
-LaTeX Warning: Reference `eq:align_to_spont_act_sym' on page 6 undefined on inp
-ut line 139.
+ut line 143.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
 143.
 
+
+LaTeX Warning: Reference `eq:var_explain_spont_act_sym' on page 6 undefined on 
+input line 143.
+
+
+LaTeX Warning: Reference `eq:align_to_spont_act_sym' on page 6 undefined on inp
+ut line 143.
+
+
+LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
+147.
+
 [6 <../figures/align_to_spont_act_variance_ratio.png> <../figures/spont_align_f
-frec_sym.png>] [7] (Results.aux)
+frec_sym.png>] [7]
+
+LaTeX Warning: Citation `tragenap2023nature' on page 8 undefined on input line 
+153.
+
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
+55.
+(C:\Users\Rutian Zhou\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+
+LaTeX Warning: Reference `sec:modify_ffrec_alignment_score' on page 8 undefined
+ on input line 161.
+
+
+LaTeX Warning: Reference `eq:ffrec_equals_eigval' on page 8 undefined on input 
+line 163.
+
+
+LaTeX Warning: Reference `eq:ffrec_align' on page 8 undefined on input line 167
+.
+
+
+LaTeX Warning: Reference `eq:ffrec_equals_eigval' on page 8 undefined on input 
+line 167.
+
+<../figures/ffrec_eigval_real_part.png, id=138, 416.2752pt x 312.9291pt>
+File: ../figures/ffrec_eigval_real_part.png Graphic file (type png)
+<use ../figures/ffrec_eigval_real_part.png>
+Package pdftex.def Info: ../figures/ffrec_eigval_real_part.png  used on input l
+ine 182.
+(pdftex.def)             Requested size: 159.333pt x 119.77853pt.
+<../figures/ffrec_eigval_mag.png, id=139, 439.4016pt x 313.6518pt>
+File: ../figures/ffrec_eigval_mag.png Graphic file (type png)
+<use ../figures/ffrec_eigval_mag.png>
+Package pdftex.def Info: ../figures/ffrec_eigval_mag.png  used on input line 18
+7.
+(pdftex.def)             Requested size: 169.2951pt x 120.84485pt.
+
+LaTeX Warning: Reference `sec:modicication_real_part' on page 8 undefined on in
+put line 195.
+
+
+LaTeX Warning: Reference `eq:ffrec_real_part' on page 8 undefined on input line
+ 195.
+
+
+LaTeX Warning: Reference `sec:modification_magnitude' on page 8 undefined on in
+put line 195.
+
+
+LaTeX Warning: Reference `eq:ffrec_mag' on page 8 undefined on input line 195.
+
+
+LaTeX Warning: Reference `sec:modicication_real_part' on page 8 undefined on in
+put line 195.
+
+
+LaTeX Warning: Reference `eq:ffrec_real_part' on page 8 undefined on input line
+ 195.
+
+
+LaTeX Warning: Reference `sec:modification_magnitude' on page 8 undefined on in
+put line 195.
+
+
+LaTeX Warning: Reference `eq:ffrec_mag' on page 8 undefined on input line 195.
+
+
+LaTeX Warning: Reference `eq:ffrec_real_part' on page 8 undefined on input line
+ 199.
+
+[8
+
+]
+
+LaTeX Warning: Reference `eq:ffrec_real_part' on page 9 undefined on input line
+ 201.
+
+
+LaTeX Warning: Reference `eq:ffrec_mag' on page 9 undefined on input line 217.
+
+[9 <../figures/ffrec_eigval_real_part.png> <../figures/ffrec_eigval_mag.png>]
+
+LaTeX Warning: Reference `eq:ffrec_mag' on page 10 undefined on input line 219.
+
+
+
+LaTeX Warning: Reference `eq:ffrec_symmetrized' on page 10 undefined on input l
+ine 231.
+
+
+LaTeX Warning: Reference `eq:ffrec_symmetrized' on page 10 undefined on input l
+ine 233.
+
+<../figures/ffrec_eigval_symmetrized_J.png, id=158, 423.5022pt x 310.761pt>
+File: ../figures/ffrec_eigval_symmetrized_J.png Graphic file (type png)
+<use ../figures/ffrec_eigval_symmetrized_J.png>
+Package pdftex.def Info: ../figures/ffrec_eigval_symmetrized_J.png  used on inp
+ut line 238.
+(pdftex.def)             Requested size: 179.25113pt x 131.52873pt.
+
+LaTeX Warning: Reference `eq:symmetrized_J' on page 10 undefined on input line 
+241.
+
+[10 <../figures/ffrec_eigval_symmetrized_J.png>]
+
+LaTeX Warning: Reference `eq:asym_interaction_matrix' on page 11 undefined on i
+nput line 261.
+
+
+LaTeX Warning: Reference `eq:ttc_sym' on page 11 undefined on input line 265.
+
+<../figures/ttc_asym.pdf, id=170, 921.22403pt x 374.16687pt>
+File: ../figures/ttc_asym.pdf Graphic file (type pdf)
+<use ../figures/ttc_asym.pdf>
+Package pdftex.def Info: ../figures/ttc_asym.pdf  used on input line 268.
+(pdftex.def)             Requested size: 398.33858pt x 161.79068pt.
+
+LaTeX Warning: Reference `eq:ttc_sym' on page 11 undefined on input line 269.
+
+
+LaTeX Warning: Reference `eq:ttc_sym' on page 11 undefined on input line 269.
+
+[11]
+<../figures/its_asym.pdf, id=181, 919.03911pt x 372.44379pt>
+File: ../figures/its_asym.pdf Graphic file (type pdf)
+<use ../figures/its_asym.pdf>
+Package pdftex.def Info: ../figures/its_asym.pdf  used on input line 283.
+(pdftex.def)             Requested size: 398.33858pt x 161.42638pt.
+ [12 <../figures/ttc_asym.pdf>]
+
+LaTeX Warning: Reference `sec:modification_asym' on page 13 undefined on input 
+line 293.
+
+
+LaTeX Warning: Reference `eq:modifications_dim' on page 13 undefined on input l
+ine 293.
+
+
+LaTeX Warning: Reference `eq:modification_eff_dim' on page 13 undefined on inpu
+t line 293.
+
+[13 <../figures/its_asym.pdf>]
+<../figures/dim_asym.pdf, id=220, 925.70654pt x 417.6298pt>
+File: ../figures/dim_asym.pdf Graphic file (type pdf)
+<use ../figures/dim_asym.pdf>
+Package pdftex.def Info: ../figures/dim_asym.pdf  used on input line 298.
+(pdftex.def)             Requested size: 398.33858pt x 179.71114pt.
+
+
+LaTeX Warning: Reference `eq:dim_empirical_sym' on page 14 undefined on input l
+ine 299.
+
+
+LaTeX Warning: Reference `sec:modification_asym' on page 14 undefined on input 
+line 299.
+
+
+LaTeX Warning: Reference `eq:modifications_dim' on page 14 undefined on input l
+ine 299.
+
+
+LaTeX Warning: Reference `eq:modification_eff_dim' on page 14 undefined on inpu
+t line 299.
+
+
+LaTeX Warning: Reference `eq:dim_empirical_sym' on page 14 undefined on input l
+ine 299.
+
+
+LaTeX Warning: Reference `sec:modification_asym' on page 14 undefined on input 
+line 299.
+
+
+LaTeX Warning: Reference `eq:modifications_dim' on page 14 undefined on input l
+ine 299.
+
+
+LaTeX Warning: Reference `eq:modification_eff_dim' on page 14 undefined on inpu
+t line 299.
+
+
+LaTeX Warning: Reference `eq:modifications_dim' on page 14 undefined on input l
+ine 307.
+
+[14 <../figures/dim_asym.pdf>]
+
+LaTeX Warning: Reference `eq:var_explain_spont_act_sym' on page 15 undefined on
+ input line 314.
+
+
+LaTeX Warning: Reference `eq:Sigma_spont_asym' on page 15 undefined on input li
+ne 316.
+
+
+LaTeX Warning: Reference `eq:align_to_spont_act_sym' on page 15 undefined on in
+put line 316.
+
+<../figures/align_to_spont_asym_symmetrized_rescaled.png, id=245, 462.528pt x 3
+46.896pt>
+File: ../figures/align_to_spont_asym_symmetrized_rescaled.png Graphic file (typ
+e png)
+<use ../figures/align_to_spont_asym_symmetrized_rescaled.png>
+Package pdftex.def Info: ../figures/align_to_spont_asym_symmetrized_rescaled.pn
+g  used on input line 321.
+(pdftex.def)             Requested size: 199.16928pt x 149.37938pt.
+[15 <../figures/align_to_spont_asym_symmetrized_rescaled.png>] [16]
+Overfull \hbox (7.89668pt too wide) in paragraph at lines 333--333
+[]\T1/lmr/bx/n/12 Modeling Feed-for-ward Re-cur-rent Align-ment Hy-poth-e-sis o
+n Low-
+ []
+
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 17 undefined on inp
+ut line 334.
+
+
+LaTeX Warning: Reference `sec:low_rank_construct' on page 17 undefined on input
+ line 338.
+
+
+LaTeX Warning: Reference `eq:low_rank_RNN_without_noise' on page 17 undefined o
+n input line 338.
+
+
+LaTeX Warning: Reference `eq:low_rank_with_noise' on page 17 undefined on input
+ line 338.
+
+
+Overfull \hbox (4.27235pt too wide) in paragraph at lines 340--340
+[]\T1/lmr/bx/n/10.95 Evaluation of Feed-for-ward Re-cur-rent Align-ment in sym-
+met-ric Low-
+ []
+
+
+LaTeX Warning: Reference `eq:sym_low_rank' on page 17 undefined on input line 3
+45.
+
+<../figures/eigval_low_rank_sym_no_noise.png, id=258, 462.528pt x 346.896pt>
+File: ../figures/eigval_low_rank_sym_no_noise.png Graphic file (type png)
+<use ../figures/eigval_low_rank_sym_no_noise.png>
+Package pdftex.def Info: ../figures/eigval_low_rank_sym_no_noise.png  used on i
+nput line 349.
+(pdftex.def)             Requested size: 199.16928pt x 149.37938pt.
+
+Underfull \hbox (badness 2119) in paragraph at lines 351--351
+[][] |\T1/lmr/bx/n/10 Eigen-value dis-tri-bu-tion
+ []
+
+
+LaTeX Warning: Reference `fig: eigval_low_rank_without_noise' on page 17 undefi
+ned on input line 353.
+
+
+LaTeX Warning: Reference `eq:eigval_normal' on page 17 undefined on input line 
+353.
+
+[17
+
+ <../figures/eigval_low_rank_sym_no_noise.png>]
+
+LaTeX Warning: Reference `eq:sym_low_rank' on page 18 undefined on input line 3
+55.
+
+
+LaTeX Warning: Reference `eq:eigval_normal' on page 18 undefined on input line 
+359.
+
+
+LaTeX Warning: Reference `eq:ffrec_equals_eigval' on page 18 undefined on input
+ line 367.
+
+<../figures/low_rank_sym_ttc.png, id=270, 462.528pt x 346.896pt>
+File: ../figures/low_rank_sym_ttc.png Graphic file (type png)
+<use ../figures/low_rank_sym_ttc.png>
+Package pdftex.def Info: ../figures/low_rank_sym_ttc.png  used on input line 38
+8.
+(pdftex.def)             Requested size: 179.25113pt x 134.43668pt.
+<../figures/its_low_rank_sym_without_noise.png, id=271, 462.528pt x 346.896pt>
+File: ../figures/its_low_rank_sym_without_noise.png Graphic file (type png)
+<use ../figures/its_low_rank_sym_without_noise.png>
+Package pdftex.def Info: ../figures/its_low_rank_sym_without_noise.png  used on
+ input line 393.
+(pdftex.def)             Requested size: 179.25113pt x 134.43668pt.
+[18]
+
+LaTeX Warning: Reference `eq:low_rank_with_noise' on page 19 undefined on input
+ line 408.
+
+
+LaTeX Warning: Reference `sec:ffrec_low_rank' on page 19 undefined on input lin
+e 408.
+
+[19 <../figures/low_rank_sym_ttc.png> <../figures/its_low_rank_sym_without_nois
+e.png>]
+<../figures/low_rank_sym_with_noise.pdf, id=289, 919.97247pt x 754.06664pt>
+File: ../figures/low_rank_sym_with_noise.pdf Graphic file (type pdf)
+<use ../figures/low_rank_sym_with_noise.pdf>
+Package pdftex.def Info: ../figures/low_rank_sym_with_noise.pdf  used on input 
+line 438.
+(pdftex.def)             Requested size: 318.67207pt x 261.20032pt.
+ [20 <../figures/low_rank_sym_with_noise.pdf>]
+
+LaTeX Warning: Reference `sec:ffrec_low_rank' on page 21 undefined on input lin
+e 456.
+
+
+LaTeX Warning: Reference `eq:low_rank_RNN_without_noise' on page 21 undefined o
+n input line 456.
+
+
+LaTeX Warning: Reference `eq:low_rank_with_noise' on page 21 undefined on input
+ line 456.
+
+
+LaTeX Warning: Reference `label' on page 21 undefined on input line 459.
+
+[21] [22] (Results.aux)
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `Results.out' has not changed.
-(rerunfilecheck)             Checksum: 16AE58CBBBE375A9F0A226328E952B30;2351.
+(rerunfilecheck)             Checksum: A90097C269CA2C80719A56C843AE5735;6102.
  ) 
 Here is how much of TeX's memory you used:
- 13313 strings out of 478927
- 208725 string characters out of 2849656
- 532560 words of memory out of 3000000
- 30888 multiletter control sequences out of 15000+600000
- 494870 words of font info for 88 fonts, out of 8000000 for 9000
+ 13529 strings out of 478927
+ 214345 string characters out of 2849656
+ 541793 words of memory out of 3000000
+ 31036 multiletter control sequences out of 15000+600000
+ 495235 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,13n,66p,1433b,603s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ec.
-enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-m
-athit.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/l
-m/lm-rm.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
-/lm/lm-mathsy.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc
-/dvips/lm/lm-mathex.enc}<C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/lm/lmbx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Rutian Zhou/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/Rutian Zhou/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Rutian Zhou/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Rutian Zhou/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/Rutian Zhou
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Rutian
- Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/R
-utian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb><C:/Use
-rs/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:
-/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmssbx10
+ 60i,20n,66p,1433b,603s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-mat
+hit.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/
+lm-ts1.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/
+lm/lm-ec.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvip
+s/lm/lm-rm.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dv
+ips/lm/lm-mathsy.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/
+enc/dvips/lm/lm-mathex.enc}<C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/lm/lmbx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Rutian Zhou/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/Rutian Zhou/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Rutian Zhou/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Rutian Zhou/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Rutian Z
+hou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi7.pfb><C:/Users/Rut
+ian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/User
+s/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:
+/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr7.pfb
+><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8
 .pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/
-lmsy10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/publ
-ic/lm/lmsy8.pfb>
-Output written on Results.pdf (7 pages, 419329 bytes).
+lmssbx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/pu
+blic/lm/lmsy10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/lm/lmsy8.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fon
+ts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Results.pdf (22 pages, 1150949 bytes).
 PDF statistics:
- 185 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 79 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 429 PDF objects out of 1000 (max. 8388607)
+ 76 named destinations out of 1000 (max. 500000)
+ 182 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2023.1.2)  4 FEB 2024 19:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2023.1.2)  19 FEB 2024 14:40
 entering extended mode
 **./Methods.tex
 (Methods.tex
@@ -681,7 +681,7 @@ LaTeX Font Info:    Trying to load font information for U+rsfs on input line 27
 (C:\Users\Rutian Zhou\AppData\Local\Programs\MiKTeX\tex/latex/jknappen\ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-<../figures/sym_net.pdf, id=83, 82.12694pt x 70.36826pt>
+<../figures/sym_net.pdf, id=87, 82.12694pt x 70.36826pt>
 File: ../figures/sym_net.pdf Graphic file (type pdf)
 <use ../figures/sym_net.pdf>
 Package pdftex.def Info: ../figures/sym_net.pdf  used on input line 33.
@@ -691,10 +691,10 @@ LaTeX Font Info:    Trying to load font information for T1+lmss on input line 3
  (C:\Users\Rutian Zhou\AppData\Local\Programs\MiKTeX\tex/latex/lm\t1lmss.fd
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<../figures/recurrent.pdf, id=84, 274.33029pt x 110.87727pt>
-File: ../figures/recurrent.pdf Graphic file (type pdf)
-<use ../figures/recurrent.pdf>
-Package pdftex.def Info: ../figures/recurrent.pdf  used on input line 41.
+<../figures/sym_recurrent.pdf, id=88, 274.33029pt x 110.87727pt>
+File: ../figures/sym_recurrent.pdf Graphic file (type pdf)
+<use ../figures/sym_recurrent.pdf>
+Package pdftex.def Info: ../figures/sym_recurrent.pdf  used on input line 41.
 (pdftex.def)             Requested size: 222.58722pt x 89.96405pt.
 
 Overfull \hbox (63.25423pt too wide) in paragraph at lines 41--43
@@ -704,116 +704,247 @@ Overfull \hbox (63.25423pt too wide) in paragraph at lines 41--43
 [1
 
 {C:/Users/Rutian Zhou/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <../figure
-s/sym_net.pdf> <../figures/recurrent.pdf
+s/sym_net.pdf> <../figures/sym_recurrent.pdf
 
-pdfTeX warning: pdflatex.exe (file ../figures/recurrent.pdf): PDF inclusion: mu
-ltiple pdfs with page group included in a single page
+pdfTeX warning: pdflatex.exe (file ../figures/sym_recurrent.pdf): PDF inclusion
+: multiple pdfs with page group included in a single page
 >]
 
-Package caption Warning: \label without proper reference on input line 29.
-See the caption package documentation for explanation.
-
-
-LaTeX Warning: Reference `fig:symmetric_RNN' on page 2 undefined on input line 
-74.
-
-
 LaTeX Warning: Citation `dayan2005theoretical' on page 2 undefined on input lin
-e 74.
+e 75.
 
 [2]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 108.
+(Font)              <9> on input line 109.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 108.
+(Font)              <5> on input line 109.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 3 undefined on input line 
-123.
-
-
-LaTeX Warning: Citation `tragenap2023nature' on page 3 undefined on input line 
-135.
+127.
 
 [3]
 
-LaTeX Warning: Citation `Soch2019' on page 4 undefined on input line 151.
+LaTeX Warning: Citation `tragenap2023nature' on page 4 undefined on input line 
+139.
+
+
+LaTeX Warning: Citation `Soch2019' on page 4 undefined on input line 155.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 4 undefined on input line 
-166.
+170.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 4 undefined on input line 
-174.
+178.
 
 [4]
 
 LaTeX Warning: Citation `tragenap2023nature' on page 5 undefined on input line 
-217.
+221.
 
 [5]
 
 LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
-230.
+234.
 
 
 LaTeX Warning: Citation `tragenap2023nature' on page 6 undefined on input line 
-230.
+234.
 
 [6]
 
 LaTeX Warning: Citation `tragenap2023nature' on page 7 undefined on input line 
-272.
+286.
+
+[7] [8]
+<../figures/asym_net.pdf, id=218, 81.4576pt x 73.88393pt>
+File: ../figures/asym_net.pdf Graphic file (type pdf)
+<use ../figures/asym_net.pdf>
+Package pdftex.def Info: ../figures/asym_net.pdf  used on input line 309.
+(pdftex.def)             Requested size: 111.29361pt x 100.9509pt.
+<../figures/asym_recurrent.pdf, id=219, 274.33029pt x 110.87727pt>
+File: ../figures/asym_recurrent.pdf Graphic file (type pdf)
+<use ../figures/asym_recurrent.pdf>
+Package pdftex.def Info: ../figures/asym_recurrent.pdf  used on input line 317.
+
+(pdftex.def)             Requested size: 222.58722pt x 89.96405pt.
+
+Overfull \hbox (63.25423pt too wide) in paragraph at lines 317--319
+ [][] 
+ []
+
+[9
+
+ <../figures/asym_net.pdf> <../figures/asym_recurrent.pdf
+
+pdfTeX warning: pdflatex.exe (file ../figures/asym_recurrent.pdf): PDF inclusio
+n: multiple pdfs with page group included in a single page
+>]
+
+LaTeX Warning: Citation `rajan2006eigenvalue' on page 10 undefined on input lin
+e 355.
+
+<../figures/asym_eigval_distribution.pdf, id=242, 1340.8659pt x 380.21127pt>
+File: ../figures/asym_eigval_distribution.pdf Graphic file (type pdf)
+<use ../figures/asym_eigval_distribution.pdf>
+Package pdftex.def Info: ../figures/asym_eigval_distribution.pdf  used on input
+ line 358.
+(pdftex.def)             Requested size: 398.33858pt x 112.95036pt.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 359.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 359.
+[10] [11 <../figures/asym_eigval_distribution.pdf>]
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 4
+02.
+
+(C:\Users\Rutian Zhou\AppData\Local\Programs\MiKTeX\tex/latex/lm\ts1lmr.fd
+File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+[12] [13]
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 14 undefined on inp
+ut line 429.
 
 
-LaTeX Warning: Reference `label' on page 7 undefined on input line 272.
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 14 undefined on inp
+ut line 431.
 
 
-LaTeX Warning: Citation `tragenap2023nature' on page 7 undefined on input line 
-278.
+LaTeX Warning: Citation `harris2013cortical' on page 14 undefined on input line
+ 431.
 
-[7] [8] (Methods.aux)
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 14 undefined on inp
+ut line 431.
+
+
+LaTeX Warning: Citation `beiran2021shaping' on page 14 undefined on input line 
+431.
+
+
+LaTeX Warning: Citation `beiran2021shaping' on page 14 undefined on input line 
+433.
+
+
+LaTeX Warning: Citation `beiran2021shaping' on page 14 undefined on input line 
+440.
+
+
+LaTeX Warning: Citation `dubreuil2022role' on page 14 undefined on input line 4
+40.
+
+
+LaTeX Warning: Citation `beiran2021shaping' on page 14 undefined on input line 
+440.
+
+<../figures/low_rank_RNN_without_noise.jpg, id=315, 1459.4525pt x 464.73625pt>
+File: ../figures/low_rank_RNN_without_noise.jpg Graphic file (type jpg)
+<use ../figures/low_rank_RNN_without_noise.jpg>
+Package pdftex.def Info: ../figures/low_rank_RNN_without_noise.jpg  used on inp
+ut line 443.
+(pdftex.def)             Requested size: 239.00557pt x 76.10378pt.
+
+LaTeX Warning: Citation `beiran2023parametric' on page 14 undefined on input li
+ne 444.
+
+
+LaTeX Warning: Citation `beiran2023parametric' on page 14 undefined on input li
+ne 444.
+
+[14
+
+ <../figures/low_rank_RNN_without_noise.jpg>]
+
+LaTeX Warning: Citation `beiran2021shaping' on page 15 undefined on input line 
+451.
+
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 15 undefined on inp
+ut line 454.
+
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 15 undefined on inp
+ut line 454.
+
+<../figures/low_rank_RNN_with_noise.pdf, id=324, 1404.5277pt x 405.08633pt>
+File: ../figures/low_rank_RNN_with_noise.pdf Graphic file (type pdf)
+<use ../figures/low_rank_RNN_with_noise.pdf>
+Package pdftex.def Info: ../figures/low_rank_RNN_with_noise.pdf  used on input 
+line 457.
+(pdftex.def)             Requested size: 298.75392pt x 86.16469pt.
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 15 undefined on inp
+ut line 458.
+
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 15 undefined on inp
+ut line 458.
+
+
+LaTeX Warning: Citation `mastrogiuseppe2018linking' on page 15 undefined on inp
+ut line 461.
+
+
+Overfull \hbox (9.43993pt too wide) in paragraph at lines 469--469
+[]\T1/lmr/bx/n/10.95 Feedforward Re-cur-rent Align-ment Hy-poth-e-sis with Low-
+rank RNNs 
+ []
+
+[15 <../figures/low_rank_RNN_with_noise.pdf>]
+Overfull \hbox (0.67087pt too wide) in paragraph at lines 485--485
+[]\T1/lmr/bx/n/10.95 Evaluation of Feed-for-ward Re-cur-rent Align-ment Hy-poth
+-e-sis Based
+ []
+
+[16] [17] [18
+
+] [19
+
+] (Methods.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Methods.out' has not changed.
-(rerunfilecheck)             Checksum: A36FCB7CD6CA6E0A75324CD93E935A70;5947.
+(rerunfilecheck)             Checksum: D49C2657A66EBA86B48C1F7F3B3C1E6E;6436.
  ) 
 Here is how much of TeX's memory you used:
- 13328 strings out of 478927
- 208369 string characters out of 2849656
- 527790 words of memory out of 3000000
- 30860 multiletter control sequences out of 15000+600000
- 475892 words of font info for 77 fonts, out of 8000000 for 9000
+ 13497 strings out of 478927
+ 212239 string characters out of 2849656
+ 530822 words of memory out of 3000000
+ 30969 multiletter control sequences out of 15000+600000
+ 493441 words of font info for 93 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,17n,66p,796b,633s stack positions out of 5000i,500n,10000p,200000b,80000s
-{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-rm.
-enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-m
-athsy.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/l
-m/lm-ec.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
-/lm/lm-mathex.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc
-/dvips/lm/lm-mathit.enc}<C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/lm/lmbx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKT
-eX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Rutian Zhou/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/Rutian Zhou/AppData/Local/Pr
-ograms/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Rutian Zhou/AppData/Lo
-cal/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Rutian Zhou/AppD
-ata/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Rutian Zhou
-/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Rutian
- Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/Users/R
-utian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/Use
-rs/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb><C:
-/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.pfb
-><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmss
-bx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public
-/lm/lmsy10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/lm/lmsy6.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/t
-ype1/public/lm/lmsy8.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Methods.pdf (8 pages, 349028 bytes).
+ 60i,17n,66p,932b,627s stack positions out of 5000i,500n,10000p,200000b,80000s
+{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-ts1
+.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/lm-
+rm.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lm/l
+m-mathsy.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dvip
+s/lm/lm-ec.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/enc/dv
+ips/lm/lm-mathex.enc}{C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/
+enc/dvips/lm/lm-mathit.enc}<C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/lm/lmbx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/lm/lmbx12.pfb><C:/Users/Rutian Zhou/AppData/Local/Prog
+rams/MiKTeX/fonts/type1/public/lm/lmbx8.pfb><C:/Users/Rutian Zhou/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/lm/lmex10.pfb><C:/Users/Rutian Zhou/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi10.pfb><C:/Users/Rutian Zhou/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi6.pfb><C:/Users/Rutian Z
+hou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmmi8.pfb><C:/Users/Rut
+ian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr10.pfb><C:/User
+s/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr6.pfb><C:/
+Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr8.pfb>
+<C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/lmr9.
+pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/public/lm/l
+mssbx10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/lm/lmsy10.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/lm/lmsy6.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX/font
+s/type1/public/lm/lmsy8.pfb><C:/Users/Rutian Zhou/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on Methods.pdf (19 pages, 619974 bytes).
 PDF statistics:
- 310 PDF objects out of 1000 (max. 8388607)
- 76 named destinations out of 1000 (max. 500000)
- 171 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 494 PDF objects out of 1000 (max. 8388607)
+ 120 named destinations out of 1000 (max. 500000)
+ 204 words of extra memory for PDF output out of 10000 (max. 10000000)
 
