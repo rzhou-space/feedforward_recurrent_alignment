@@ -176,8 +176,8 @@ class TrialToTrialCor:
         plt.scatter(align_vec, ttc_vec, alpha=0.5)
         #plt.axvline(x = 0, color = "black")
         #plt.axvline(x = self.R, color = "red", label = "align = R = "+str(self.R))
-        plt.xlabel("feedforward recurrent alignment", fontsize=15)
-        plt.ylabel("trial to trial correlation", fontsize = 15)
+        plt.xlabel("Feedforward recurrent alignment", fontsize=15)
+        plt.ylabel("Trial to trial correlation", fontsize = 15)
         #plt.legend()
         plt.show()
 
@@ -319,10 +319,10 @@ class IntraTrialStab:
         """
         plt.figure()
         #plt.title("Intra Trial Stability")
-        plt.xlabel("feedforward recurrent alignment", fontsize = 15)
+        plt.xlabel("Feedforward recurrent alignment", fontsize = 15)
         plt.ylabel("Intra Trial Stability", fontsize = 15)
         #plt.yscale("log")
-        plt.xlim(-self.R-0.1, self.R+0.1)
+        #plt.xlim(-self.R-0.1, self.R+0.1)
         plt.scatter(ffrec_align, mean_stab, alpha=0.5)
         plt.show()
 
@@ -342,6 +342,10 @@ class Dimensionality:
         self.interaction = self.network.interaction
         # The i-th column in the eigvec is the eigenvector corresponded to the i-th eigenvalue in eigval.
         self.eigval, self.eigvec = np.linalg.eigh(self.interaction)
+
+        sorted_indices = np.argsort(self.eigval)[::-1]
+        self.sorted_eigeval = self.eigval[sorted_indices]
+        self.sorted_eigvec = self.eigvec[:, sorted_indices]
 
 
     def evok_activity(self, kappa, beta, L, basis_vectors, num_sample):
@@ -435,8 +439,9 @@ class Dimensionality:
         Calculation dimensionality analytically.
         """
         # Sorted eigenvalues in descending order.
-        sorted_indices = np.argsort(self.eigval)[::-1]
-        sorted_eigeval = self.eigval[sorted_indices]
+        #sorted_indices = np.argsort(self.eigval)[::-1]
+        #sorted_eigeval = self.eigval[sorted_indices]
+        #sorted_eigvect = self.eigvec[:, sorted_indices]
 
         # Define the repeated function in the d_eff.
         inner_function = lambda k, L, beta, lambda_k, factor : np.exp(factor * (k-L)/beta) * (1-lambda_k)**factor
@@ -449,11 +454,14 @@ class Dimensionality:
         # Calculate the denominator of d_eff.
         dim_eff_below = np.zeros(len(L))
 
+        ffrec = []
         for L_current in L: # L_current begins with 0!
             above = []
             below = []
+            h = self.sorted_eigvec[:, L_current]
+            ffrec.append(h @ self.interaction @ h)
             for k in range(L_current, L_current + M):
-                eigval = sorted_eigeval[k]
+                eigval = self.sorted_eigeval[k]
                 above.append(inner_function(k, L_current+1, beta, eigval, -2))
                 below.append(inner_function(k, L_current+1, beta, eigval, -4))
             dim_eff_above[L_current] = sum(above)**2
@@ -462,7 +470,7 @@ class Dimensionality:
         # Divide dim_eff_above and dim_eff_below elementwise to get the vector of final d_eff.
         d_eff = dim_eff_above/dim_eff_below
 
-        return L, d_eff
+        return np.array(ffrec), d_eff
         #return dim_eff_above, dim_eff_below
 
 
@@ -472,8 +480,8 @@ class Dimensionality:
         :param var_ratio: the variance ratio vector. (num_neuron, ) dimensional numpy array.
         """
         # Sorted eigenvectors in descending order of eigenvalues.
-        sorted_indices = np.argsort(self.eigval)[::-1]
-        sorted_eigvec = self.eigvec[:, sorted_indices]
+        #sorted_indices = np.argsort(self.eigval)[::-1]
+        #sorted_eigvec = self.eigvec[:, sorted_indices]
 
         M = kappa * beta
         # The range of L (the feedforward-alignment).
@@ -482,16 +490,19 @@ class Dimensionality:
         d_eff = lambda var_ratio_vec : sum(var_ratio_vec)**2/sum(var_ratio_vec**2)
 
         dim = []
+        ffrec = []
         for L_current in L:
+            h = self.sorted_eigvec[:, L_current]
+            ffrec.append(h @ self.interaction @ h)
             var_vec = self.align_eigvec(kappa, beta, L_current+1, num_sample)
             dim_current = d_eff(var_vec[:M])
             dim.append(dim_current)
-        return L, np.array(dim)
+        return np.array(ffrec), np.array(dim)
 
 
     def plot_dim_to_ffrec(self, kappa, beta, num_sample):
-        dim_ffrec = self.dim_to_ffrec(kappa, beta)
-        dim_ffrec_empir = self.dim_to_ffrec_empir(kappa, beta, num_sample)
+        ffrec_ana, dim_ffrec = self.dim_to_ffrec(kappa, beta)
+        ffrec_empir, dim_ffrec_empir = self.dim_to_ffrec_empir(kappa, beta, num_sample)
 
         # x-axis with L.
         '''
@@ -508,10 +519,12 @@ class Dimensionality:
         # If the relationship between L and feedforward alignment is linear.
         plt.figure()
         #plt.title("feedforward alignment against dimensionality")
-        plt.xlabel("feedforward recurrent alignment", fontsize = 15)
-        plt.ylabel("effective dimensionality", fontsize = 15)
-        plt.plot(np.linspace(0,self.R,int(n_neuron/2)), np.flip(dim_ffrec[1]), c = "green", label = "analytical")
-        plt.scatter(np.linspace(0,self.R,int(n_neuron/2)), np.flip(dim_ffrec_empir[1]), label = "empirical", alpha=0.5)
+        plt.xlabel("Feedforward recurrent alignment", fontsize = 15)
+        plt.ylabel("Dimensionality", fontsize = 15)
+
+        #plt.plot(np.linspace(0,self.R,int(n_neuron/2)), np.flip(dim_ffrec[1]), c = "green", label = "analytical")
+        plt.scatter(np.flip(ffrec_ana), np.flip(dim_ffrec), c = "green", label = "analytical")
+        plt.scatter(np.flip(ffrec_empir), np.flip(dim_ffrec_empir), label = "empirical", alpha=0.5)
         plt.legend(fontsize=15)
         plt.show()
 
@@ -527,23 +540,24 @@ class AlignmentSpontaneousAct:
         """
         self.neurons = n
         self.R = R
-        #self.network = network
-        #self.interaction = self.network.interaction
+        self.network = network
+        self.interaction = self.network.interaction
         # The i-th column in the eigvec is the eigenvector corresponded to the i-th eigenvalue in eigval.
         #self.eigval, self.eigvec = np.linalg.eigh(self.interaction)
 
-        rng = np.random.default_rng(seed = 42)
-        J = rng.normal(0, 1, size = (self.neurons,self.neurons))
+        #rng = np.random.default_rng(seed = 42)
+        #J = rng.normal(0, 1, size = (self.neurons,self.neurons))
         # J should be a symmetric matrix.
-        J = (J + J.T)/2
+        #J = (J + J.T)/2
         #normalize by largest eigenvalue
-        eigvals = np.linalg.eigvals(J)
-        self.interaction = J*self.R/np.max(eigvals)
+        #eigvals = np.linalg.eigvals(J)
+        #self.interaction = J*self.R/np.max(eigvals)
 
         self.eigval, self.eigvec = np.linalg.eigh(self.interaction)
 
         # Sort eigenvectors in descending order.
         sorted_indices = np.argsort(self.eigval)[::-1]
+        self.sorted_eigval = self.eigval[sorted_indices]
         self.sorted_eigenvec = self.eigvec[:, sorted_indices]
 
 
@@ -667,7 +681,7 @@ class AlignmentSpontaneousAct:
         all_align = []
         all_rand = []
         for i in range(num_stimuli):
-            # Calculate the variance explained for three aligned activity variance expalained by spont. PC. #TODO
+            # Calculate the variance explained for three aligned activity variance expalained by spont. PC.
             #spont_var = self.compare_var_explain_align_rand_spont(kappa, beta_spont, beta_dim, L, num_sample)[0]
             #align_expl_var = self.compare_var_explain_align_rand_spont(kappa, beta_spont, beta_dim, L, num_sample)[1]
             #rand_expl_var = self.compare_var_explain_align_rand_spont(kappa, beta_spont, beta_dim, L, num_sample)[2]
@@ -684,11 +698,12 @@ class AlignmentSpontaneousAct:
         # Lineplot with confidence interval.
         plt.figure()
         #plt.title("Alignment of evoked to spontaneous activity")
-        plt.xlabel("spont. PC", fontsize=15)
+        plt.xlabel("Spontaneous Activity PC index ", fontsize=15)
         plt.ylabel("variance ratio", fontsize=15)
         sns.lineplot(x=pc_index, y=all_spont, color="red", label="spontaneous")
         sns.lineplot(x=pc_index, y=all_align, color="blue", label="maximal aligned")
         sns.lineplot(x=pc_index, y=all_rand, color="green", label="random aligned")
+        plt.xticks(range(1, 21, 4))
         plt.legend(fontsize=15)
         plt.show()
 
@@ -774,7 +789,7 @@ class AlignmentSpontaneousAct:
 
         return final_score
 
-
+    '''
     def all_ffrec(self):
         """
         Calculate the feedforward recurrent alignment with eigenvectors sorted in ascending order of
@@ -791,6 +806,7 @@ class AlignmentSpontaneousAct:
         ffrec_align = pair_ffrec.diagonal()
 
         return ffrec_align # (n_neuron,) dimensional array.
+    '''
 
 
     def align_to_ffrec_alter(self, kappa, beta_spont, num_sample, beta_dim):
@@ -811,23 +827,25 @@ class AlignmentSpontaneousAct:
 
         # Storing the pattern to pattern alignment scores.
         pattern_align = np.zeros(len(L))
-
+        ffrec = np.zeros(len(L))
         for L_current in L: # L starts with 0.
             # Access the evoked activity under the given L_current using sorted eigenvectors.
             current_act = Dimensionality.evok_activity(self, kappa, beta_dim, L_current+1, self.sorted_eigenvec, num_sample)
             pattern_align[L_current] = self.align_A_to_B_alter(current_act, spont_act)
+            h = self.sorted_eigenvec[:, L_current]
+            ffrec[L_current] = h @ self.interaction @ h
 
-        return pattern_align # (len(L) < n_neuron,) dimensional array.
+        return ffrec, pattern_align # (len(L) < n_neuron,) dimensional array.
 
 
-    def plot_align_to_ffrec(self, pattern_align):
-        ffrec_align = self.all_ffrec()
+    def plot_align_to_ffrec(self, ffrec, pattern_align):
+        #ffrec_align = self.all_ffrec()
         plt.figure()
         #plt.title("Spontaneous Alignment against Feedforward Recurrent Alignment")
-        plt.xlabel("Feedforward Recurrent Alignment", fontsize=15)
-        plt.ylabel("Alignment with spont. Activity", fontsize = 15)
-        #plt.scatter(ffrec_align[-len(pattern_align):], pattern_align, alpha=0.5)
-        plt.scatter(np.linspace(0,self.R,int(n_neuron/2)), np.flip(pattern_align), alpha=0.5)
+        plt.xlabel("Feedforward recurrent alignment", fontsize=15)
+        plt.ylabel("Alignment to spont. Activity", fontsize = 15)
+        plt.scatter(np.flip(ffrec), np.flip(pattern_align), alpha=0.5)
+        #plt.scatter(np.linspace(0,self.R,int(n_neuron/2)), np.flip(pattern_align), alpha=0.5)
         #plt.xlim(-self.R, self.R+0.1) # For the case of rescaled x-axis.
         plt.show()
 
@@ -853,22 +871,22 @@ if __name__ == "__main__":
     num_sample = 500
 
     network_rand_sym = LinearRecurrentNetwork(n_neuron, R)
-    network_low_rank_sym = LowRank(n_neuron, 100, R)
+    network_low_rank_sym = LowRank(n_neuron, 1, R)
     network_noise_low_rand_sym = NoisedLowRank_1D(n_neuron, R)
     network_noise_low_rand_sym_nD = NoisedLowRank_nD(n_neuron, R, 100)
 
     '''
     # Results from trial to trial correlation.
 
-    ttc_Obj = TrialToTrialCor(n_neuron, R, network_rand_sym)
+    ttc_Obj = TrialToTrialCor(n_neuron, R, network_noise_low_rand_sym)
     
     # fig 4b upper.
 
-    ttc_Obj.hist_cor_distribution(sigma_trial, N_trial)
+    #ttc_Obj.hist_cor_distribution(sigma_trial, N_trial)
     
-    ttc_max = ttc_Obj.ttc_max_align(sigma_trial, N_trial, 100)
-    ttc_rand = ttc_Obj.ttc_random_align(sigma_trial, N_trial, 100)
-    ttc_Obj.hist_plot(ttc_max, ttc_rand)
+    #ttc_max = ttc_Obj.ttc_max_align(sigma_trial, N_trial, 100)
+    #ttc_rand = ttc_Obj.ttc_random_align(sigma_trial, N_trial, 100)
+    #ttc_Obj.hist_plot(ttc_max, ttc_rand)
     
     
     # fig 4b below.
@@ -876,16 +894,17 @@ if __name__ == "__main__":
     ttc_vec = sort_align[0]
     ffrec_align = sort_align[1]
     ttc_Obj.scatter_plot(ffrec_align, ttc_vec)
-    
+    '''
+
 
     # Results from intra trial stability.
 
-    its_Obj = IntraTrialStab(n_neuron, R, network_rand_sym)
+    its_Obj = IntraTrialStab(n_neuron, R, network_low_rank_sym)
     
     # fig 4c upper. 
-    r_rand = its_Obj.rand_align(dt_euler, T, sigma_time)[:,12]
-    r_max = its_Obj.max_align(dt_euler, T, sigma_time)[:, 12]
-    its_Obj.plot_max_rand_align(r_rand, r_max)
+    #r_rand = its_Obj.rand_align(dt_euler, T, sigma_time)[:,12]
+    #r_max = its_Obj.max_align(dt_euler, T, sigma_time)[:, 12]
+    #its_Obj.plot_max_rand_align(r_rand, r_max)
     
     # fig 4c below.
     sort_its = its_Obj.sort_stab(dt_euler, dt_intra, T, sigma_time)
@@ -893,45 +912,42 @@ if __name__ == "__main__":
     mean_stab = sort_its[1]
     print(ffrec_align)
     its_Obj.plot_stab(ffrec_align, mean_stab)
-
-
+    
+    '''
     # Results from dimensionality.
     
-    dim_obj = Dimensionality(n_neuron, R, network_rand_sym)
+    dim_obj = Dimensionality(n_neuron, R, network_noise_low_rand_sym)
 
     # fig 4d above.
-    dim_obj.plot_align(kappa, beta_dim, num_sample)
+    #dim_obj.plot_align(kappa, beta_dim, num_sample)
 
     # fig 4d below.
     dim_obj.plot_dim_to_ffrec(kappa, beta_dim, num_sample)
-    '''
 
+    
     # Results from Alignment to spontaneous activity.
     
-    align_spont_obj = AlignmentSpontaneousAct(n_neuron, R, network_rand_sym)
+    align_spont_obj = AlignmentSpontaneousAct(n_neuron, R, network_noise_low_rand_sym)
     # fig 4e above. (Has conflict with 4f above)!
     #input_vec = align_spont_obj.spont_input(kappa, beta_spont, 1, num_sample)
     #act_vec = align_spont_obj.spont_act(input_vec[1], num_sample)
     #align_spont_obj.variance_spont_input_act(input_vec[0], act_vec)
-
-    '''
-    # fig 4f above.
-    align_spont_obj.compare_var_explain_align_rand_spont(kappa, beta_spont, beta_dim, 1, num_sample)
     
-
-
+    # fig 4f above
+    #align_spont_obj.compare_var_explain_align_rand_spont(kappa, beta_spont, beta_dim, 1, num_sample)
+    
     # When running multiple_stimuli function, deactivate the fig 4e above!!! Otherwise random generator conflict...
-    align_spont_obj.multiple_stimuli_compare_align_rand_spont(50, kappa, beta_spont, beta_dim, 1, num_sample)
-    '''
+    #align_spont_obj.multiple_stimuli_compare_align_rand_spont(50, kappa, beta_spont, beta_dim, 1, num_sample)
 
-
-
+    
     # fig 4f below.
     # The frist way to implement:
     #align_spont_obj.align_to_ffrec(kappa, beta_spont, beta_dim, num_sample)
     # The alternative to implement:
-    align_scores = align_spont_obj.align_to_ffrec_alter(kappa, beta_spont, num_sample, beta_dim)
-    align_spont_obj.plot_align_to_ffrec(align_scores)
+    ffrec, align_scores = align_spont_obj.align_to_ffrec_alter(kappa, beta_spont, num_sample, beta_dim)
+    align_spont_obj.plot_align_to_ffrec(ffrec, align_scores)
+    '''
+
 
 
 
