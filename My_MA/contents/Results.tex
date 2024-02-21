@@ -359,7 +359,7 @@
 	If the rank equals the number of neurons, $G = n$, the formulation of low-rank matrix (\ref{eq:sym_low_rank_eigval}) is at the same time a symmetric full rank matrix with eigenvectors $\left\{l^{(g)}\right\}$ and all eigenvectors correspond to the same eigenvalue $\frac{1}{n}$. Since the eigenvalues are re-scaled by parameter $R < 1$ to enable the stable steady state , the eigenvalues are equal $R$ based on (\ref{eq:eigval_normal}). 
 	
 	Now, if the rank $G$ is smaller than the number of neurons $n$, the formulation of low-rank RNN (\ref{eq:sym_low_rank_eigval}) can be rewritten as 
-		\begin{equation}
+		\begin{equation} \label{eq:sym_low_rank_without_noise_eigval}
 			J = \sum_{g =1}^{G} \frac{1}{n} l^{(g)} l^{(g)T} + 0 = \sum_{g =1}^{G} \frac{1}{n} l^{(g)} l^{(g)T} + \sum_{g =G}^{n-G} 0 l^{(g)} l^{(g)T} \, .
 		\end{equation}
 	So, there are $G$ basis vectors that have eigenvalue $\frac{1}{n}$, which is further re-scaled to $R < 1$. The rest of $n-G$ eigenvectors have eigenvalue $0$. This then results the eigenvalue distribution shown in figure \ref{fig:eigval_low_rank_without_noise}. 
@@ -387,65 +387,89 @@
 			\begin{subfigure}[b]{0.45\textwidth}
 				\includegraphics[width=\textwidth]{../figures/low_rank_sym_ttc.png}
 				\caption{}
-				\label{}
 			\end{subfigure}
 			\begin{subfigure}[b]{0.45\textwidth}
 				\includegraphics[width=\textwidth]{../figures/its_low_rank_sym_without_noise.png}
 				\caption{}
-				\label{}
 			\end{subfigure}
-			\caption{\textbf{Trial-to-trial correlation and intra-trial stability in correlation with feedforward recurrent alignment score for low-rank symmetric RNNs.} \textbf{(a)} Trial-to-trial correlation in relationship with feedforward recurrent alignment. \textbf{(b)} Intra-trial stability in relationship with feedforward recurrent alignment.\\ The positive correlation between feedforward recurrent alignment and trial-to-trial correlation \textbf{(a)} or intra-trial stability \textbf{(b)} is discontinuous due to the number of eigenvalues under low rank. If having rank $G = 1$, only one feedforward recurrent alignment score take the value $R = 0.85$, correlating with large trial-to-trial correlation \textbf{(a)} or intra-trial stability \textbf{(b)}. The rest concentrates at alignment score $0$ with low trial-to-trial correlation \textbf{(a)} or low intra-trial stability \textbf{(b)}. }
+			\newline
+			\begin{subfigure}[b]{0.45\textwidth}
+				\includegraphics[width=\textwidth]{../figures/dim_low_rank_sym_without_noise.png}
+				\caption{}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.45\textwidth}
+				\includegraphics[width=\textwidth]{../figures/align_to_spont_low_rank_without_noise.png}
+				\caption{}
+			\end{subfigure}
+			\caption{\textbf{Correlation between response properties and feedforward recurrent alignment considering symmetric low-rank RNNs without random noise.} Construct symmetric low-rank RNNs under the assumption of having left connectivity vectors equal right connectivity vectors (\ref{eq:sym_low_rank_eigval}). Rank $G$ is the number of connectivity vectors and significantly smaller than the number of neurons $n$. Here $G = 1$ and $n = 200$. To evaluate the feedforward recurrent alignment hypothesis, the correlations between response properties and the modeled feedforward recurrent alignment score are considered. \\
+			\textbf{(a)} Trial-to-trial correlation (y-axis) in correlation with feedforward recurrent alignment score (x-axis).\\
+			\textbf{(b)} Intra-trial stability (y-axis) in correlation with feedforward recurrent alignment score (x-axis).\\
+			\textbf{(c)} Dimensionality (y-axis) calculated analytically (green dots, (\ref{eq:dim_analytical_sym})) and approximately (blue dots, (\ref{eq:dim_empirical_sym})) in relationship with feedforward recurrent alignment score (x-axis).\\
+			\textbf{(d)} Correlation between alignment to spontaneous activity (y-axis) and feedforward recurrent alignment score (x-axis).}
+		
+%			\caption{\textbf{Trial-to-trial correlation and intra-trial stability in correlation with feedforward recurrent alignment score for low-rank symmetric RNNs.} \textbf{(a)} Trial-to-trial correlation in relationship with feedforward recurrent alignment. \textbf{(b)} Intra-trial stability in relationship with feedforward recurrent alignment.\\ The positive correlation between feedforward recurrent alignment and trial-to-trial correlation \textbf{(a)} or intra-trial stability \textbf{(b)} is discontinuous due to the number of eigenvalues under low rank. If having rank $G = 1$, only one feedforward recurrent alignment score take the value $R = 0.85$, correlating with large trial-to-trial correlation \textbf{(a)} or intra-trial stability \textbf{(b)}. The rest concentrates at alignment score $0$ with low trial-to-trial correlation \textbf{(a)} or low intra-trial stability \textbf{(b)}. }
 			\label{fig:ttc_its_low_rank_sym_no_noise}
 		\end{figure}
 	
+	%TODO: Now also consider the other respose properties. 
 	% its + reason for not going on with this approach
-	Analogous to the trial-to-trial correlation, we suspect the result for intra-trial stability also be a discontinuous positive correlation to feedforward recurrent alignment. Due to the same reason of existing only two eigenvalues $R$ and $0$, the intra-trial stability value distributed also separately in two groups while keeping the positive correlation with feedforward recurrent alignment. The result (figure \ref{fig:ttc_its_low_rank_sym_no_noise}b) confirmed our assumption. 
+	Analogous to the trial-to-trial correlation, we suspect the result for intra-trial stability (figure \ref{fig:ttc_its_low_rank_sym_no_noise}b) and alignment to spontaneous activity (figure \ref{fig:ttc_its_low_rank_sym_no_noise}c) also be a discontinuous positive correlation to feedforward recurrent alignment, meanwhile a discontinuous negative correlation for dimensionality (figure \ref{fig:ttc_its_low_rank_sym_no_noise}d). Due to the same reason of existing only two eigenvalues $R$ and $0$, the intra-trial stability value, score of alignment to spontaneous activity distributed, and dimensionality also separately in two groups while keeping the expected correlations with feedforward recurrent alignment. The result (figure \ref{fig:ttc_its_low_rank_sym_no_noise}b) confirmed our assumptions. 
 	
-	 Although the positive correlation of feedforward recurrent alignment with both trial-to-trial correlation and intra-trial stability is kept. Since the simple distribution of eigenvalues leads to trivial dynamics between response properties and feedforward recurrent alignment as well as some unwanted effects in dimensionality (Appendix), %TODO:linking
-	 we would rather abandon the formulation of low-rank RNNs for trying modeling feedforward recurrent alignment hypothesis. 
+%	 Although the positive correlation of feedforward recurrent alignment with both trial-to-trial correlation and intra-trial stability is kept. Since the simple distribution of eigenvalues leads to trivial dynamics between response properties and feedforward recurrent alignment as well as some unwanted effects in dimensionality (Appendix), %TODO:linking
+%	 we would rather abandon the formulation of low-rank RNNs for trying modeling feedforward recurrent alignment hypothesis. 
 	
 	\paragraph{Low-rank RNNs with random noise}
-	Low-rank symmetric RNNs with random noise includes extra part of symmetrized Gaussian distributed matrix (\ref{eq:low_rank_with_noise}, section \ref{sec:ffrec_low_rank}). If analog to (\ref{eq:sym_low_rank_eigval}) considering the right connectivity vectors equal the left connectivity vectors, the symmetric low-rank RNNs with random noise can be formulated with a part of symmetric low-rank RNNs and a part of symmetrized Gaussian distributed matrix $J_{\text{rand}}$. 
-		\begin{equation} \label{eq:low_rank_sym_with_noise}
-			J = \frac{1}{n}\sum_{g =1}^{G} l^{(g)} l^{(g)T} + J_{\text{rand}} \, .
-		\end{equation}
-	The symmetric random part $J_{\text{rand}}$ should provide more dynamics in the network. 
-%		\begin{figure}
-%			\centering
-%			\begin{subfigure}{0.02\textwidth}
-%				\centering
-%				\includegraphics{../figures/ttc_low_rank_sym_with_noise.png}
-%			\end{subfigure}
-%			\hfill
-%			\begin{subfigure}{0.02\textwidth}
-%				\centering
-%				\includegraphics{../figures/its_low_rank_sym_with_noise.png}
-%			\end{subfigure}
-%		
-%			\bigskip
-%			\begin{subfigure}{0.02\textwidth}
-%				\centering
-%				\includegraphics{../figures/dim_low_rank_sym_with_noise.png}
-%			\end{subfigure}
-%			\hfill
-%			\begin{subfigure}{0.02\textwidth}
-%				\centering
-%				\includegraphics{../figures/spont_align_low_rank_sym_with_noise.png}
-%			\end{subfigure}
-%		\end{figure}
+		%The same evaluations considering the response properties are also undertaken for the case when considering the random noise to symmetric low-rank RNNs. 
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.8\textwidth]{../figures/low_rank_sym_with_noise.pdf}
-			\caption{\textbf{Correlation between response properties and feedforward recurrent alignment in low-rank RNNs with random noise.} Besides the part of a low-rank matrix with rank $G$, RNNs with noise includes an extra part of symmetrized random Gaussian matrix (\ref{eq:low_rank_sym_with_noise}). The rank of low rank part has the rank $G=1$.\\
-			\textbf{(a)} Trial-to-trial correlation (y-axis) against feedforward recurrent alignmnet score (x-axis). \textbf{(b)} Intra-trial stability (y-axis) against feedforward recurrent alignment score (x-axis). \textbf{(c)} Dimensionality (y-axis) in dependence of feedforward recurrent alignment score (x-axis). \textbf{(d)} Alignment to spontaneous activity (y-axis) against feedforward recurrent alignment (x-axis).}
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/ttc_low_rank_sym_with_noise.png}
+				\caption{}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/its_low_rank_sym_with_noise.png}
+				\caption{}
+			\end{subfigure}
+			\newline
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/dim_low_rank_sym_with_noise.png}
+				\caption{}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/spont_align_low_rank_sym_with_noise.png}
+				\caption{}
+			\end{subfigure}
+		\caption{\textbf{Correlation between response properties and feedforward recurrent alignment in symmetric low-rank RNNs with random noise.} Besides the part of a low-rank matrix with rank $G$, RNNs with noise includes an extra part of symmetrized random Gaussian matrix (\ref{eq:low_rank_sym_with_noise}). The rank of low rank part has the rank $G=1$.\\
+		\textbf{(a)} Trial-to-trial correlation (y-axis) against feedforward recurrent alignmnet score (x-axis).\\
+		\textbf{(b)} Intra-trial stability (y-axis) against feedforward recurrent alignment score (x-axis). \\
+		\textbf{(c)} Dimensionality (y-axis) in dependence of feedforward recurrent alignment score (x-axis). Green dots represents the analytical calculation of dimensionality (\ref{eq:dim_analytical_sym}) and blue dots for empirical approximation of dimensionality (\ref{eq:dim_empirical_sym})\\
+		 \textbf{(d)} Alignment to spontaneous activity (y-axis) against feedforward recurrent alignment (x-axis).}
+	 	\label{fig:result_sym_low_rank_with_noise}
 		\end{figure}
+%		\begin{figure}[H]
+%			\centering
+%			\includegraphics[width=0.8\textwidth]{../figures/low_rank_sym_with_noise.pdf}
+%			\caption{\textbf{Correlation between response properties and feedforward recurrent alignment in low-rank RNNs with random noise.} Besides the part of a low-rank matrix with rank $G$, RNNs with noise includes an extra part of symmetrized random Gaussian matrix (\ref{eq:low_rank_sym_with_noise}). The rank of low rank part has the rank $G=1$.\\
+%			\textbf{(a)} Trial-to-trial correlation (y-axis) against feedforward recurrent alignmnet score (x-axis). \textbf{(b)} Intra-trial stability (y-axis) against feedforward recurrent alignment score (x-axis). \textbf{(c)} Dimensionality (y-axis) in dependence of feedforward recurrent alignment score (x-axis). \textbf{(d)} Alignment to spontaneous activity (y-axis) against feedforward recurrent alignment (x-axis).}
+%		\end{figure}
+	
+	Low-rank symmetric RNNs with random noise includes extra part of symmetrized Gaussian distributed matrix (\ref{eq:low_rank_with_noise}, section \ref{sec:ffrec_low_rank}). If analog to (\ref{eq:sym_low_rank_eigval}) considering the right connectivity vectors equal the left connectivity vectors, the symmetric low-rank RNNs with random noise can be formulated with a part of symmetric low-rank RNNs and a part of symmetrized Gaussian distributed matrix $J_{\text{rand}}$. 
+	\begin{equation} \label{eq:low_rank_sym_with_noise}
+		J = \frac{1}{n}\sum_{g =1}^{G} l^{(g)} l^{(g)T} + J_{\text{rand}} \, .
+	\end{equation}
+	The symmetric random part $J_{\text{rand}}$ should provide more dynamics in the network. 
+	
 	Since $J_{\text{rand}}$ is a full rank symmetric matrix, the final recurrent network $J$ is also a full rank symmetric matrix in spite of the low-rank symmetric part with rank $G$. Therefore, the correlations between the response properties and feedforward recurrent alignment score are similar to the case of symmetric matrix (figure \ref{fig:ttc_ffrec_sym}, \ref{fig:its_ffrec_sym}, \ref{fig:dim_sym}, and \ref{fig:align_spont_sym}). 
 	
-	Therefore, the feedforward recurrent alignment hypothesis can be modeled. The expected relationships between feedforward recurrent alignment and response properties (section \ref{sec:results_symmetric}) are fulfilled. However, the influence of low-rank construction is therefore overwritten by the random noise, which leads to the final dynamics not much different from the case with general random symmetric RNNs. 
+	Therefore, the feedforward recurrent alignment hypothesis can be modeled. The expected relationships between feedforward recurrent alignment and response properties (section \ref{sec:results_symmetric}) are fulfilled (figure \ref{fig:result_sym_low_rank_with_noise}). However, the influence of low-rank construction is therefore overwritten by the random noise, which leads to the final dynamics not much different from the case with general random symmetric RNNs. 
 	
 	\paragraph{Conclusion}
 	
-	Considering symmetric low-rank RNNs without random noise, the feedforward recurrent alignment keeps the positive correlation to trial-to-trial correlation and intra-trial stability. However, the network construction leads to simple distribution of eigenvalues (\ref{eq:sym_low_rank_eigval}) and in turn also the straightforward distribution of feedforward recurrent alignment score. As a result, only a simple discontinuous positive correlation of feedforward recurrent alignment to trial-to-trial correlation and intra-trial stability can be observed (figure \ref{fig:ttc_its_low_rank_sym_no_noise}). 
+	Considering symmetric low-rank RNNs without random noise, the feedforward recurrent alignment keeps the positive correlation to trial-to-trial correlation, intra-trial stability, and alignment to spontaneous activity. Besides, the expected negative correlation between dimensionality and feedforward recurrent alignment is also fulfilled. However, the network construction leads to simple distribution of eigenvalues (\ref{eq:sym_low_rank_eigval}) and in turn also the straightforward distribution of feedforward recurrent alignment score. As a result, only a simple discontinuous correlations of feedforward recurrent alignment to response properties can be observed (figure \ref{fig:ttc_its_low_rank_sym_no_noise}). 
 	
 	If adding a random noise to disturb the simple dynamics of low-rank RNNs, the final construction (\ref{eq:low_rank_sym_with_noise}) is a full rank symmetric RNN. As a result, the correlations of feedforawrd recurrent alignment to response properties are similar to the results observed in general symmetric RNNs. Although the expected phenomenons are seen, the effect of low-rank RNNs cannot be significantly detected. 
 	
@@ -456,9 +480,58 @@
 	Asymmetric low-rank RNNs can have more complex dynamics than symmetric low-rank RNNs. Section \ref{sec:ffrec_low_rank} also introduces the construction of asymmetric low-rank RNNs with or without random noise. Generally, if taking the set of left connectivity vectors different from the set of right connectivity vectors, asymmetric matrices can be formulated (\ref{eq:low_rank_RNN_without_noise}), (\ref{eq:low_rank_with_noise}). 
 	
 	% Choose symmetrized method from privious results. 
-	Since asymmetric low-rank RNNs are only a certain case of asymmetric RNNs with specific constructions, they also have the problem of complex eigenvectors and eigenvalues when modeling the feedforward recurrent alignment hypothesis. Therefore, from the previous results with general asymmetric RNNs, we choose the modification of aligning inputs to symmetrized RNN because of the overall best performance (\ref{label}).
+	Since asymmetric low-rank RNNs are only a certain case of asymmetric RNNs with specific constructions, they also have the problem of complex eigenvectors and eigenvalues when modeling the feedforward recurrent alignment hypothesis. Therefore, from the previous results with general asymmetric RNNs, we choose the modification of aligning inputs to symmetrized RNN because of the overall best performance among all considered modifications (section \ref{sec:asymmetric_results}).
 	
 	\paragraph{Low-rank RNNs without random noise}
+	
+	Asymmetric low-rank RNNs without random noise consist of non-equal left and right connectivity vectors, which are mutually orthogonal (figure \ref{fig:low_rank_RNN_without_noise}) (\ref{eq:low_rank_RNN_without_noise}). 
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[b]{0.3\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/eigval_distribution_asym_low_rank_without_noise.png}
+				\caption{rank$=1$}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.3\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/eigval_distribution_asym_low_rank_without_noise(2).png}
+				\caption{rank$=5$}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.3\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/eigval_distribution_asym_low_rank_without_noise(3).png}
+				\caption{rank$=10$}
+			\end{subfigure}
+			\caption{\textbf{Eigenvalue distribution in dependence of rank by asymmetric low-rank RNNs without random noise.} The asymmetric low-rank RNNs without random noise is constructed by mutually orthogonal non-equal left and right connectivity vectors. The number of vector pairs $G$ also determines the rank of the interaction matrix, which should be significantly smaller than the number of neurons $G \ll n$ (\ref{eq:low_rank_RNN_without_noise}). The rank $G$ can influence the distribution of eigenvalues for asymmetric low-rank RNNs in complex plane. x-axis for real part and y-axis for imaginary part. \textbf{(a)} Eigenvalue distribution under rank $G=1$. \textbf{(b)} Eigenvalue distribution under rank $G=5$. \textbf{(c)} Eigenvalue distribution under rank $G=10$. }
+			\label{fig:eigval_distribution_asym_low_rank_without_noise}
+		\end{figure}
+	
+	For symmetric low-rank RNNs without random noise, as long as the rank $G$ is significantly smaller than the number of neurons $n$ as defined, the distribution of eigenvalues separating into two groups (figure \ref{fig:eigval_low_rank_without_noise}) keeps the unchanged. While for asymmetric low-rank RNNs without random noise, the influence of rank $G$ is more significant (figure \ref{fig:eigval_distribution_asym_low_rank_without_noise}). 
+	
+	The construction of asymmetric low-rank RNNs without random noise can be understood as $G$ pairs of connectivity vectors are represented, while the rest of $n-G$ pairs are suppressed (\ref{eq:low_rank_RNN_without_noise}), formally written out with
+		\begin{equation} \label{eq:asym_low_rank_RNNs_without_noise_eigval}
+			J = \frac{1}{n} \sum_{g=1}^{G} l^{(g)} r^{(g)T} = \sum_{g=1}^{G} \frac{1}{n} l^{(g)} r^{(g)T} + \sum_{g=1}^{n-G} 0 l^{(g)} r^{(g)T} \, .
+		\end{equation}
+	Therefore, exactly $G$ number of eigenvalues do not concentrate at $0$ but the rest $n-G$ eigenvalues are (figure \ref{fig:eigval_distribution_asym_low_rank_without_noise}). Since the mathematical construction for asymmetric low-rank RNNs is a eigendecomposition (\ref{eq:asym_low_rank_RNNs_without_noise_eigval}), the eigenvalues after re-scaling by normalization parameter $R$ (method section \ref{sec:ffrec_low_rank}) do not exactly have magnitude $R$ as at symmetric low-rank RNNs (\ref{eq:sym_low_rank_without_noise_eigval}).	
+	
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[b]{0.3\textwidth}
+				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_without_noise_rank=1.png}
+				\caption{rank$=1$}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.3\textwidth}
+				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_without_noise_rank=5.png}
+				\caption{rank$=5$}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.3\textwidth}
+				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_without_noise_rank=10.png}
+				\caption{rank$=10$}
+			\end{subfigure} 
+		\caption{\textbf{Relationship of trial-to-trial correlation and feedforward recurrent alignment in dependence of rank by asymmetric low-rank RNNs without random noise.}}
+		\end{figure}
+	%TODO: also add other response properties? Oder mit dem gescheitertes Thema nicht zu viel Platz nehmen und sagen die Vermutung von Problem und die Methode verwerfen? --> finde eigentlich so besser.
+	% Suspect that symmetrization lead to reflection and double set/number of eigenvalues. 
 	
 	\paragraph{Low-rank RNNs with random noise}
 	
