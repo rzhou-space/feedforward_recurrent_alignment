@@ -60,7 +60,6 @@ class AsymLinearRecurrentNet:
 
 
 
-
 class CombiAsymNet:
     '''
     Construct the asymmetrical interaction matrix J = a*J_sym + (1-a)*J_asym.
@@ -104,14 +103,14 @@ class CombiAsymNet:
 
         plt.figure()
         plt.scatter(real, imag, alpha=0.5)
-        plt.axvline(x = self.R, c = "grey", label = "R="+str(self.R))
+        plt.axvline(x = self.R, c = "grey")#, label = "R="+str(self.R))
         plt.axvline(x = - self.R, c = "grey")
         plt.axhline(y = self.R, c = "grey")
         plt.axhline(y = -self.R, c = "grey")
-        plt.title("Eigenvalue distribution, a="+str(self.a))
-        plt.xlabel("Real Part")
-        plt.ylabel("Imaginary Part")
-        plt.legend()
+        #plt.title("Eigenvalue distribution, a="+str(self.a))
+        #plt.xlabel("Real Part", fontsize=15)
+        #plt.ylabel("Imaginary Part", fontsize=15)
+        #plt.legend()
         plt.show()
 
         return new_eigenvals
@@ -163,15 +162,20 @@ class LowRank:
 
         plt.figure()
         plt.scatter(real, imag, alpha=0.5)
-        plt.axvline(x = self.R, c = "red", label = "R="+str(self.R))
-        plt.axvline(x = -self.R, c = "red")
-        plt.axhline(y = self.R, c = "red")
-        plt.axhline(y = -self.R, c = "red")
-        plt.title("Eigenvalue distribution")
-        plt.xlabel("Real Part")
-        plt.ylabel("Imaginary Part")
-        plt.legend()
+        #plt.axvline(x = self.R, c = "red", label = "R="+str(self.R))
+        #plt.axvline(x = -self.R, c = "red")
+        #plt.axhline(y = self.R, c = "red")
+        #plt.axhline(y = -self.R, c = "red")
+        #plt.title("Eigenvalue distribution")
+        #plt.xlabel("Real Part", fontsize=20)
+        plt.ylabel("Imaginary Part", fontsize=20)
+        plt.xlim(-self.R-0.1, self.R+0.1)
+        plt.ylim(-self.R-0.1, self.R+0.1)
+        #plt.legend()
         plt.show()
+
+        return eigvals
+
 
 
 class NoisedLowRank:
@@ -292,16 +296,15 @@ if __name__ == "__main__":
     #print(J)
     #eigval = network.eigval_distribution()
     #print(network.eigval)
-
+    '''
     # J = a*J_sym + (1-a)*J_asym
     combi_net = CombiAsymNet(n_neuron, 0, R)
     J = combi_net.interaction
     combi_net.eigval_dist()
     '''
-    lowrank = LowRank(n_neuron, 10, R, 1, 2)
-    print(lowrank.interaction)
-    lowrank.eigval_distribution()
-
+    lowrank = LowRank(n_neuron, 1, R, 1, 1)
+    print(lowrank.eigval_distribution())
+    '''
     # J = J_sym + (1-b)*J_asym
     combi_net2 = CombiAsymNet2(n_neuron, 0.5, R)
     J2 = combi_net2.interaction
@@ -311,7 +314,6 @@ if __name__ == "__main__":
     noise_low_rank = NoisedLowRank(n_neuron, 1, R)
     noise_low_rank.eigval_distribution()
     '''
-
 
 
 

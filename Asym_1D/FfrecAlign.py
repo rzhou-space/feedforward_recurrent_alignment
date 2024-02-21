@@ -42,18 +42,6 @@ class FFRec_Alignment:
         return ffrec
 
 
-    def total_ffrec_align(self, h_det, interaction): # TODO: further step: distribution with eigenvalues.
-        """
-        Calculate the ffrec with (Jh)^* (Jh) where (Jh)^* the complex conjugate of the vector.
-        :param h_det: n x 1 dimensional array.
-        :param interaction: nxn asymmetric matrix.
-        """
-        h_norm = np.linalg.norm(h_det)
-        transform_vec = interaction @ h_det
-        ffrec = np.conjugate(transform_vec).T @ transform_vec/ h_norm**2
-        return ffrec
-
-
 
 ##############################################################################################################
 

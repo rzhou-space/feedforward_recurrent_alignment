@@ -85,15 +85,15 @@ def compare_ttc_only_combi_inter(n_neuron, R, sigma_trial, N_trial, mode):
 
 def compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, mode, sigma_1=1, sigma_2=1):
     # Variation on the rank of the interaction.
-    rank_values = [1, 40]
+    rank_values = [5]
     #colors = [cm.to_hex(plt.cm.tab20b(i)) for i in range(20)] # Colors that not differ much.
     colors = [cm.to_hex(plt.cm.tab10(i)) for i in range(10)]
     plt.figure()
     for i in range(len(rank_values)):
         D = rank_values[i]
-        #network = AN.LowRank(n_neuron, D, R, sigma_1, sigma_2) # Asymmetrical low rank interaction network.
-        #network = SN.NoisedLowRank_1D(n_neuron, R) # Symmetrical noised low rank interaction network.
-        network = AN.NoisedLowRank(n_neuron, D, R)
+        network = AN.LowRank(n_neuron, D, R, sigma_1, sigma_2) # Asymmetrical low rank without noise.
+        #network = SN.NoisedLowRank_1D(n_neuron, R) # Symmetrical noised low rank.
+        #network = AN.NoisedLowRank(n_neuron, D, R) # Asymmetric with noise.
         ttc_class = AO.TrialtoTrialCor(n_neuron, R, network)
         if mode == "real part":
             results = ttc_class.real_ttc_sort_align(sigma_trial, N_trial)
@@ -112,7 +112,9 @@ def compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, mode, sigma_1=1, sig
             ttc = results[1]
             plt.scatter(ffrec, ttc, c=colors[i], alpha=0.5, label="rank="+str(D))
 
-    plt.legend()
+    plt.xlabel("Feedforward recurrent alignment", fontsize=20)
+    #plt.ylabel("Trial-to-trial correlation", fontsize=20)
+    #plt.legend()
     plt.show()
 
 
@@ -378,7 +380,7 @@ if __name__ == "__main__":
 
     # Results of applying row ranked interation matrix.
 
-    #compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, "white noise")
+    compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, "symmetrized")
 
     #compare_its_low_rank(n_neuron, R, dt_euler, dt_intra, T, sigma_time, "white noise")
 

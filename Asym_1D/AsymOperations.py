@@ -181,7 +181,8 @@ class TrialtoTrialCor:
             all_response = self.trial_response(h_det, sigma_trial, N_trial)
             # Calculate the ffrec still with the original asymmetrical interaction matrix.
             # As long as the corresponding values are on the same position, the plot should be correct.
-            ffrec[i] = FFRec_Alignment.ffrec_align(self, h_det, self.interaction)
+            #ffrec[i] = FFRec_Alignment.ffrec_align(self, h_det, self.interaction)
+            ffrec[i] = h_det @ self.interaction @ h_det
             ttc[i] = self.trial_to_trial_correlation(all_response, N_trial)
         return ffrec, ttc, sym_eigval, sym_eigvec
 
@@ -610,6 +611,15 @@ class Dimensionality:
             dim.append(dim_current)
         return np.array(dim)
 
+    def real_ffrec_dim(self):
+        L = np.array([i for i in range(int(self.neuron/2))])
+        basis_vec = np.real(self.sorted_eigvec)
+        # Calculate the ffrec for basis_vec.
+        pair_ffrec = basis_vec.T @ self.interaction @ basis_vec
+        # Extract the diagonal elements for the defined ffrec alignment score for one eigenvector.
+        ffrec_align = pair_ffrec.diagonal()
+        return np.flip(ffrec_align[L])
+
 
     def real_plot_dim_to_ffrec(self, kappa, beta, num_sample):
         dim_ffrec = self.real_dim_to_ffrec(kappa, beta)
@@ -650,6 +660,10 @@ class Dimensionality:
             dim_current = d_eff(var_vec[:M])
             dim.append(dim_current)
         return np.array(dim)
+
+    def sym_ffrec_dim(self):
+        L = np.array([i for i in range(int(self.neuron/2))])
+        #basis_vec =
 
 
     def noise_dim_analytical(self, kappa, beta):
@@ -799,7 +813,8 @@ class AlignmentSpontaneousAct:
         # Extract the diagonal elements for the defined ffrec alignment score for one eigenvector.
         ffrec_align = pair_ffrec.diagonal()
 
-        return np.flip(ffrec_align[L]), np.flip(pattern_align) # Flip in the ascending order.
+        #return np.flip(ffrec_align[L]), np.flip(pattern_align) # Flip in the ascending order.
+        return np.linspace(0, 1, len(L)), np.flip(pattern_align) # Flip in the ascending order.
 
 
     def noise_pattern_align(self, kappa, beta_spont, beta_dim, num_sample):
@@ -837,20 +852,25 @@ if __name__ == "__main__":
     num_sample = 500
     # For the case of low rank interaction.
     sigma_1 = 1
-    sigma_2 = 2
+    sigma_2 = 1
 
     # TODO: find out reason for low ffrec but high ttc and its with symmetrized J and white noise.
 
     # Symmetrized J.
-    network = AN.LowRank(20, 10, R, sigma_1, sigma_2) # Try with small network. Also have the effect with low ffrec but high ttc.
+    network = AN.LowRank(n_neuron, 1, R, sigma_1, sigma_2) # Try with small network. Also have the effect with low ffrec but high ttc.
     # ttc
-    '''
-    ttc = TrialtoTrialCor(20, R, network)
+
+    ttc = TrialtoTrialCor(n_neuron, R, network)
     sym_ttc = ttc.sym_ttc_sort_align(sigma_trial, N_trial)
     ttc_ffrec = sym_ttc[0]
     ttc_ttc = sym_ttc[1]
-    sym_eigval = sym_ttc[2]
-    sym_eigvec = sym_ttc[3]
+    #print(ttc_ffrec)
+    #print(ttc_ttc)
+    plt.scatter(ttc_ffrec, ttc_ttc, alpha=0.5)
+    #plt.xlabel()
+    plt.show()
+
+    '''
     # Find out the eigenvalues and eigenvectors that have ffrec < 0  but ttc > 0.8 -- depends on the observation of plots.
     find_index = []
     for i in range(len(ttc_ttc)):
@@ -860,7 +880,9 @@ if __name__ == "__main__":
     print(ttc_ffrec[find_index])
     print(ttc_ttc[find_index])
     print(sym_eigvec[find_index])
-    
+    '''
+
+    '''
     # its
     its = IntraTrialStab(20, R, network)
     sym_its = its.sym_sort_stab(dt_euler, dt_intra, T, sigma_time)
@@ -877,11 +899,11 @@ if __name__ == "__main__":
     print(its_ffrec[find_index])
     print(its_its[find_index])
     print(sym_eigvec[find_index])
-    '''
+
 
     # White noise
     # ttc
-    '''
+    
     ttc = TrialtoTrialCor(20, R, network)
     noise_ttc = ttc.noise_ttc_sort_align(sigma_trial, N_trial)
     ttc_ffrec = noise_ttc[0]
@@ -897,7 +919,7 @@ if __name__ == "__main__":
     print(ttc_ffrec[find_index])
     print(ttc_ttc[find_index])
     print(pc[find_index])
-    '''
+    
     #its
     its = IntraTrialStab(20, R, network)
     noise_its = its.noise_sort_stab(dt_euler, dt_intra, T, sigma_time)
@@ -914,4 +936,5 @@ if __name__ == "__main__":
     print(its_ffrec[find_index])
     print(its_ttc[find_index])
     print(pc[find_index])
+    '''
 
