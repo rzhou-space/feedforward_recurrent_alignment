@@ -436,6 +436,8 @@ class Dimensionality:
         sym_inter = sym_inter * self.R/np.max(sym_eigval)
         # Calculate again the eigval and eigvec. They are both real.
         self.sym_eigval, self.sym_eigvec = np.linalg.eigh(sym_inter)
+        #sym_sort_index = np.argsort(self.sym_eigvec)[::-1]
+        self.sort_sym_eigvec = np.sort(self.sym_eigvec)[::-1]
 
         # For the case of applying the response evoked by white noise.
         # Construct the covariance matrix of white noise activity.
@@ -634,6 +636,14 @@ class Dimensionality:
         plt.legend()
         plt.show()
 
+    def sym_ffrec(self):
+        L = np.array([i for i in range(int(self.neuron/2))])
+        sym_ffrec = []
+        for i in L:
+            h = self.sort_sym_eigvec[:, i]
+            sym_ffrec.append(h @ self.interaction @ h)
+        return np.array(sym_ffrec)
+
 
     def sym_dim_analytical(self, kappa, beta):
         #L = np.array([i for i in range(int(self.neuron/2))])
@@ -661,9 +671,6 @@ class Dimensionality:
             dim.append(dim_current)
         return np.array(dim)
 
-    def sym_ffrec_dim(self):
-        L = np.array([i for i in range(int(self.neuron/2))])
-        #basis_vec =
 
 
     def noise_dim_analytical(self, kappa, beta):

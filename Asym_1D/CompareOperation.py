@@ -85,15 +85,15 @@ def compare_ttc_only_combi_inter(n_neuron, R, sigma_trial, N_trial, mode):
 
 def compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, mode, sigma_1=1, sigma_2=1):
     # Variation on the rank of the interaction.
-    rank_values = [5]
+    rank_values = [1, 10]
     #colors = [cm.to_hex(plt.cm.tab20b(i)) for i in range(20)] # Colors that not differ much.
     colors = [cm.to_hex(plt.cm.tab10(i)) for i in range(10)]
     plt.figure()
     for i in range(len(rank_values)):
         D = rank_values[i]
-        network = AN.LowRank(n_neuron, D, R, sigma_1, sigma_2) # Asymmetrical low rank without noise.
+        #network = AN.LowRank(n_neuron, D, R, sigma_1, sigma_2) # Asymmetrical low rank without noise.
         #network = SN.NoisedLowRank_1D(n_neuron, R) # Symmetrical noised low rank.
-        #network = AN.NoisedLowRank(n_neuron, D, R) # Asymmetric with noise.
+        network = AN.NoisedLowRank(n_neuron, D, R) # Asymmetric with noise.
         ttc_class = AO.TrialtoTrialCor(n_neuron, R, network)
         if mode == "real part":
             results = ttc_class.real_ttc_sort_align(sigma_trial, N_trial)
@@ -106,13 +106,15 @@ def compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, mode, sigma_1=1, sig
             ffrec = results[0]
             ttc = results[1]
             plt.scatter(ffrec, ttc, c=colors[i], alpha=0.5, label="rank="+str(D))
+            plt.xlabel("Feedforward recurrent alignment", fontsize=15)
+            plt.ylabel("Trial-to-trial correlation", fontsize=15)
         elif mode == "white noise":
             results = ttc_class.noise_ttc_sort_align(sigma_trial, N_trial)
             ffrec = results[0]
             ttc = results[1]
             plt.scatter(ffrec, ttc, c=colors[i], alpha=0.5, label="rank="+str(D))
 
-    plt.xlabel("Feedforward recurrent alignment", fontsize=20)
+    #plt.xlabel("Feedforward recurrent alignment", fontsize=20)
     #plt.ylabel("Trial-to-trial correlation", fontsize=20)
     #plt.legend()
     plt.show()
@@ -178,7 +180,7 @@ def compare_its_only_combi_inter(n_neuron, R, dt_euler, dt_intra, T, sigma_time,
 
 def compare_its_low_rank(n_neuron, R, dt_euler, dt_intra, T, sigma_time, mode, sigma_1=1, sigma_2=1):
     # Variation on the rank of the interaction.
-    rank_values = [1, 40]
+    rank_values = [1,10]
     #colors = [cm.to_hex(plt.cm.tab20b(i)) for i in range(20)]
     colors = [cm.to_hex(plt.cm.tab10(i)) for i in range(10)]
     plt.figure()
@@ -197,13 +199,15 @@ def compare_its_low_rank(n_neuron, R, dt_euler, dt_intra, T, sigma_time, mode, s
             ffrec = results[0]
             its = results[1]
             plt.scatter(ffrec, its, c=colors[i], alpha=0.5, label="rank="+str(D))
+            plt.xlabel("Feedforward recurrent alignment", fontsize=15)
+            plt.ylabel("Intra-trial stability", fontsize=15)
         elif mode == "white noise":
             results = its_class.noise_sort_stab(dt_euler, dt_intra, T, sigma_time)
             ffrec = results[0]
             its = results[1]
             plt.scatter(ffrec, its, c=colors[i], alpha=0.5, label="rank="+str(D))
 
-    plt.legend()
+    #plt.legend()
     plt.show()
 
 
@@ -249,7 +253,7 @@ def compare_dim_only_combi_inter(n_neuron, R, kappa, beta_dim, num_sample, mode)
 
 def compare_dim_low_rank(n_neuron, R, kappa, beta_dim, num_sample, mode, sigma_1=1, sigma_2=1):
     # Variation on the rank of the interaction.
-    rank_values = [1, 40]
+    rank_values = [1, 10]
     #colors = [cm.to_hex(plt.cm.tab20b(i)) for i in range(20)]
     colors = [cm.to_hex(plt.cm.tab10(i)) for i in range(10)]
     # Here is the bijective projection from L to ffrec (0,1).
@@ -271,15 +275,20 @@ def compare_dim_low_rank(n_neuron, R, kappa, beta_dim, num_sample, mode, sigma_1
         elif mode == "symmetrized":
             analytical_dim = dim_class.sym_dim_analytical(kappa, beta_dim)
             empir_dim = dim_class.sym_dim_empir(kappa, beta_dim, num_sample)
+            #ffrec_sym = dim_class.sym_ffrec()
+            #plt.scatter(np.flip(ffrec_sym), np.flip(analytical_dim), c=colors[i], alpha=0.6, label="rank="+str(D))
+            #plt.scatter(np.flip(ffrec_sym), np.flip(empir_dim), c="green", alpha=0.6, label="rank="+str(D))
             plt.plot(ffrec, np.flip(analytical_dim), c=colors[i], alpha=0.6, label="rank="+str(D))
             plt.scatter(ffrec, np.flip(empir_dim), c=colors[i], alpha=0.6, label="rank="+str(D))
+            plt.xlabel("Feedfroward recurrent alignment", fontsize=15)
+            plt.ylabel("Dimensionality", fontsize=15)
         elif mode == "white noise":
             # Still apply J_sym for analytical dimensionality.
             analytical_dim = dim_class.sym_dim_analytical(kappa, beta_dim)
             empir_dim = dim_class.noise_dim_empir(kappa, beta_dim, num_sample)
             plt.plot(ffrec, np.flip(analytical_dim), c=colors[i], alpha=0.6, label="rank="+str(D))
             plt.scatter(ffrec, np.flip(empir_dim), c=colors[i], alpha=0.6, label="rank="+str(D))
-    plt.legend()
+    #plt.legend()
     plt.show()
 
 ##############################################################################################################
@@ -320,7 +329,7 @@ def compare_align_spont_combi(n_neuron, R, kappa, beta_spont, beta_dim, num_samp
 def compare_align_spont_low_rank(n_neuron, R, kappa, beta_spont, beta_dim, num_sample, mode,
                                  sigma_1=1, sigma_2=1):
     # Variation on the rank of the interaction.
-    rank_values = [1, 40]
+    rank_values = [1, 10]
     #colors = [cm.to_hex(plt.cm.tab20b(i)) for i in range(20)]
     colors = [cm.to_hex(plt.cm.tab10(i)) for i in range(10)]
     plt.figure()
@@ -340,12 +349,14 @@ def compare_align_spont_low_rank(n_neuron, R, kappa, beta_spont, beta_dim, num_s
             ffrec = results[0]
             pattern_align = results[1]
             plt.scatter(ffrec, pattern_align, c=colors[i], alpha=0.5, label="rank="+str(D))
+            plt.xlabel("Feedforward recurrent alignment", fontsize=15)
+            plt.ylabel("Alignment to spont.act", fontsize=15)
         elif mode == "white noise":
             results = align_class.noise_pattern_align(kappa, beta_spont, beta_dim, num_sample)
             ffrec = results[0]
             pattern_align = results[1]
             plt.scatter(ffrec, pattern_align, c=colors[i], alpha=0.6, label="rank="+str(D))
-    plt.legend()
+    #plt.legend()
     plt.show()
 ##############################################################################################################
 if __name__ == "__main__":
@@ -380,13 +391,13 @@ if __name__ == "__main__":
 
     # Results of applying row ranked interation matrix.
 
-    compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, "symmetrized")
+    #compare_ttc_low_rank(n_neuron, R, sigma_trial, N_trial, "symmetrized")
 
-    #compare_its_low_rank(n_neuron, R, dt_euler, dt_intra, T, sigma_time, "white noise")
+    compare_its_low_rank(n_neuron, R, dt_euler, dt_intra, T, sigma_time, "symmetrized")
 
-    #compare_dim_low_rank(n_neuron, R, kappa, beta_dim, num_sample, "real part")
+    #compare_dim_low_rank(n_neuron, R, kappa, beta_dim, num_sample, "symmetrized")
 
-    #compare_align_spont_low_rank(n_neuron, R, kappa, beta_spont, beta_dim, num_sample, "white noise")
+    #compare_align_spont_low_rank(n_neuron, R, kappa, beta_spont, beta_dim, num_sample, "symmetrized")
 
 
 
