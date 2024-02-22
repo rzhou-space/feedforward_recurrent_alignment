@@ -250,7 +250,7 @@
 	
 	\paragraph{Conclusion} After the analysis above for all modifications, our expectation of contained positive correlation are kept when considering the real part (modification 1) and alignment with symmetrized recurrent network (modification 3). The variant with magnitude (modification 2) fails to fulfill the correlation. Thus, we will leave the modification 2 out without further analysis for response properties in the following section. 
 	
-	\subsubsection{Representing Response Properties with modified Feedforward Recurrent Alignment}
+	\subsubsection{Representing Response Properties with modified Feedforward Recurrent Alignment} \label{sec:asym_ffrec_response}
 	
 	After verifying the expected correlation between feedforward recurrent alignment score and the network that the inputs are aligned to, we will check out if the remaining modifications could still reflect the four experimental observations listed at the beginning of the section \ref{sec:asymmetric_results} with remaining modification 1 and 3. 
 	\begin{itemize}
@@ -388,6 +388,7 @@
 				\includegraphics[width=\textwidth]{../figures/low_rank_sym_ttc.png}
 				\caption{}
 			\end{subfigure}
+			\hfill
 			\begin{subfigure}[b]{0.45\textwidth}
 				\includegraphics[width=\textwidth]{../figures/its_low_rank_sym_without_noise.png}
 				\caption{}
@@ -397,6 +398,7 @@
 				\includegraphics[width=\textwidth]{../figures/dim_low_rank_sym_without_noise.png}
 				\caption{}
 			\end{subfigure}
+			\hfill
 			\begin{subfigure}[b]{0.45\textwidth}
 				\includegraphics[width=\textwidth]{../figures/align_to_spont_low_rank_without_noise.png}
 				\caption{}
@@ -427,6 +429,7 @@
 				\includegraphics[width=\textwidth]{../figures/ttc_low_rank_sym_with_noise.png}
 				\caption{}
 			\end{subfigure}
+			\hfill
 			\begin{subfigure}[b]{0.45\textwidth}
 				\centering
 				\includegraphics[width=\textwidth]{../figures/its_low_rank_sym_with_noise.png}
@@ -438,6 +441,7 @@
 				\includegraphics[width=\textwidth]{../figures/dim_low_rank_sym_with_noise.png}
 				\caption{}
 			\end{subfigure}
+			\hfill
 			\begin{subfigure}[b]{0.45\textwidth}
 				\centering
 				\includegraphics[width=\textwidth]{../figures/spont_align_low_rank_sym_with_noise.png}
@@ -512,7 +516,7 @@
 		\begin{equation} \label{eq:asym_low_rank_RNNs_without_noise_eigval}
 			J = \frac{1}{n} \sum_{g=1}^{G} l^{(g)} r^{(g)T} = \sum_{g=1}^{G} \frac{1}{n} l^{(g)} r^{(g)T} + \sum_{g=1}^{n-G} 0 l^{(g)} r^{(g)T} \, .
 		\end{equation}
-	Therefore, exactly $G$ number of eigenvalues do not concentrate at $0$ but the rest $n-G$ eigenvalues are (figure \ref{fig:eigval_distribution_asym_low_rank_without_noise}). Since the mathematical construction for asymmetric low-rank RNNs is a eigendecomposition (\ref{eq:asym_low_rank_RNNs_without_noise_eigval}), the eigenvalues after re-scaling by normalization parameter $R$ (method section \ref{sec:ffrec_low_rank}) do not exactly have magnitude $R$ as at symmetric low-rank RNNs (\ref{eq:sym_low_rank_without_noise_eigval}).	
+	Therefore, exactly $G$ number of eigenvalues do not concentrate at $0$ but the rest $n-G$ eigenvalues are (figure \ref{fig:eigval_distribution_asym_low_rank_without_noise}). Since the mathematical construction for asymmetric low-rank RNNs is not a eigendecomposition (\ref{eq:asym_low_rank_RNNs_without_noise_eigval}), the eigenvalues after re-scaling by normalization parameter $R$ (method section \ref{sec:ffrec_low_rank}) do not exactly have magnitude $R$ as at symmetric low-rank RNNs (\ref{eq:sym_low_rank_without_noise_eigval}).	
 	
 		\begin{figure}[H]
 			\centering
@@ -528,12 +532,72 @@
 				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_without_noise_rank=10.png}
 				\caption{rank$=10$}
 			\end{subfigure} 
-		\caption{\textbf{Relationship of trial-to-trial correlation and feedforward recurrent alignment in dependence of rank by asymmetric low-rank RNNs without random noise.}}
+			\caption{\textbf{Relationship of trial-to-trial correlation and feedforward recurrent alignment in dependence of rank by asymmetric low-rank RNNs without random noise.} The rank $G$ in asymmetric low-rank RNNs (\ref{eq:asym_low_rank_RNNs_without_noise_eigval}) influence the distribution thus also the distribution of trial-to-trial correlation. Rank $G$ is significantly smaller than the number of neurons $n$ by definition. $n=200$. Illustrate the correlation between feedforward recurrent alignment and trial-to-trial correlation under varied ranks. \textbf{(a)} correlation under rank $G=1$. \textbf{(b)} correlation under rank $G=5$. \textbf{(c)} correlation under rank $G=10$.} 
+			\label{fig:ttc_asym_low_rank_RNN_without_noise}
 		\end{figure}
-	%TODO: also add other response properties? Oder mit dem gescheitertes Thema nicht zu viel Platz nehmen und sagen die Vermutung von Problem und die Methode verwerfen? --> finde eigentlich so besser.
 	% Suspect that symmetrization lead to reflection and double set/number of eigenvalues. 
+	% Erwartung
+	We expect that the distribution of the correlation between feedforward recurrent alignment and trial-to-trial correlation will be determined by the eigenvalue distribution (figure \ref{fig:eigval_distribution_asym_low_rank_without_noise}) under different ranks. Besides, a positive correlation between feedforward recurrent alignment and trial-to-trial correlation should be maintained independent of the change of rank.
+	
+	% Results
+	As expected, the rank influence the eigenvalue distribution and thus also the correlation distribution between feedforward recurrent alignment and trial-to-trial correlation. However, the positive correlation is not kept over the range of feedforward recurrent alignment. In fact, it can be observed that the distribution is almost identical in the negative and positive range of feedfroward recurrent alignment. The number of dots in each half-range also exactly equal the number of range, or the number of non-zero eigenvalues in (figure \ref{fig:eigval_distribution_asym_low_rank_without_noise}). Therefore, there are now doubled number of non-zero feedforward recurrent alignment scores as expected. 
+		
+	% Reaseon for results.
+	Our assumption is that the reflection and duplication could due to the symmetrization of asymmetric low-rank RNNs with simple construction of only applying connectivity vectors. With the symmetrization, a part of reflected network also contributes to eigenvalue expression and therefore increase the number of presented feedforward recurrent alignment. Symmetrization of (\ref{eq:asym_low_rank_RNNs_without_noise_eigval}) leads to
+		\begin{equation} \label{eq:asym_low_rank_without_noise_symmetrization}
+			J_{\text{sym}} = \frac{J + J^T}{2} = \frac{1}{2n} \left( \sum_{g=1}^{G} l^{(g)} r^{(g)T} + \sum_{g=1}^{G} r^{(g)} l^{(g)T}\right) = \frac{1}{2n} \sum_{g=1}^{G} l^{(g)} r^{(g)T} + \frac{1}{2n} \sum_{g=1}^{G} r^{(g)} l^{(g)T} \, .
+		\end{equation}
+	The second part of (\ref{eq:asym_low_rank_without_noise_symmetrization}) is presumed to be the reason for the distribution in negative range of feedforward recurrent alignment in figure \ref{fig:ttc_asym_low_rank_RNN_without_noise}. The construction (\ref{eq:asym_low_rank_without_noise_symmetrization}) doubles the network in two sub networks separately by unexpressed connectivity vectors. Each sub-network spread over the negative or the positive range of feedforward recurrent alignment. A positive correlation between feedforward recurrent alignment and trial-to-trial correlation can be observed in each half range. But there is therefore no positive correlation overall. 
+	
+	Thus, the modeling of feedforward recurrent alignment hypothesis in this case cannot fulfill the phenomenon over the whole range of alignment between inputs and recurrent network. 
+	% TODO: Appendix the result of intra-trial stability, dimensionality, and alignment to spontaneous activity? 
 	
 	\paragraph{Low-rank RNNs with random noise}
+	% General introduction of low-rank RNNs.
+	Above without random noise, the simple construction dose not performance well with the modification of alignment to symmetrized recurrent network. Now, we add a Gaussian distributed asymmetric random part to the simple construction. As a result, the asymmetric recurrent network is composed of a low-rank part from connectivity vectors and a part of full rank random noise (eq. (\ref{eq:low_rank_with_noise}) and method section \ref{sec:ffrec_low_rank}). The final recurrent network is therefore full rank asymmetric. 
+	
+	% Expectations. 
+	If the feedforward recurrent alignment hypothesis can be modeled in the asymmetric low-rank RNNs with random noise, positive correlations between feedforward recurrent alignment score and trial-to-trial correlation, intra-trial stability, and alignment to spontaneous activity are expected. Moreover, dimensionality should be negatively correlated with feedforward recurrent alignment. On the basis of observations from symmetric low-rank RNNs with random noise (figure \ref{fig:result_sym_low_rank_with_noise}), the results can be similar to the case with general asymmetric full rank RNNs (section \ref{sec:asym_ffrec_response}). In other words, the dynamics of low-rank can be suppressed by full rank noise dynamics.  
+	%However, on the other hand, the random noise could cover the effect from low-rank part. 
+	
+	% Analysis of results.
+	The results (figure \ref{fig:result_asym_low_rank_with_noise}) confirmed our expectations of correlations between response properties and feedforward recurrent alignment. In spite of the suppression effect of full rank random noise, the influence can still be slightly observed, especially in the correlation between feedforward recurrent alignment and alignment to spontaneous activity (figure \ref{fig:result_asym_low_rank_with_noise}d). Low rank (blue dots in figure \ref{fig:result_asym_low_rank_with_noise}d) leads to a stronger dispersion of the correlation than a "higher" rank (orange dots in figure \ref{fig:result_asym_low_rank_with_noise}d).
+	% Results.
+		\begin{figure}[H]
+			\centering
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_with_noise_rank=1_10.png}
+				\caption{}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/its_asym_low_rank_with_noise_rank=1_10.png}
+				\caption{}
+			\end{subfigure}
+			\newline
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/dim_asym_low_rank_with_noise_rank=1_10.png}
+				\caption{}
+			\end{subfigure}
+			\hfill
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[width=\textwidth]{../figures/align_spont_asym_low_rank_with_noise_rank=1_10.png}
+				\caption{}
+			\end{subfigure}
+		\caption{\textbf{Correlations between feedforward recurrent alignment and selected response properties for asymmetric low-rank RNNs with random noise.} Additional to the low-rank part constructed only by left and right connectivity vectors, a Gaussian distributed full rank asymmetric random noise is included in the network dynamic (\ref{eq:low_rank_with_noise}). Due to the full rank random noise, the results has large similarity to results from general asymmetric RNNs. Two different ranks are taken to assess the influence of ranks to correlations. The rank $G$ should be significantly smaller than the number of neurons $n$. \\
+		With $n = 200$, comparing ranks $G = 1$ in blue dots with $G=10$ in orange:\\
+		\textbf{(a)} Correlation between feedforward recurrent alignment (x-axis) and trial-to-trial correlation (y-axis). \\
+		\textbf{(b)} Correlation between feedforward recurrent alignment (x-axis) and intra-trial stability (y-axis). \\
+		\textbf{(c)} Dimensionality (y-axis) calculated analytically (lines, blue line for $G=1$ and orange line for $G=10$) and empirically in correlation with feedforward recurrent alignment (x-axis).\\
+		\textbf{(d)} Alignment of evoked patterns to spontaneous activity (y-axis) in relationship with feedforward recurrent alignment (x-axis).}
+		\label{fig:result_asym_low_rank_with_noise}
+		\end{figure}
+ 
+	% Reason for the dispersion? 
 	
 	\paragraph{Conclusion}
 	
