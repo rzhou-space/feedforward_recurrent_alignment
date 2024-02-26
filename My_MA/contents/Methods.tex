@@ -197,7 +197,7 @@
 	
 	For a certain step width $\tilde{\Delta t}$, the intra-trial stability $c(\Delta \tilde{t})$ was defined by the correlation between normalized response at time $t$ and its delayed response at time $t + \Delta \tilde{t}$ 
 		\begin{equation}
-			c(\Delta \tilde{t}) := \bar{r}(t)^T \bar{r}(t + \Delta t) \, , 
+			c(t, \Delta \tilde{t}) := \bar{r}(t)^T \bar{r}(t + \Delta t) \, , 
 		\end{equation}
 	where the normalized response is defined as
 		\begin{equation}
@@ -208,7 +208,7 @@
 	The final intra-trial stability for a time period $T$ is the time-averaged value over all time points $0 \leq t \leq T - \Delta \tilde{t}$
 		\begin{equation} \label{eq:its_sym}
 			\begin{split}
-				\bar{c}{(\Delta \tilde{t})} &= \frac{1}{T-\Delta \tilde{t}} \int_{0}^{T-\Delta \tilde{t}} c(\Delta \tilde{t}) \mathrm{d} t\\
+				\bar{c}{(\Delta \tilde{t})} &= \frac{1}{T-\Delta \tilde{t}} \int_{0}^{T-\Delta \tilde{t}} c(t, \Delta \tilde{t}) \mathrm{d} t\\
 				                            &= \frac{1}{T-\Delta \tilde{t}} \int_{0}^{T-\Delta \tilde{t}} \bar{r}(t)^T \bar{r}(t + \Delta t) \mathrm{d} t \, .
 			\end{split} 
 		\end{equation}
@@ -229,7 +229,7 @@
 		\end{equation}
 	with 
 		\begin{equation} \label{eq:Sigma_dim}
-			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{2(i-L)}{\beta}\right) e_i e_i^T \, , 
+			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{-2(i-L)}{\beta}\right) e_i e_i^T \, , 
 		\end{equation}
 	in which the parameter $M := \kappa \beta$ and $\beta$ reflects the dimensionality \cite{tragenap2023nature} and $\kappa$ for determining the number of directions $e_i$ that contribute to the dimensionality. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as $e_i$ for (\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order. The exponential factor in (\ref{eq:Sigma_dim}) simulates the exponential decay of variance ratio observed in prior data \cite{tragenap2023nature}. 
 	
@@ -241,11 +241,11 @@
 		\end{equation}
 	where $\lambda_i$ the eigenvalues of a certain response pattern with covariance $\mathbf{\Sigma}$. Since as defined in (\ref{eq:Sigma_dim}), $\Sigma^{\text{Dim}}$ has the same eigenvectors (aka. principal components )as $J$. Therefore, the eigenvalues $\lambda_i^{\text{Dim}}$(aka. variance ratio or variance explained) for $\Sigma^{\text{Dim}}$ are transformed eigenvalues $\lambda_i$ of $J$ expressed as
 		\begin{equation}
-			\lambda_i^{\text{Dim}} = \text{exp}\left(\frac{2(i-L)}{\beta}\right) \lambda_i \, .
+			\lambda_i^{\text{Dim}} = \text{exp}\left(\frac{-2(i-L)}{\beta}\right) \lambda_i \, .
 		\end{equation}
 	The covariance of the responses share the same eigenvectors as $\Sigma^{\text{Dim}}$ based on its distribution (\ref{eq:response_distribution_dimensionality}) and therefore also the same as $J$. The eigenvalues (aka. variance ratio) for the responses could be constructed analogously with
 		\begin{equation} \label{eq:response_variance_ratio_dimensionality}
-			\lambda_i^{\text{Act}} = \text{exp}\left(\frac{2(i-L)}{\beta}\right) \frac{1}{(1-\lambda_i)^2} \, ,
+			\lambda_i^{\text{Act}} = \text{exp}\left(\frac{-2(i-L)}{\beta}\right) \frac{1}{(1-\lambda_i)^2} \, ,
 		\end{equation}
 	for $i = L, ..., L+M$, due to the inverse transformation. 
 %	 For the covariance $\Sigma^{\text{Dim}}$ from inputs, if having its eigenvalues $\lambda_i^{\text{Dim}}$, the eigenvalues $\lambda_i^{\text{Act}}$ of the steady state responses could be transformed based on the distribution (\ref{eq:response_distribution_dimensionality}). It leads to the following relation
@@ -279,7 +279,7 @@
 	%It was observed in \cite{tragenap2023nature} that patterned visual experience is required to cause stable alignment between visual responses and the spontaneous activities, while naive visual responses show only loose alignment with spontaneous activities. To capture this change of property as a quantity instead of a vector as (\ref{label}), it had to firstly define the alignment between two activity patterns. The alignment of $R$ to $S$ was defined as the average of pattern $S$ explained by normalized trials $r_{i, R}$. The alignment between pattern $S$ and one trial $r_{i, R}$ from $R$ is defined as
 	Consider the projection of activity pattern $R$ in all directions of spontaneous pattern $S$ together to reflect the overall overlaps between two patterns, we calculate firstly the alignment between a response trial $r_{i, R}$ form $R$ to the spontaneous pattern $S$ 
 		\begin{equation} \label{eq:align_to_spont_act_sym}
-			\gamma_i = \frac{r^T_{i, R} \cdot \Sigma_S \cdot r_{i,R}}{\Vert r^T_{i, R} \Vert^2 \text{Tr}(\Sigma_S)}\, ,
+			\gamma_i = \frac{r^T_{i, R} \cdot \Sigma_S \cdot r_{i,R}}{\Vert r_{i, R} \Vert^2 \text{Tr}(\Sigma_S)}\, ,
 		\end{equation}
 	where $\Sigma_S$ is the covariance of pattern $S$. The final alignment between $S$ and $R$ is then the average value of alignment between $S$ and all trials of $R$. 
 	
@@ -294,7 +294,7 @@
 		\end{equation}
 	The covariance matrix $\mathbf{\Sigma}^{\text{spont}}$ is constructed in the same way as $\mathbf{\Sigma}^{\text{Dim}}$ only with $L=1$ and larger $\beta_{\text{spont}}$, that is
 		\begin{equation} \label{eq:Sigma_spont}
-			\mathbf{\Sigma}^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} \text{exp}\left(\frac{2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
+			\mathbf{\Sigma}^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
 		\end{equation}
 	
 	\clearpage
@@ -322,8 +322,8 @@
 		\label{fig:asymmetric_RNN}
 	\end{figure}
 	
-	
-	\subsubsection{Asymmetric Recurrent Interaction}
+	 
+	\subsubsection{Asymmetric Recurrent Interaction} \label{sec:asym_recurrent_network}
 	% Definition of the asymmetric recurrent interaction network. The problems that come up with the asymmetricity.
 	For the modeling, we construct the asymmetric interaction matrix $J$ through disturbing symmetric interaction matrix by a general asymmetric random matrix
 		\begin{equation} \label{eq:asym_interaction_matrix}
@@ -387,10 +387,11 @@
 	
 	\subsubsection{Related Modification for Evaluation} \label{sec:modification_asym}
 	% Change in dimensionality 
+	%TODO: Monotony 
 	As for symmetric interaction network, four activity properties are taken into account to evaluate the feedforward recurrent alignment hypothesis with measurement of the alignment scores. In the case of asymmetric interaction, the modified alignment scores (section \ref{sec:modify_ffrec_alignment_score}). For repetition, the four properties are
 		\begin{enumerate}
-			\item Trial-to-trial correlation with (\ref{eq:ttc_sym}).
-			\item Intra-trial stability with (\ref{eq:its_sym}).
+			\item Trial-to-trial correlation with (\ref{eq:ttc_sym}). %TODO: the mean vector is also aligned with the modified vectors.
+			\item Intra-trial stability with (\ref{eq:its_sym}). % TODO: the mean vector for inputs aligned with modified vectors.
 			\item Dimensionality.% Modification for the covariance matrix and analytical dimensionality. 
 			
 				  With symmetric interaction networks, the covariance matrix for generation of inputs and responses is constructed with eigenvectors of interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with asymmetric interaction matrix, the eigenvectors are basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix need to be modified synchronously to have at least vectors from $\mathbb{R}^{n \times 1}$. 
@@ -511,19 +512,19 @@
 	Furthermore, we consider to repeatedly apply the recurrently amplified spontaneous stimuli as inputs to discover if the amplified spontaneous activity could increase the alignment to the recurrent network. 
 	
 	\subsubsection{Approximation with White Noise Evoked Activity} % Low rank is here not necessary (could perhaps shortly in Appendix).
-	
+	%TODO: distinguish the white noise evoked spontanous activity and modeled spontanous acttivity at alignment. Therefore from beginning change the sponatenous activity to white noise evoked ...
 	With unknown recurrent structure, which we assume to be asymmetric generally, it is then difficult to find the stimuli pattern such that the trial-to-trial correlation, intra-trial stability and alignment between evoked activity to spontaneous activity to be high while keeping dimensionality low. In other words, we cannot apply the eigenvalues of the recurrent network to align with inputs and then characterize the development of feedforward inputs leading to stable response properties. 
 	
 	Alternatively, we align the inputs to spontaneous pattern and explore the response properties correlation with feedforward recurrent alignment. 
-	
+		
 	% Definition of feedforward recurrent alignment with principal component.
 	Spontaneous activity is evoked by white noise $h \in \mathbb{R}^{n \times 1}$, which is modulated by multivariate normal distribution with mean zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix the identity matrix $I_n \in \mathbb{R}^{n \times n}$, 
 		\begin{equation}
-			h \sim \mathcal{N}(0_v, I_n) \, .
+			h_{\text{white}} \sim \mathcal{N}(0_v, I_n) \, .
 		\end{equation}
 	The spontaneous activity is then modeled by the transformed steady state response $r \in \mathbb{R}^{n \times 1}$, which is also multivariate normal distributed with transformed covariance matrix, 
 		\begin{equation}
-			r \sim \mathcal{N}\left(0_v, (1-J)^{-1}(1-J)^{-T}\right) \, .
+			r_{\text{spont}} \sim \mathcal{N}\left(0_v, (1-J)^{-1}(1-J)^{-T}\right) \, .
 		\end{equation}
 	The response pattern is determined by the covariance matrix. If align the inputs to response patterns, the eigenvectors of covariance matrices are aligned. The eigenvectors of a covariance matrix are also known as principal components for the distribution. 
 	
@@ -543,17 +544,81 @@
 		\end{itemize}
 	
 	% Monotony Method.
-	\paragraph{Monotony}
+	\paragraph{Monotony} The feedforward recurrent alignment should reflect how well the input pattern is aligned with the considered recurrent network. The more the input pattern is aligned with the dominant projection direction in activity space, the stronger should be the evoked response due to response amplification. %TODO: should move the response amplification from results to introduction or method perhaps?.
+	The response strength is determined by the corresponding eigenvalue of aligned direction. Since the inputs are aligned to the spontaneous activity pattern, the feedforward recurrent alignment should be monotonusly positive correlated with the eigenvalues of spontaneous activity pattern. 
 	
 	% ttc method.
+	\paragraph{Trial-to-trial correlation} We consider the case of general asymmetric recurrent network from section \ref{sec:asym_recurrent_network}. Thus, the modification is similar to section \ref{sec:modify_ffrec_alignment_score}. The input pattern $h$ is aligned to the principal component $p$ of the covariance matrix from spontaneous activity pattern and therefore modeled by
+		\begin{equation}
+			h \sim \mathcal{N}(p, \sigma_{\text{trial}I_n}) \, .
+		\end{equation}
+	The steady state response evoked by the inputs are transformed multivariate normal distribution
+		\begin{equation}
+			r \sim \mathcal{N}\left((1-J)^{-1}p, \sigma_{\text{trial}} (1-J)^{-1} (1-J)^{-T}\right) \, .
+		\end{equation}
+	The trial-to-trial correlation reflects the variation between different trials. It is again the average of pairwise Pearson correlation between response trials as defined by $\beta_s$ (\ref{eq:ttc_sym}). 
 	
 	% its method.
+	\paragraph{Intra-trial stability} Intra-trial stability quantifies the variation inside one response trial evoked by input. One time-dependent input and evoked steady state response trial is approximated by Euler-Maruyama scheme \ref{eq:sde_intra_trial_stability}. The input pattern $h$ is aligned to principal components $p$ of activity pattern. Therefore, the mean vector for $h$ is the aligned principal component $p$. The input and evoked response are therefore formulated as
+		\begin{subequations}
+			\begin{align}
+				\mathrm{d} h & = p \mathrm{dt} + \sigma_{\text{time}} \mathrm{d} W \\
+				\mathrm{d} r & = (-r + J \cdot p) \mathrm{d}t + \sigma_{\text{time}} \mathrm{d} W \, .
+			\end{align}
+		\end{subequations}
+	The intra-trial stability is the time average of delayed response correlation defined by (\ref{eq:input_distribution_dimensionality}). 
 	
 	% dim method
+	\paragraph{Dimensionality} For modulation of change in dimensionality along alignment, the covariance matrix for input distribution is constructed as \ref{eq:Sigma_dim} but with principal components $p_i$ of spontaneous activity as an approximation to the eigenvectors of the original recurrent network.  
+		\begin{equation}
+			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{-2(i-L)}{\beta}\right) p_i p_i^T \, .
+		\end{equation}
+	The input and the evoked activity are modeled by multivariate normal distribution 
+		\begin{subequations} \label{eq:dim_white_noise}
+			\begin{align}
+				h & \sim \mathcal{N}(0_v, \Sigma^{\text{Dim}}) \\
+				r & \sim \mathcal{N}(0_v, (I_n - J)^{-1} \Sigma^{\text{Dim}} (I_n - J)^{-T}) \,.
+			\end{align}
+		\end{subequations}
+	The effective dimensionality (\ref{eq:effective_dimensionality_analytical}) is approximated empirically by the eigenvalues of covariance matrix from spontaneous activity pattern (\ref{eq:dim_empirical_sym}). 
 	
 	% alignment to spont. act
+	\paragraph{Alignment between evoked activity and spontaneous activity}  To grantee the spontaneous has a broader input than the evoked activity, the spontaneous activity here for alignment to evoked activity is constructed similar to (\ref{eq:dim_white_noise}) but with a higher dimensioality $\beta_{\text{spont}} > \beta$. For the formulation of covariance matrix for spontaneous activity, the principal components from white noise evoked activity pattern is used in (\ref{eq:Sigma_spont_asym}). 
+		\begin{equation}
+			\Sigma^{\text{spont}} := \sum_{i=L}^{M+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) p_i p_i^T \, .
+		\end{equation}
+	The spontaneous activity is then modeled by
+		\begin{equation} \label{eq:spont_act_white_noise}
+			r \sim \mathcal{N}(0_v, (I_n - J)^{-1} \Sigma^{\text{spont}} (I_n - J)^{-T}) \,. 
+		\end{equation}
+	The amount of overlap between evoked activity pattern (\ref{eq:dim_white_noise}b) and the principal components of spontaneous activity (\ref{eq:spont_act_white_noise}) quantifies the alignment (\ref{eq:align_to_spont_act_sym}). The average alignment over all $N$ evoked response trials is the final alignment score for alignment to spontaneous activity.
+		\begin{equation}
+			\gamma = \frac{1}{N} \left(\frac{r^T_{i} \cdot \Sigma^{\text{spont}} \cdot r_{i}}{\Vert r_{i} \Vert^2 \text{Tr}(\Sigma^{\text{spont}} )}\right)
+		\end{equation}
 	
 	\subsubsection{Iterative Approximation with Low Dimensional Inputs}
+	Low dimensional inputs can be generated experimentally, while the high dimensional inputs are almost not possible to be generated. So, we wonder if the feedforward recurrent alignment can also be adapted to represent the development and better alignment under the settings that, 1) only low dimensional inputs are offered and 2) the original recurrent network is asymmetric but unknown.
+	
+	To model the low dimensional input, random orthonormal basis vectors for construction of covariance matrix $e_i$ are obtained through Gram-Schmidt process. The same scheme as $\Sigma^{\text{Dim}}$ is applied, 
+		\begin{equation}
+			\Sigma_{\text{Low}} := \sum_{i=L}^{1+M} \text{exp}\left(\frac{-2(i-1)}{\beta}\right) e_i e_i^T \, .
+		\end{equation}
+	The low dimensional inputs are then modeled as multivariate normal distribution with mean the zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix $\Sigma^{\text{Low}}$, 
+		\begin{equation} \label{eq:low_dim_input_white_noise}
+			h_{\text{Low}} \sim \mathcal{N}(0_v, \Sigma_{\text{Low}}) \, .
+		\end{equation}
+	The response evoked by low dimensional input (\ref{eq:low_dim_input_white_noise}) is the linearly transformed multivariate normal distribution
+		\begin{equation}
+			r_0 \sim \mathcal{N}\left( 0_v, (1-J)^{-1} \Sigma_{\text{Low}} (1-J)^{-T} \right) \, .
+		\end{equation}
+	At this step, the feedforward recurrent alignment $\nu$ can be calculated with low dimensional input $h$ 
+		\begin{equation}
+			\nu_0 = \frac{h^T J h}{\Vert h \Vert^2} \,.
+		\end{equation} 
+	
+	Prior knowledge predicts stimulus inputs that align to spontaneous activity can be recurrently amplified and lead to more reliable responses \cite{mulholland2023selective}. Besides, the recurrent connectivity pattern shapes so that the inputs matches better with spontaneous activity during development \cite{marre2009reliable}. 
+	the response can be better aligned with the spontaneous activity than the input %TODO: briding the idea of repeatly applying the response.
+	
 	
 	\clearpage
 	\subsection{Hebbian Learning in Feedforward Recurrent Networks}
