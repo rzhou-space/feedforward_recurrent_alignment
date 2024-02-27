@@ -294,7 +294,7 @@
 		\end{equation}
 	The covariance matrix $\mathbf{\Sigma}^{\text{spont}}$ is constructed in the same way as $\mathbf{\Sigma}^{\text{Dim}}$ only with $L=1$ and larger $\beta_{\text{spont}}$, that is
 		\begin{equation} \label{eq:Sigma_spont}
-			\mathbf{\Sigma}^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
+			\mathbf{\Sigma}^{\text{spont}} := \sum_{i=1}^{M+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
 		\end{equation}
 	
 	\clearpage
@@ -511,8 +511,9 @@
 	
 	Furthermore, we consider to repeatedly apply the recurrently amplified spontaneous stimuli as inputs to discover if the amplified spontaneous activity could increase the alignment to the recurrent network. 
 	
-	\subsubsection{Approximation with White Noise Evoked Activity} % Low rank is here not necessary (could perhaps shortly in Appendix).
+	\subsubsection{Approximation with White Noise Evoked Activity} \label{sec:white_noise_approx_ffrec}% Low rank is here not necessary (could perhaps shortly in Appendix).
 	%TODO: distinguish the white noise evoked spontanous activity and modeled spontanous acttivity at alignment. Therefore from beginning change the sponatenous activity to white noise evoked ...
+	% TODO: Connection between white noise evoked activity and spontaneous activity.
 	With unknown recurrent structure, which we assume to be asymmetric generally, it is then difficult to find the stimuli pattern such that the trial-to-trial correlation, intra-trial stability and alignment between evoked activity to spontaneous activity to be high while keeping dimensionality low. In other words, we cannot apply the eigenvalues of the recurrent network to align with inputs and then characterize the development of feedforward inputs leading to stable response properties. 
 	
 	Alternatively, we align the inputs to spontaneous pattern and explore the response properties correlation with feedforward recurrent alignment. 
@@ -524,12 +525,12 @@
 		\end{equation}
 	The spontaneous activity is then modeled by the transformed steady state response $r \in \mathbb{R}^{n \times 1}$, which is also multivariate normal distributed with transformed covariance matrix, 
 		\begin{equation}
-			r_{\text{spont}} \sim \mathcal{N}\left(0_v, (1-J)^{-1}(1-J)^{-T}\right) \, .
+			r_{\text{white}} \sim \mathcal{N}\left(0_v, (1-J)^{-1}(1-J)^{-T}\right) \, .
 		\end{equation}
 	The response pattern is determined by the covariance matrix. If align the inputs to response patterns, the eigenvectors of covariance matrices are aligned. The eigenvectors of a covariance matrix are also known as principal components for the distribution. 
 	
 	To model the feedforward recurrent alignment hypothesis, the inputs are aligned to principal components and the feedforward alignment score is formulated with principal components instead of with modified eigenvectors of asymmetric recurrent network like section \ref{sec:modify_ffrec_alignment_score}. For a input $h$ aligned to a principal component $p$, the feedforward recurrent alignment is constructed with 
-		\begin{equation}
+		\begin{equation} \label{eq:ffrec_white_noise}
 			\nu := \frac{p^T J p}{\Vert p \Vert^2} \, .
 		\end{equation}
 	
@@ -616,8 +617,29 @@
 			\nu_0 = \frac{h^T J h}{\Vert h \Vert^2} \,.
 		\end{equation} 
 	
-	Prior knowledge predicts stimulus inputs that align to spontaneous activity can be recurrently amplified and lead to more reliable responses \cite{mulholland2023selective}. Besides, the recurrent connectivity pattern shapes so that the inputs matches better with spontaneous activity during development \cite{marre2009reliable}. 
-	the response can be better aligned with the spontaneous activity than the input %TODO: briding the idea of repeatly applying the response.
+	Prior knowledge predicts stimulus inputs that align to spontaneous activity can be recurrently amplified and lead to more reliable responses \cite{mulholland2023selective}. 
+	%Besides, the recurrent connectivity pattern shapes so that the inputs matches better with spontaneous activity during development \cite{marre2009reliable}. the response can be better aligned with the spontaneous activity than the input 
+	%TODO: briding the idea of repeatly applying the response.
+	We therefore wonder if the responses also align better with the recurrent network and if the repeated apply of responses lead to a development of alignment to recurrent network. In other words, if the alignment of responses could also capture the neural development process in a certain way.
+	
+	For that, we apply repeatedly the prior response as the input for the network and at the same time update step wise the corresponding feedforward recurrent alignment. 
+	
+	If $r_0$ is the input for the recurrent network, the evoked response $r_1$ is due to the linear transformation of normal distribution also a multivariate normal distribution with linearly transformed variance.
+		\begin{equation}
+			r_1 \sim \mathcal{N}\left(0_v, \left((1-J)^{-1}\right)^2 \Sigma_{\text{Low}} \left((1-J)^{-T}\right)^2\right) \, .
+		\end{equation}
+	The corresponding feedforward recurrent alignment, noted as $\nu_1$, is determined by the input $r_0$,
+		\begin{equation}
+			\nu_1 = \frac{r_0^T J r_0}{\Vert r_0 \Vert^2}\, .
+		\end{equation}
+	Iteratively, at the $n$-th time of applying prior response $r_{n-1}$ as input, the evoked response $r_n$ has the general formulation of a multivariate normal distribution with linearly transformed covariance matrix,
+		\begin{equation}
+			r_n \sim \mathcal{N}\left( 0_v, \left((1-J)^{-1}\right)^{n+1} \Sigma_{\text{Low}} \left((1-J)^{-T}\right)^{n+1} \right) \,. 
+		\end{equation}
+	The corresponding $n$-th feedforward recurrent $\nu_n$ alignment has the general formulation with $r_{n-1}$,
+		\begin{equation}
+			\nu_n = \frac{r_{n-1}^T J r_{n-1}}{\Vert r_{n-1} \Vert^2} \,.
+		\end{equation}
 	
 	
 	\clearpage

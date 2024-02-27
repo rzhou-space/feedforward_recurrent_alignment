@@ -561,43 +561,93 @@
 	%However, on the other hand, the random noise could cover the effect from low-rank part. 
 	
 	% Analysis of results.
-	The results (figure \ref{fig:result_asym_low_rank_with_noise}) confirmed our expectations of correlations between response properties and feedforward recurrent alignment. In spite of the suppression effect of full rank random noise, the influence can still be slightly observed, especially in the correlation between feedforward recurrent alignment and alignment to spontaneous activity (figure \ref{fig:result_asym_low_rank_with_noise}d). Low rank (blue dots in figure \ref{fig:result_asym_low_rank_with_noise}d) leads to a stronger dispersion of the correlation than a "higher" rank (orange dots in figure \ref{fig:result_asym_low_rank_with_noise}d).
+	The results (figure \ref{fig:result_asym_low_rank_with_noise}) confirmed our expectations of correlations between response properties and feedforward recurrent alignment that the correlations have high similarity to the results we got from general asymmetric RNNs. Under the strong effect of full rank random noise, the difference cased by low-rank part is not significant (compare blue and orange dots in figure \ref{fig:result_asym_low_rank_with_noise}). The results in section \ref{sec:asymmetric_results} indicates that the dispersion increases with larger proportion of asymmetry in RNNs. Since the final construction consists only of asymmetric networks, the dispersion is large especially at dimensionality. 
+	% In spite of the suppression effect of full rank random noise, the influence can still be slightly observed, especially in the correlation between feedforward recurrent alignment and alignment to spontaneous activity (figure \ref{fig:result_asym_low_rank_with_noise}d). Low rank (blue dots in figure \ref{fig:result_asym_low_rank_with_noise}d) leads to a stronger dispersion of the correlation than a "higher" rank (orange dots in figure \ref{fig:result_asym_low_rank_with_noise}d).
 	% Results.
+		\vspace{-0.2cm}
 		\begin{figure}[H]
 			\centering
 			\begin{subfigure}[b]{0.45\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_with_noise_rank=1_10.png}
+				\includegraphics[width=\textwidth]{../figures/ttc_asym_low_rank_with_noise_rank=1_5.png}
 				\caption{}
 			\end{subfigure}
 			\hfill
 			\begin{subfigure}[b]{0.45\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{../figures/its_asym_low_rank_with_noise_rank=1_10.png}
+				\includegraphics[width=\textwidth]{../figures/its_asym_low_rank_with_noise_rank=1_5.png}
 				\caption{}
 			\end{subfigure}
 			\newline
 			\begin{subfigure}[b]{0.45\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{../figures/dim_asym_low_rank_with_noise_rank=1_10.png}
+				\includegraphics[width=\textwidth]{../figures/dim_asym_low_rank_with_noise_rank=1_5.png}
 				\caption{}
 			\end{subfigure}
 			\hfill
 			\begin{subfigure}[b]{0.45\textwidth}
 				\centering
-				\includegraphics[width=\textwidth]{../figures/align_spont_asym_low_rank_with_noise_rank=1_10.png}
+				\includegraphics[width=\textwidth]{../figures/align_spont_asym_low_rank_with_noise_rank=1_5.png}
 				\caption{}
 			\end{subfigure}
 		\caption{\textbf{Correlations between feedforward recurrent alignment and selected response properties for asymmetric low-rank RNNs with random noise.} Additional to the low-rank part constructed only by left and right connectivity vectors, a Gaussian distributed full rank asymmetric random noise is included in the network dynamic (\ref{eq:low_rank_with_noise}). Due to the full rank random noise, the results has large similarity to results from general asymmetric RNNs. Two different ranks are taken to assess the influence of ranks to correlations. The rank $G$ should be significantly smaller than the number of neurons $n$. \\
-		With $n = 200$, comparing ranks $G = 1$ in blue dots with $G=10$ in orange:\\
+		With $n = 200$, comparing ranks $G = 1$ in blue dots with $G=5$ in orange:\\
 		\textbf{(a)} Correlation between feedforward recurrent alignment (x-axis) and trial-to-trial correlation (y-axis). \\
 		\textbf{(b)} Correlation between feedforward recurrent alignment (x-axis) and intra-trial stability (y-axis). \\
-		\textbf{(c)} Dimensionality (y-axis) calculated analytically (lines, blue line for $G=1$ and orange line for $G=10$) and empirically in correlation with feedforward recurrent alignment (x-axis).\\
+		\textbf{(c)} Dimensionality (y-axis) calculated analytically (lines, blue line for $G=1$ and orange line for $G=5$) and empirically in correlation with feedforward recurrent alignment (x-axis).\\
 		\textbf{(d)} Alignment of evoked patterns to spontaneous activity (y-axis) in relationship with feedforward recurrent alignment (x-axis).}
 		\label{fig:result_asym_low_rank_with_noise}
 		\end{figure}
  
-	% Reason for the dispersion? 
+	% Reason for the dispersion? Only with rank = 10 has small dispersion. Other ranks has the same degree of dispersion...
+	
+	\paragraph{Conclusion}
+	We explored the modeling of feedforward recurrent alignment in asymmetric low-rank RNNs. Two types of constructions are taken into account: 1) single part of non-equal left and right connectivity vectors and 2) with additional full rank random noise (defined in method section \ref{sec:ffrec_low_rank}). 
+	
+	The simple construction without random noise has eigenvalue distribution depending on the rank. Keeping the rank significantly smaller than the number of neurons, the number of non-zero eigenvalues equal the rank. Thus, the number of non-zero feedforward recurrent alignment score also depends on the rank. Due to the modification of aligning inputs to symmetrized RNNs for calculation of feedforward recurrent alignment score, the correlation between alignment score and trial-to-trial correlation is separated into two sub-groups. As a result, although in each sub-region the positive correlation between alignment score and trial-to-trial correlation is kept, there is no global positive correlation over the total range. 
+	
+	Adding the full rank random noise can avoid the effect of doubling caused by symmetrization. The expected positive correlations between feedforward recurrent alignment and trail-to-trial correlation, intra-trial stability, and alignment to spontaneous activity are kept. Large dispersion is caused by the total asymmetry of RNNs. In spite of large dispersion, the negative correlation between dimensionality and feedforward recurrent alignment can be observed. However, expression of low-rank connections is suppressed by the full rank random noise, such that there is no significant difference between RNNs with various ranks. 
+	
+	\clearpage
+	\subsection{White Noise Evoked Activity Can Help to Approximate Dominant Activity Direction in Response Space for Unknown Asymmetric Recurrent Networks}
+	% TODO: Die Quelle kann noch bisschen spezifisch sein wenn ich noch mehr davon weiß. 
+	% Background/Problem.
+	Normally during experimental procedures, the complete recurrent network structure of the laboratory animal keeps unknown. Therefore, even if the feedforward recurrent alignment hypothesis can be theoretically underpinned well in both symmetric and asymmetric recurrent networks (section \ref{sec:results_symmetric} and section \ref{sec:asym_ffrec_response}), the hypothesis cannot be well undertaken in experimental environments. 
+	
+	% Goal
+	Our goal here is to achieve a theoretical framework for the feedforwar recurrent alignment that is compatible experimentally without knowing the exact recurrent network structure. 
+	% Spontanoues activity.
+	
+	Motivated by some predictions from a series of theoretical frameworks \cite{mulholland2023selective, marre2009reliable} that the matching between inputs and spontaneous activity can lead to more reliable evoked responses and more efficient transmission across cortical networks, we consider the idea of generating spontaneous-like activity pattern for alignment as an approximation of the original recurrent network. 
+	
+	% Use white noise to approximate spontaneous activity. 
+	To generate spontaneous-like activity patterns, experimentally methods with white noise is suggested by the lab of H.Mulholland.  %TODO: Is this correct? Reference of Video/Postabstracts. 
+	Therefore, we model the white noise and its evoked activity theoretically for construction of modified feedforward recurrent alignment score with principal components of white noise evoked activity pattern. Evaluation of our framework covers mainly four perspectives of response properties, namely trial-to-trial correlation, intra-trial stability, dimensionality, and alignment of evoked activity to spontaneous activity (method section \ref{sec:white_noise_approx_ffrec}). 
+	
+	\subsubsection{Positive Monotonic Correlation between Feedforward Recurrent Alignment Score and Eigenvalues of White Noise Evoked Activity Pattern}
+	
+	% Reason for monotony (review from the method caption). + expactations + results.
+	Feedforward recurrent alignment score (\ref{sec:white_noise_approx_ffrec}) should reflect how well the input is aligned with the dominant direction of response space for recurrent network. Since the original recurrent network is unknown, we apply the white noise evoked activity pattern for approximation of the alignment. Therefore, aligning the input to principal components of white noise evoked activity pattern instead of the original recurrent network. 
+	
+	A positive monotony correlation between feedforward recurrent and variance ratio of aligned white noise evoked activity pattern is essential for guaranteeing the functionality of feedforward recurrent alignment score. Due to the selective response amplification (\ref{eq:response_amplification}), the dominant variance ratio (aka. eigenvalues of covariance matrix) of white noise evoked pattern should determine the response. Thus, the feedforward recurrent alignment should have a high value when aligning to the corresponding principal components of dominant variance ratio, indicating that the evoked response would be reliable. The monotony guarantees that the alignment to dominant principal components is the only source for increase of the feedforward recurrent alignment score. 
+	
+	% was wir machen wollen: ffrec nun sollte funktionieren. Also wenn es groß ist, sollte die resposnes properties gut sein --> durch alignment to white noise evoked act. kann man auch die development von response properties klären. 
+		\begin{SCfigure}[0.9][h] 
+			\centering
+			\caption{0}
+			\includegraphics[width=0.5\textwidth]{imagefile}
+			\label{}
+		\end{SCfigure}
+	
+	\subsubsection{Evaluation of Approximation with white noise through Response Properties}
+	
+	\paragraph{Trial-to-trial Correlation}
+	
+	\paragraph{Intra-trial Stability}
+	
+	\paragraph{Dimensionality}
+	
+	\paragraph{Alignment to Spontaneous Activity}
 	
 	\paragraph{Conclusion}
 	
