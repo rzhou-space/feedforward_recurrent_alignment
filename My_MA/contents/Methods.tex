@@ -508,6 +508,7 @@
 	
 	% Explanation of the intuition. Want to approximate the dominant modes.
 	Therefore, we wonder if we could apply the experimental measurable spontaneous activity to characterize the feedforward recurrent alignment. Without knowing the eigenvectors of the recurrent networks, align feedforward inputs to the spontaneous activity instead of the recurrent networks. This can be a further modification for modeling feedforward recurrent alignment for general asymmetric recurrent networks. 
+	%TODO: connections between white noise and spontaneous activity --> H.Mulholland Lab see results. + difference between white noise evoked spontaneous-like activity (generating similar data) and spontaneous activity we modeled (fitting to ex.data).
 	
 	Furthermore, we consider to repeatedly apply the recurrently amplified spontaneous stimuli as inputs to discover if the amplified spontaneous activity could increase the alignment to the recurrent network. 
 	
@@ -549,7 +550,7 @@
 	The response strength is determined by the corresponding eigenvalue of aligned direction. Since the inputs are aligned to the spontaneous activity pattern, the feedforward recurrent alignment should be monotonusly positive correlated with the eigenvalues of spontaneous activity pattern. 
 	
 	% ttc method.
-	\paragraph{Trial-to-trial correlation} We consider the case of general asymmetric recurrent network from section \ref{sec:asym_recurrent_network}. Thus, the modification is similar to section \ref{sec:modify_ffrec_alignment_score}. The input pattern $h$ is aligned to the principal component $p$ of the covariance matrix from spontaneous activity pattern and therefore modeled by
+	\paragraph{Trial-to-trial correlation} We consider the case of general asymmetric recurrent network from section \ref{sec:asym_recurrent_network} with formulation considering different grade of symmetry (\ref{eq:asym_interaction_matrix}). Thus, the modification is similar to section \ref{sec:modify_ffrec_alignment_score}. The input pattern $h$ is aligned to the principal component $p$ of the covariance matrix from spontaneous activity pattern and therefore modeled by
 		\begin{equation}
 			h \sim \mathcal{N}(p, \sigma_{\text{trial}I_n}) \, .
 		\end{equation}

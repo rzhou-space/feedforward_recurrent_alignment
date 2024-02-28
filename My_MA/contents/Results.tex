@@ -614,41 +614,94 @@
 	% Background/Problem.
 	Normally during experimental procedures, the complete recurrent network structure of the laboratory animal keeps unknown. Therefore, even if the feedforward recurrent alignment hypothesis can be theoretically underpinned well in both symmetric and asymmetric recurrent networks (section \ref{sec:results_symmetric} and section \ref{sec:asym_ffrec_response}), the hypothesis cannot be well undertaken in experimental environments. 
 	
-	% Goal
-	Our goal here is to achieve a theoretical framework for the feedforwar recurrent alignment that is compatible experimentally without knowing the exact recurrent network structure. 
 	% Spontanoues activity.
-	
 	Motivated by some predictions from a series of theoretical frameworks \cite{mulholland2023selective, marre2009reliable} that the matching between inputs and spontaneous activity can lead to more reliable evoked responses and more efficient transmission across cortical networks, we consider the idea of generating spontaneous-like activity pattern for alignment as an approximation of the original recurrent network. 
 	
+	% Goal
+	Our goal here is to achieve a theoretical framework for the feedforward recurrent alignment that is compatible experimentally without knowing the exact recurrent network structure. Besides, the framework could also support the priors founding that better alignment between input and spontaneous activity leads to reliable response activity. 
+	
 	% Use white noise to approximate spontaneous activity. 
-	To generate spontaneous-like activity patterns, experimentally methods with white noise is suggested by the lab of H.Mulholland.  %TODO: Is this correct? Reference of Video/Postabstracts. 
+	To generate spontaneous-like activity patterns, experimentally methods with white noise is suggested by the lab of H.Mulholland \cite{cosyne2023}.  %TODO: Is this correct? Reference of Video/Postabstracts. 
 	Therefore, we model the white noise and its evoked activity theoretically for construction of modified feedforward recurrent alignment score with principal components of white noise evoked activity pattern. Evaluation of our framework covers mainly four perspectives of response properties, namely trial-to-trial correlation, intra-trial stability, dimensionality, and alignment of evoked activity to spontaneous activity (method section \ref{sec:white_noise_approx_ffrec}). 
 	
-	\subsubsection{Positive Monotonic Correlation between Feedforward Recurrent Alignment Score and Eigenvalues of White Noise Evoked Activity Pattern}
+	\subsubsection{Input Alignment with White noise evoked activity pattern support previous theoretical frameworks}
+	
+	\paragraph{Positive Monotonic Correlation between Feedforward Recurrent Alignment Score and Eigenvalues of White Noise Evoked Activity Pattern}\mbox{}\\
 	
 	% Reason for monotony (review from the method caption). + expactations + results.
 	Feedforward recurrent alignment score (\ref{sec:white_noise_approx_ffrec}) should reflect how well the input is aligned with the dominant direction of response space for recurrent network. Since the original recurrent network is unknown, we apply the white noise evoked activity pattern for approximation of the alignment. Therefore, aligning the input to principal components of white noise evoked activity pattern instead of the original recurrent network. 
 	
-	A positive monotony correlation between feedforward recurrent and variance ratio of aligned white noise evoked activity pattern is essential for guaranteeing the functionality of feedforward recurrent alignment score. Due to the selective response amplification (\ref{eq:response_amplification}), the dominant variance ratio (aka. eigenvalues of covariance matrix) of white noise evoked pattern should determine the response. Thus, the feedforward recurrent alignment should have a high value when aligning to the corresponding principal components of dominant variance ratio, indicating that the evoked response would be reliable. The monotony guarantees that the alignment to dominant principal components is the only source for increase of the feedforward recurrent alignment score. 
+	A positive monotony correlation between feedforward recurrent and variance ratio of aligned white noise evoked activity pattern is essential for guaranteeing the functionality of feedforward recurrent alignment score. %TODO: what is the exact reason for applying white noise evoked activity? -- so far I think for aligning inputs. But why then monotony to variance ratio of white noise evoked activity?
+	Due to the selective response amplification (\ref{eq:response_amplification}), the dominant variance ratio (aka. eigenvalues of covariance matrix) of white noise evoked pattern should determine the response. Thus, the feedforward recurrent alignment should have a high value when aligning to the corresponding principal components of dominant variance ratio, indicating that the evoked response would be reliable. The monotony guarantees that the alignment to dominant principal components is the only source for increase of the feedforward recurrent alignment score. 
 	
 	% was wir machen wollen: ffrec nun sollte funktionieren. Also wenn es groß ist, sollte die resposnes properties gut sein --> durch alignment to white noise evoked act. kann man auch die development von response properties klären. 
 		\begin{SCfigure}[0.9][h] 
 			\centering
-			\caption{0}
-			\includegraphics[width=0.5\textwidth]{imagefile}
-			\label{}
+			\caption{\textbf{Correlation between feedforward recurrent alignment and variance ratio of white noise evoked activity pattern.} With unknown recurrent network structure, white noise evoked spontaneous-like activity pattern is applied for input alignment. Feedforward recurrent alignment score is formulated with principal components of covariance matrix from white noise evoked activity (\ref{eq:ffrec_white_noise}). The alignment score should positive monotonously correlated with corresponding variance ratio.}
+			\includegraphics[width=0.5\textwidth]{../figures/ffrec_asym_white_noise.png}
+			\label{fig:ffrec_variance_ratio_white_noise}
 		\end{SCfigure}
 	
-	\subsubsection{Evaluation of Approximation with white noise through Response Properties}
+	% Conclusion from result.
+	Result figure \ref{fig:ffrec_variance_ratio_white_noise} illustrates the correlation between the feedforward recurrent alignment with principal components of white noise evoked activity and its corresponding variance ratios. The dominant variance ratios also associate with higher feedforward recurrent alignment. Besides, a significant positive monotony can be observed in figure \ref{fig:ffrec_variance_ratio_white_noise}.
 	
-	\paragraph{Trial-to-trial Correlation}
+	Thus, the feedforward recurrent alignment measure with white noise evoked activity (\ref{eq:ffrec_white_noise}) can be a good candidate measurement for supporting the predictions that inputs aligning to spontaneous activity can generate more reliable responses. 
 	
-	\paragraph{Intra-trial Stability}
+	\paragraph{Evaluation of Approximation with white noise through Response Properties}\mbox{}\\
+	\newline
+	% Why and what we do here.
+	To evaluate if the candidate measurement through aligning to white noise evoked activity (\ref{eq:ffrec_white_noise}) can quantify reliable responses without knowing the recurrent structure, four response properties are taken into account: 1) trial-to-trial correlation, 2) intra-trial stability, 3) dimensionality, and 4) alignment of evoked activity to spontaneous activity. Those four properties are observed in experienced ferrets primary visual cortex \cite{tragenap2023nature} for characterizing reliability of neural responses. Both in symmetric and asymmetric recurrent networks, theoretical modeling of feedforward recurrent alignment hypothesis also support the experimental observations in ferrets. 
 	
-	\paragraph{Dimensionality}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.8\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../figures/color_bar_white_noise.png}
+		\end{subfigure}
+		\newline
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../figures/ttc_white_noise.png}
+			\caption{}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../figures/its_white_noise.png}
+			\caption{}
+		\end{subfigure}
+		\newline
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../figures/dim_white_noise.png}
+			\caption{}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{../figures/align_spont_white_noise.png}
+			\caption{}
+		\end{subfigure}
+		\caption{\textbf{Correlation between feedforward recurrent alignment and selected response properties under aligning inputs to white noise evoked activity pattern.} With inputs aligned to white noise evoked spontaneous-like activity, the modified feedforward recurrent alignment (\ref{eq:ffrec_white_noise}) measures how well inputs are aligned with white noise evoked activity pattern. Better alignment between inputs and white noise evoked activity pattern results higher alignment score, being supposed to indicate high trial-to-trial correlation, high intra-trial stability, low dimensionality, and high alignment to spontaneous activity. The correlations between response properties and feedforward recurrent alignment are modeled with varies degree of symmetry $a$ (\ref{eq:asym_interaction_matrix}) from $a=0$ complete asymmetric to $a=1.0$ complete symmetric. \\
+		\textbf{(a)} Correlation between feedforward recurrent alignment (x-axis) and trial-to-trial correlation (y-axis).\\
+		\textbf{(b)} Correlation between feedforward recurrent alignment (x-axis) and intra-trial stability (y-axis).\\
+		\textbf{(c)} Empirical approximation of effective dimensionality (y-axis) in correlation with feedforward recurrent alignment (x-axis).\\
+		\textbf{(d)} Relationship between feedforward recurrent alignment (x-axis) and alignment to spontaneous activity (y-axis).} 
+		\label{fig:ffrec_response_white_noise}
+	\end{figure}
 	
-	\paragraph{Alignment to Spontaneous Activity}
+	% Expectations + results 
+	If the new constructed feedforward recurrent alignment with white noise evoked activity can well quantify the alignment between input and white noise evoked activity pattern, the correlations between feedforward recurrent alignment and four response properties that mentioned above should coincide with prior feedforward recurrent alignment hypothesis. 
 	
-	\paragraph{Conclusion}
+	% high ffrec -- high ttc, its, dim and low align spont.
+	Therefore, we expect at least that high feedforward recurrent alignment corresponds with high trial-to-trial correlation, intra-trial stability, and alignment to spontaneous activity, while low dimensionality. The results in figure \ref{fig:ffrec_response_white_noise} fulfill our expectations even under different degree of symmetry in network. 
+	
+	% no significant positive correlation. Reason for large dispersion in low ffrec -- need more pcs to determine reliable response. 
+	However, except for intra-trial stability, relatively high trial-to-trial correlation, low dimensionality, and high alignment to spontaneous activity occur with low feedforward recurrent alignment. In other words, large discrepancy exists in range of low feedforward recurrent alignment. 
+	
+	Our assumption is that for principal components with small variance ratio, their influence for contributing to reliability of neural responses is also small. Therefore, in range of small feedforward recurrent alignment, the single corresponding principal components cannot describe neural responses precisely. Thus, the error becoming larger when the neural responses are not well represented. 
+	
+	\subsubsection{Iterative Feedforward Recurrent Alignment from Low Dimensional Inputs Indicates Alignment Improvement}
+	
 	
 \end{document}
