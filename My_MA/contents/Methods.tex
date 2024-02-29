@@ -598,13 +598,16 @@
 			\gamma = \frac{1}{N} \left(\frac{r^T_{i} \cdot \Sigma^{\text{spont}} \cdot r_{i}}{\Vert r_{i} \Vert^2 \text{Tr}(\Sigma^{\text{spont}} )}\right)
 		\end{equation}
 	
-	\subsubsection{Iterative Approximation with Low Dimensional Inputs}
-	Low dimensional inputs can be generated experimentally, while the high dimensional inputs are almost not possible to be generated. So, we wonder if the feedforward recurrent alignment can also be adapted to represent the development and better alignment under the settings that, 1) only low dimensional inputs are offered and 2) the original recurrent network is asymmetric but unknown.
+	\subsubsection{Iterative Approximation with Low Dimensional Inputs} \label{sec:repeat_low_dim_inputs}
+	Low dimensional inputs can be generated experimentally easier than high dimensional inputs %, while the high dimensional inputs are almost not possible to be generated. 
+	So, we wonder if the feedforward recurrent alignment can also be adapted to represent the development and better alignment under the settings that, 1) only low dimensional inputs are offered and 2) the original recurrent network is asymmetric but unknown.
 	
 	To model the low dimensional input, random orthonormal basis vectors for construction of covariance matrix $e_i$ are obtained through Gram-Schmidt process. The same scheme as $\Sigma^{\text{Dim}}$ is applied, 
 		\begin{equation}
-			\Sigma_{\text{Low}} := \sum_{i=L}^{1+M} \text{exp}\left(\frac{-2(i-1)}{\beta}\right) e_i e_i^T \, .
+			\Sigma_{\text{Low}} := \sum_{i=0}^{M} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{Low}}}\right) e_i e_i^T \, .
 		\end{equation}
+	Low dimensionality is realized by parameter $\beta_{\text{Low}}$, which should be smaller than it in $\Sigma^{\text{Dim}}$ and $\Sigma^{\text{spont}}$.
+	
 	The low dimensional inputs are then modeled as multivariate normal distribution with mean the zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix $\Sigma^{\text{Low}}$, 
 		\begin{equation} \label{eq:low_dim_input_white_noise}
 			h_{\text{Low}} \sim \mathcal{N}(0_v, \Sigma_{\text{Low}}) \, .
@@ -614,7 +617,7 @@
 			r_0 \sim \mathcal{N}\left( 0_v, (1-J)^{-1} \Sigma_{\text{Low}} (1-J)^{-T} \right) \, .
 		\end{equation}
 	At this step, the feedforward recurrent alignment $\nu$ can be calculated with low dimensional input $h$ 
-		\begin{equation}
+		\begin{equation} \label{eq:repeat_low_dim_ffrec}
 			\nu_0 = \frac{h^T J h}{\Vert h \Vert^2} \,.
 		\end{equation} 
 	
@@ -638,7 +641,7 @@
 			r_n \sim \mathcal{N}\left( 0_v, \left((1-J)^{-1}\right)^{n+1} \Sigma_{\text{Low}} \left((1-J)^{-T}\right)^{n+1} \right) \,. 
 		\end{equation}
 	The corresponding $n$-th feedforward recurrent $\nu_n$ alignment has the general formulation with $r_{n-1}$,
-		\begin{equation}
+		\begin{equation} \label{eq:update_ffrec}
 			\nu_n = \frac{r_{n-1}^T J r_{n-1}}{\Vert r_{n-1} \Vert^2} \,.
 		\end{equation}
 	
@@ -646,11 +649,42 @@
 	\clearpage
 	\subsection{Hebbian Learning in Feedforward Recurrent Networks}
 	% Following the iterative approximation from the last section. Motivation. The goal.
+	In the neocortex, which forms the convoluted outer surface of the human brain, neurons lie in six vertical layers highly coupled within cylindrical columns. Feedforward connections bring input to a given region from another region located at an earlier stage along a particular processing pathway. Recurrent synapses interconnect neurons within a particular region that are considered to be at the same stage along the processing pathway \cite{dayan2005theoretical}. 
+	
+	Until now, we only considered the recurrent layer under given feedforward inputs (figure \ref{fig:symmetric_RNN}b and figure \ref{fig:asymmetric_RNN}b). However, the feedforward inputs are also the outputs from feedforward network. In this part of work, we will expand the network structure to feedforward recurrent network containing input layer, feedforward interaction and output layer connected by recurrent interactions.
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth]{../figures/feedforward_recurrent.pdf}
+			\caption{\textbf{Illustration of a general feedforward recurrent network construction.} Shown in the figure is a feedforward recurrent network with input layer, output layer, a feedforward synaptic weight matrix for feedforward interactions, and a recurrent synaptic weight matrix for recurrent interactions. Firing rate models are applied in both input layer and output layer for modeling.}
+			\label{fig:feedforward_recurrent_network}
+		\end{figure} 
+	
 	\subsubsection{Model Setting}
 	% One input neuron model. Figure for the model construction. 
+	To relief the understanding of dynamics during the modeling, we start with the simplified assumption of random symmetric recurrent interaction $J$ and linear feedfroward recurrent networks.
+	
+	Two basis cases are considered for our start up modeling: 1) only one input rate $u$, and 2) only Hebbian learning update of feedforward interaction $W$. The output layer keeps occupied by number of $n$ output neurons. 
+	
+	The feedforward interaction $W$ can be described as a $\mathbb{R}^{n \times 1}$ dimensional vector containing $W_i$ the strength of connection between $i$-th output neuron and input neuron. Output rates $v \in \mathbb{R}^{n \times 1}$ describes the activity firing rate for output neurons. The random symmetric interaction $J \in \mathbb{R}^{n \times n}$ is constructed in the same way as for feedforward recurrent alignment hypothesis in section \ref{sec:symmetric_recurrent_interaction}. 
+	
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth]{../figures/single_neuron_feedforward_recurrent.pdf}
+			\caption{\textbf{Illustration of feedforward recurrent network model with single input neuron.}}
+			\label{fig:}
+		\end{figure}
+	
+	The output rates $v \in \mathbb{R}^{n \times 1}$ in this linear case is determined by 
+		\begin{equation} \label{eq:response_ffrec_network}
+			\tau \frac{dv}{dt} = -v + W \cdot u + J \cdot v \,.
+		\end{equation}
+	For simplicity, the time scale constant is set to be $1$. The feedforward input is summarized by the part $h := W \cdot u \in \mathbb{R}^{n \times 1}$.  
+	
 	\subsubsection{Update Rules for Feedforward Network}
 	% The Differential equations for the update rules.
 	% Development and the derivative of the feedforward recurrent alignment.
+	
 	\subsubsection{Projection of the Feedforward Weights on Eigenvectors}
 	% What do the projects and how the projects are calculated.
 	

@@ -703,5 +703,21 @@
 	
 	\subsubsection{Iterative Feedforward Recurrent Alignment from Low Dimensional Inputs Indicates Alignment Improvement}
 	
+	% Backgroud + Expectations
+	With experimental producible low dimensional inputs, we aim to discover how the recurrent network amplify those inputs and if the amplification can provide new insights about alignment development. 
+	
+	Described by the method section \ref{sec:repeat_low_dim_inputs}, low dimensional inputs are modeled with (\ref{eq:low_dim_input_white_noise}). Under the feedforward recurrent alignment hypothesis, the feedforward recurrent alignment score (\ref{eq:repeat_low_dim_ffrec}) should reflect how well the input is aligned to dominant directions for generating reliable neural responses. 
+	% Result
+		\begin{SCfigure}[0.9][h] 
+			\centering
+			\caption{\textbf{Dynamic of iterative feedforward recurrent alignment through applying prior response as input.} Starting with low dimensional input (\ref{eq:low_dim_input_white_noise} with $\beta_{\text{Low}} = 5$), the evoked activity pattern is applied as new input for updating feedforward recurrent alignment. Iteratively repeating this procedure resulting successive update of feedforward recurrent alignment score (\ref{eq:update_ffrec}).}
+			\includegraphics[width=0.5\textwidth]{../figures/repeat_input_ffrec.png}
+			\label{fig:ffrec_repeat_input}
+		\end{SCfigure}
+	Repeatedly applying the prior evoked activity pattern as inputs could reflects possible structural change after recurrent amplification and thus indicating a possible plasticity adaptation of responses. 
+	
+	% Analysis + Conclusion (Oszillation...)
+	The update dynamic of feedforward recurrent in dependence on times of repeatedly applying prior response as inputs is a oscillation (\ref{fig:ffrec_repeat_input}). %TODO: More analysis?! 
+	
 	
 \end{document}
