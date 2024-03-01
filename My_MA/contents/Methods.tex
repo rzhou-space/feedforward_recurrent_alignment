@@ -660,6 +660,13 @@
 			\label{fig:feedforward_recurrent_network}
 		\end{figure} 
 	
+	% Hebbian Learning and plasiticity.
+	Activity-dependent synaptic plasticity is widely believed to be the basic phenomenon underling learning and memory, and it is also thought to play a crucial role in the development of neural circuits \cite{dayan2005theoretical}. To count in this essential characteristic of networks during the development, we integrate the plasticity in the network dynamic. 
+	
+	The fundamental rule for synaptic plasticity in learning and memory is called the Hebb rule, raised by Donald Hebb in 1949. Hebb suggested that if input from neuron A often contributes to the firing of neuron B, then the synapse from A to B should be strengthened. In other words, neuron that fire together, wire together. The activity-dependent synaptic plasticity of the Hebbian type refers to the plasticity that is based on correlation of pre- and postsynaptic firing \cite{dayan2005theoretical}. 
+	
+	There are different types of training procedures for Hebbian type plasticity, including unsupervised learning, supervised learning, reinforcement learning, and so on. we mainly focus on the unsupervised learning. Unsupervised learning provides a model for the effects of experience on mature networks \cite{dayan2005theoretical}. Based on our network model (figure \ref{feedforward_recurrent_network}), we consider the case in which there are multiple postsynaptic neurons. 
+	
 	\subsubsection{Model Setting}
 	% One input neuron model. Figure for the model construction. 
 	To relief the understanding of dynamics during the modeling, we start with the simplified assumption of random symmetric recurrent interaction $J$ and linear feedfroward recurrent networks.
@@ -671,8 +678,8 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.5\textwidth]{../figures/single_neuron_feedforward_recurrent.pdf}
-			\caption{\textbf{Illustration of feedforward recurrent network model with single input neuron.}}
-			\label{fig:}
+			\caption{\textbf{Illustration of feedforward recurrent network model with single input neuron.} For start up of feedforward recurrent network dynamic analysis, the simple case of only one input neuron with fixed random symmetric recurrent interaction $J$. The output layer has number of $n$ neurons. The feedforward interaction matrix is updated with Hebbian rules.}
+			\label{fig:single_neuron_feedforward_recurrent_network}
 		\end{figure}
 	
 	The output rates $v \in \mathbb{R}^{n \times 1}$ in this linear case is determined by 
@@ -681,12 +688,56 @@
 		\end{equation}
 	For simplicity, the time scale constant is set to be $1$. The feedforward input is summarized by the part $h := W \cdot u \in \mathbb{R}^{n \times 1}$.  
 	
+	Provided that the real parts of the eigenvalues of $J$ are less than $1$, this equation has a stable fixed point with a steady-state output activity vector determined by (shown in section \ref{sec:steady_state_response_sym} and \ref{sec:asym_recurrent_network})
+		\begin{equation} \label{eq:steady_eq_ffrec}
+			v = W \cdot u + J \cdot v \, .
+		\end{equation}
+	Solving the above equation (\ref{eq:steady_eq_ffrec}), the steady state response for the feedforward recurrent network is
+		\begin{equation} \label{eq:steady_state_ffrec}
+			v^* = (I_n - J)^{-1} \cdot W \cdot u \, .
+		\end{equation}
+	
 	\subsubsection{Update Rules for Feedforward Network}
 	% The Differential equations for the update rules.
-	% Development and the derivative of the feedforward recurrent alignment.
+	For multiple postsynaptic neurons with fixed recurrent weights $J \in \mathbb{R}^{n \times n}$ and plastic feedforward weights $W \in \mathbb{R}^{n \times 1}$, the basic Hebbian modification over the training input $u \in \mathbb{R}$ is 
+		\begin{equation} \label{eq:basic_Hebb}
+			\tau_w \frac{dW}{dt} = vu \, , 
+		\end{equation}
+	where $\tau_w$ is a time constant that controls the rate at which the weights change and for simplicity set to be $1$. If and only if both presynaptic rate $u$ and postsynaptic rate $v$ has the same signs in rates, meaning that both pre- and postsynaptic activies are both suppressed or activated at the same time, the connection weight between those two neurons increases. Therefore, the equation (\ref{eq:basic_Hebb}) implies that simultaneous pre- and postsynaptic activity increases the feedforward synaptic strength.
 	
+	To compute the weight changes induced by a series of input patterns $u$, a convenient alternative is to average over all of the different input patterns and compute the weight change induced by this average, leading to the average Hebbian rule:
+		\begin{equation} \label{eq:average_Hebb}
+			\frac{dW}{dt} = \langle vu \rangle \, ,
+		\end{equation}
+	with angle brackets $\langle \, \rangle$ denoting averages over the ensemble of input patterns presented during training. 
+	
+	Replace the output rate $v$ in equation (\ref{eq:average_Hebb}) with the steady state formulation (\ref{eq:steady_state_ffrec}), the average plasticity rule can be rewrote as 
+		\begin{equation}
+			\frac{dW}{dt} = \langle (I_n - J)^{-1} \cdot W \cdot u u \rangle = (I_n - J)^{-1} \cdot W \cdot \langle uu \rangle \, .
+		\end{equation}
+	Defining $Q := \langle uu \rangle$ the input autocorrelation, the final formulation of average rule is
+		\begin{equation}
+			\frac{dW}{dt} = (I_n - J)^{-1} \cdot W \cdot Q \, .
+		\end{equation}
+	Since for the simple case here that $u \in \mathbb{R}$, the input autocorrelation $Q = 1$ for all input patterns. Therefore, specifically for the simple network (figure \ref{fig:single_neuron_feedforward_recurrent_network}) we consider, the average rule can be further written as
+		\begin{equation}
+			\frac{dW}{dt} = (I_n - J)^{-1} \cdot W \, .
+		\end{equation} 
+
 	\subsubsection{Projection of the Feedforward Weights on Eigenvectors}
 	% What do the projects and how the projects are calculated.
+	With the average Hebbian rule, the dynamic of the feedforward weight $W$ can be approximated with the help of Euler scheme, resulting the iterative update for $W$ at time point $t+1$
+		\begin{equation}
+			W_{t+1} = W_t + \Delta t (I_n - J)^{-1} \cdot W_t \, , 
+		\end{equation}
+	where $\Delta t$ is a enough small time distance during the total time period $T$. The initial weight $W_0$ for iteration is random Gaussian distributed.
+	
+	% Introduce the idea and perpose for projections. 
+	
+	
+	\subsubsection{Dynamics of Feedforward Recurrent Alignment}
+	% The derivative of feedforward recurrent alignment with update of feedforward weight. 
+	% Development and the derivative of the feedforward recurrent alignment.
 	
 	
 \end{document}
