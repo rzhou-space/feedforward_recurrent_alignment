@@ -187,7 +187,7 @@
 	with $W$ the Wiener process, which is a continuous-time stochastic process with independent Gaussian increments. 
 	
 	To approximate the evoked response $r(t)$, the equation (\ref{eq:sde_intra_trial_stability}b) is solved numerically with Euler-Maruyama scheme 
-		\begin{equation}
+		\begin{equation} \label{eq:euler_maruyama}
 			r_{t+1} = r_t + (-r_t + J \cdot \mu) \Delta t + \sigma_{\text{time}} \sqrt{\Delta t} \Delta \tilde{W}_t \, ,
 		\end{equation}
 	with $r_t$ the response at time point $t$, $\Delta t$ the step width for iteration, and $\Delta \tilde{W}_t \in \mathbb{R}^{n \times 1}$ the Gaussian increment at time point $t$ defined as the multivariate normal distribution with mean vector $0_v$ and covariance matrix $I_n$
@@ -378,52 +378,71 @@
 				\begin{equation} \label{eq:symmetrized_J}
 					\tilde{J} = \frac{J + J^T}{2} \, .
 				\end{equation}
-				Instead of align the feedforward input directly to $J$, we align indirectly to $\tilde{J}$ with its eigenvectors $\tilde{e}_i \in \mathbb{R}^{n \times 1}$. If having feedforward input aligned to eigenvectors to $J$ as in (\ref{eq:ffrec_equals_eigval}), the feedforward recurrent alignment will be calculated with eigenvectors of $\tilde{J}$ instead:
+				Instead of align the feedforward input directly to $J$, we align indirectly to $\tilde{J}$ with its eigenvectors $\tilde{e}_i \in \mathbb{R}^{n \times 1}$. If having feedforward input aligned to eigenvectors to $J$ with $\tilde{h} = \tilde{e}_i $, the feedforward recurrent alignment will be calculated with eigenvectors of $\tilde{J}$ instead:
 				\begin{equation} \label{eq:ffrec_symmetrized}
-					\nu_{\text{sym}} =  \frac{\tilde{e}_i^T J \tilde{e}_i}{\Vert \tilde{e}_i \Vert^2} \in \mathbb{R} \, ,
+					\nu_{\text{sym}} =  \frac{\tilde{h}^T J \tilde{h}}{\Vert \tilde{h} \Vert^2} = \frac{\tilde{e}_i^T J \tilde{e}_i}{\Vert \tilde{e}_i \Vert^2} \in \mathbb{R} \, ,
 				\end{equation}
 				with $\tilde{\lambda}_i$ eigenvalues of $\tilde{J}$ . 
 		\end{enumerate}
 	
 	\subsubsection{Related Modification for Evaluation} \label{sec:modification_asym}
 	% Change in dimensionality 
-	%TODO: Monotony 
-	As for symmetric interaction network, four activity properties are taken into account to evaluate the feedforward recurrent alignment hypothesis with measurement of the alignment scores. In the case of asymmetric interaction, the modified alignment scores (section \ref{sec:modify_ffrec_alignment_score}). For repetition, the four properties are
-		\begin{enumerate}
-			\item Trial-to-trial correlation with (\ref{eq:ttc_sym}). %TODO: the mean vector is also aligned with the modified vectors.
-			\item Intra-trial stability with (\ref{eq:its_sym}). % TODO: the mean vector for inputs aligned with modified vectors.
-			\item Dimensionality.% Modification for the covariance matrix and analytical dimensionality. 
-			
-				  With symmetric interaction networks, the covariance matrix for generation of inputs and responses is constructed with eigenvectors of interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with asymmetric interaction matrix, the eigenvectors are basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix need to be modified synchronously to have at least vectors from $\mathbb{R}^{n \times 1}$. 
-				  
-				  The same problem exists also for the analytical calculation for effective dimensionality (\ref{eq:effective_dimensionality_analytical}): we now have complex eigenvalues that lead to the dimensionality also complex. To overcome this problem, we work along the same modifications as above for covariance matrix.
-				  
-				  As a result, having $e_i$ eigenvectors and $\lambda_i$ of asymmetric interaction network $J$
-				  \begin{itemize}
-				  	\item For modification \ref{sec:modicication_real_part} (\ref{eq:ffrec_real_part}), applying $\tilde{e}_i = \text{Re}(e_i)$ for construction covariance matrix and $\tilde{\lambda}_i = \text{Re}\lambda_i$ for calculation of effective dimensionality. 
-				  	\item For modification \ref{sec:modification_magnitude} (\ref{eq:ffrec_mag}), applying magnitude for all entries in $e_i$ to formulate $\tilde{e}_i$ and $\tilde{\lambda}_i = \vert \lambda_i \vert$ also magnitude of eigenvalues. 
-				  	\item For modification \ref{sec:modification_symmetrized} (\ref{eq:ffrec_symmetrized}), applying eigenvectors $\tilde{e}_i$ and eigenvalues $\tilde{\lambda}_i$ from $\tilde{J}$ (\ref{eq:symmetrized_J}).
-				  \end{itemize}
-			  		
-			  	  The covariance matrix for generating inputs is constructed similar to it with symmetric interaction network (\ref{eq:Sigma_dim}) but with $\tilde{e}_i$ defined above, 
-			  	  	\begin{equation} \label{eq:modifications_dim}
-			  	  		\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{2(i-L)}{\beta}\right) \tilde{e}_i \tilde{e}_i^T \, .
-			  	  	\end{equation}
-		  	  	
-		  	  	  Analogously, calculating the effective dimensionality defined by (\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
-		  	  	  	\begin{equation} \label{eq:modification_eff_dim}
-		  	  	  		d^r_{\text{eff}} = \frac{\left(\sum_{i = L}^{L + M} \text{exp}\left(-2 \frac{i-L}{\beta}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M} \text{exp}\left(-4 \frac{i-L}{\beta}\right)(1-\tilde{\lambda}_i)^{-4}}
-		  	  	  	\end{equation}
-		  	  	
-			\item Alignment to spontaneous activity. % Modification due to dimensionality modification.
-				  
-				  Since the same formulation of covariance matrix with a larger parameter $\beta_{\text{spont}}$ is used for generation of broader endogenous inputs, the same modifications above for dimensionality (\ref{eq:modifications_dim}) can be taken over into covariance matrix of endogenous inputs like (\ref{eq:Sigma_spont}),
-				  	\begin{equation} \label{eq:Sigma_spont_asym}
-				  		\mathbf{\Sigma}^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} \text{exp}\left(\frac{2(i-1)}{\beta_{\text{spont}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
-				  	\end{equation}
-				  
-		\end{enumerate}
+	As for symmetric interaction network, four activity properties are taken into account to evaluate the feedforward recurrent alignment hypothesis with measurement of the alignment scores. In the case of asymmetric interaction, the modified alignment scores (section \ref{sec:modify_ffrec_alignment_score}). 
 	
+	More than the four response properties that considered in the case of symmetric recurrent interaction matrix, for new definition of feedforward recurrent alignment scores, the monotony of score and corresponding eigenvalues have to be verified. Following are more details about how modifications in section \ref{sec:modify_ffrec_alignment_score} influence the modulation of properties that are involved in the evaluation. 
+	
+	\paragraph{Monotony} For a certain eigenvector $e_i$, its corresponding eigenvalues $\lambda_i$ can reflect the strength of response due to the response amplification %TODO: response amplification in methods!!. 
+	Dominant eigenvectors with large eigenvalues can therefore trigger strong response and suppress noise, leading to more reliable evoked activity. If the feedforward recurrent alignment score could well predict the reliability of evoked activities, inserting dominant eigenvectors should result in large score value. Therefore, large feedforward recurrent alignment score calculated with modified eigenvectors $\tilde{h}$ should corresponds with large eigenvalue. In other words, a monotonic positive correlation should exist between eigenvalues and feedforward recurrent alignment score inserting corresponding modified eigenvectors. 
+	
+		
+	\paragraph{Trial-to-trial correlation} 
+	Similar to the case with symmetric interaction network, the first characteristic that is evaluated is the trial-to-trial correlation. With above modifications in section \ref{sec:modify_ffrec_alignment_score}, the inputs are aligned to $\tilde{h}$ for all modifications. That is the mean vector for modeling the inputs by multivariate normal distribution is determined by $\tilde{h}$. 
+		\begin{equation}
+				h \sim \mathcal{N}(\tilde{h}, \sigma_{\text{trial}I_n}) \, .
+		\end{equation}
+		The steady state response evoked by the inputs are transformed multivariate normal distribution
+		\begin{equation}
+				r \sim \mathcal{N}\left((1-J)^{-1}\tilde{h}, \sigma_{\text{trial}} (1-J)^{-1} (1-J)^{-T}\right) \, .
+		\end{equation}
+	Trial-to-trial correlation is determined by $\beta_s$ defined in equation (\ref{eq:ttc_sym}). 
+	
+	\paragraph{Intra-trial stability} Modulation of the single trial is described by the stochastic differential equations (\ref{eq:sde_intra_trial_stability}). When the inputs are aligned to the modified eigenvectors, the mean value of inputs are again determined by $\tilde{h}$ defined in modifications above. As a result, the stochastic differential equations after modification is 
+		\begin{subequations}
+			\begin{align}
+				\mathrm{d} h & = \tilde{h} \mathrm{dt} + \sigma_{\text{time}} \mathrm{d} W \\
+				\mathrm{d} r & = (-r + J \cdot \tilde{h}) \mathrm{d}t + \sigma_{\text{time}} \mathrm{d} W \, ,
+			\end{align}
+		\end{subequations}
+	The solution of evoked activity is followed by Euler-Maruyama scheme (\ref{eq:euler_maruyama}). Intra-trial stability is then calculated with (\ref{eq:its_sym}). 
+	
+	\paragraph{Dimensionality}% Modification for the covariance matrix and analytical dimensionality. 
+	With symmetric interaction networks, the covariance matrix for generation of inputs and responses is constructed with eigenvectors of interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with asymmetric interaction matrix, the eigenvectors are basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix need to be modified synchronously to have at least vectors from $\mathbb{R}^{n \times 1}$. 
+				  
+	The same problem exists also for the analytical calculation for effective dimensionality (\ref{eq:effective_dimensionality_analytical}): we now have complex eigenvalues that lead to the dimensionality also complex. To overcome this problem, we work along the same modifications as above for covariance matrix.
+				  
+	As a result, having $e_i$ eigenvectors and $\lambda_i$ of asymmetric interaction network $J$
+	  \begin{itemize}
+			  	\item For modification \ref{sec:modicication_real_part} (\ref{eq:ffrec_real_part}), applying $\tilde{e}_i = \text{Re}(e_i)$ for construction covariance matrix and $\tilde{\lambda}_i = \text{Re}\lambda_i$ for calculation of effective dimensionality. 
+			  	\item For modification \ref{sec:modification_magnitude} (\ref{eq:ffrec_mag}), applying magnitude for all entries in $e_i$ to formulate $\tilde{e}_i$ and $\tilde{\lambda}_i = \vert \lambda_i \vert$ also magnitude of eigenvalues. 
+			  	\item For modification \ref{sec:modification_symmetrized} (\ref{eq:ffrec_symmetrized}), applying eigenvectors $\tilde{e}_i$ and eigenvalues $\tilde{\lambda}_i$ from $\tilde{J}$ (\ref{eq:symmetrized_J}).
+	  \end{itemize}
+			  		
+  	 The covariance matrix for generating inputs is constructed similar to it with symmetric interaction network (\ref{eq:Sigma_dim}) but with $\tilde{e}_i$ defined above, 
+  	  	\begin{equation} \label{eq:modifications_dim}
+  	  		\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{2(i-L)}{\beta}\right) \tilde{e}_i \tilde{e}_i^T \, .
+  	  	\end{equation}
+		  	  	
+ 	  Analogously, calculating the effective dimensionality defined by (\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
+  	  	  	\begin{equation} \label{eq:modification_eff_dim}
+  	  	  		d^r_{\text{eff}} = \frac{\left(\sum_{i = L}^{L + M} \text{exp}\left(-2 \frac{i-L}{\beta}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M} \text{exp}\left(-4 \frac{i-L}{\beta}\right)(1-\tilde{\lambda}_i)^{-4}}
+  	  	  	\end{equation}
+		  	  	
+	\paragraph{Alignment to spontaneous activity}. % Modification due to dimensionality modification.
+	Since the same formulation of covariance matrix with a larger parameter $\beta_{\text{spont}}$ is used for generation of broader endogenous inputs, the same modifications above for dimensionality (\ref{eq:modifications_dim}) can be taken over into covariance matrix of endogenous inputs like (\ref{eq:Sigma_spont}),
+	  	\begin{equation} \label{eq:Sigma_spont_asym}
+	  		\Sigma^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} 		\text{exp}\left(\frac{2(i-1)}{\beta_{\text{spont}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
+	  	\end{equation}
+				  
 	\clearpage
 	\subsection{Low Rank Recurrent Network Model}
 	% Reasons and importance for looking at low rank networks. (limitations of full rank RNN and advantages of low-rank RNN.)
@@ -561,7 +580,7 @@
 	The trial-to-trial correlation reflects the variation between different trials. It is again the average of pairwise Pearson correlation between response trials as defined by $\beta_s$ (\ref{eq:ttc_sym}). 
 	
 	% its method.
-	\paragraph{Intra-trial stability} Intra-trial stability quantifies the variation inside one response trial evoked by input. One time-dependent input and evoked steady state response trial is approximated by Euler-Maruyama scheme \ref{eq:sde_intra_trial_stability}. The input pattern $h$ is aligned to principal components $p$ of activity pattern. Therefore, the mean vector for $h$ is the aligned principal component $p$. The input and evoked response are therefore formulated as
+	\paragraph{Intra-trial stability} Intra-trial stability quantifies the variation inside one response trial evoked by input. One time-dependent input and evoked steady state response trial is approximated by Euler-Maruyama scheme \ref{eq:euler_maruyama}. The input pattern $h$ is aligned to principal components $p$ of activity pattern. Therefore, the mean vector for $h$ is the aligned principal component $p$. The input and evoked response are therefore formulated as
 		\begin{subequations}
 			\begin{align}
 				\mathrm{d} h & = p \mathrm{dt} + \sigma_{\text{time}} \mathrm{d} W \\
@@ -727,14 +746,39 @@
 	\subsubsection{Projection of the Feedforward Weights on Eigenvectors}
 	% What do the projects and how the projects are calculated.
 	With the average Hebbian rule, the dynamic of the feedforward weight $W$ can be approximated with the help of Euler scheme, resulting the iterative update for $W$ at time point $t+1$
-		\begin{equation}
+		\begin{equation} \label{eq:euler_scheme_ffrec_weight}
 			W_{t+1} = W_t + \Delta t (I_n - J)^{-1} \cdot W_t \, , 
 		\end{equation}
 	where $\Delta t$ is a enough small time distance during the total time period $T$. The initial weight $W_0$ for iteration is random Gaussian distributed.
 	
+	As a result, the change of connections between each output neuron and the single input neuron over time can be approximated through equation (\ref{eq:euler_scheme_ffrec_weight}). The distribution of the weights can be an important information about which connections are strengthened over time by unsupervised learning of feedforward interaction. 
+	
 	% Introduce the idea and perpose for projections. 
+	Moreover, the output from feedforward interaction $h := W \cdot u$ is exactly the feedforward input for the recurrent interaction.  Continuing the idea from feedforward recurrent alignment hypothesis, align the feedforward input $h$ well to recurrent network could predict the reliability of evoked activity. Since $u \in \mathbb{R}$, the feedforward input for recurrent network is proportional to the feedforward weight vector $W$. Therefore, we align the feedforward weight vector $W$ to recurrent network through projection of vector $W$ to space spanned by eigenvectors of recurrent network. 
 	
+	Recurrent network has symmetric interaction $J$, thus the eigenvectors $\{e_i\}_{i = 1, ..., n}$ of $J$ is a set of basis vectors that span the vector space $\mathbb{R}^n$. The feedforward weight vector $W \in \mathbb{R}^{n \times 1}$ can be expressed as linear combination of eigenvectors $\{e_i\}$. For better interpretation, $\{e_i\}$ are ordered so that their corresponding eigenvalues $\{\lambda_i\}$ are in descending order:
+		\begin{equation}
+			e_{\text{max}}, ..., e_i, e_j, ..., e_{\text{min}} \, \, \text{such that} \, \, \lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
+		\end{equation} 
+	The feedforward weight vector $W_t$ at time point $t$ can be formulated as
+		\begin{equation} \label{eq:linear_combi_weight}
+			W_t = \sum_{i = 1}^{n} \phi_i e_i = A \phi \, ,
+		\end{equation}
+	where $\phi \in \mathbb{R}^{n \times 1}$ is the vector containing all projection coefficients $\phi_i$ and $A$ is the matrix containing the eigenvectors $e_i$ column wise.  
 	
+	As a result, the projection coefficient can be gained through equivalent reformulation of equation (\ref{eq:linear_combi_weight}), 
+		\begin{equation}
+			\phi = A^{-1} \cdot W_t \, .
+		\end{equation}
+	Matrix $A$ is invertible because all columns of $A$ are linearly independent. 
+	
+	The distribution of $\phi_i$ reflects to which eigenvectors directions the feedforward weight vector $W$ and thus also the feedforward input $h$ aligns to the recurrent network more or less. According to the feedforward recurrent alignment hypothesis, in experienced feedforward recurrent network, the feedforward input align to the dominant eigenvectors of recurrent interaction matrix, those are the eigenvectors with large eigenvalues. Alignment to dominant eigenvectors can be reflected by the projection coefficients for them. 
+	
+	To more directly quantify the change of alignment of $W$ to dominant eigenvectors, we define the projection ratio $\rho$ as the percentage that the coefficients for the first twenty eigenvectors \footnote{Under the initial condition that the number of neurons $n$ is larger than $20$. } over all coefficients. Since the sign of coefficients only reflects the direction of alignment, we consider the absolute number for calculation of projection ratio $\rho$.
+		\begin{equation}
+			\rho := \frac{\sum_{i=1}^{20} \vert \phi_i \vert}{\sum_{i=1}^{n} \vert \phi_i \vert} \, .
+		\end{equation}
+		
 	\subsubsection{Dynamics of Feedforward Recurrent Alignment}
 	% The derivative of feedforward recurrent alignment with update of feedforward weight. 
 	% Development and the derivative of the feedforward recurrent alignment.
