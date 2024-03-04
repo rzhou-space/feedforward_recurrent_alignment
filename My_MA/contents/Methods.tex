@@ -739,7 +739,7 @@
 			\frac{dW}{dt} = (I_n - J)^{-1} \cdot W \cdot Q \, .
 		\end{equation}
 	Since for the simple case here that $u \in \mathbb{R}$, the input autocorrelation $Q = 1$ for all input patterns. Therefore, specifically for the simple network (figure \ref{fig:single_neuron_feedforward_recurrent_network}) we consider, the average rule can be further written as
-		\begin{equation}
+		\begin{equation} \label{eq:final_hebb_ff_weight}
 			\frac{dW}{dt} = (I_n - J)^{-1} \cdot W \, .
 		\end{equation} 
 
@@ -782,6 +782,63 @@
 	\subsubsection{Dynamics of Feedforward Recurrent Alignment}
 	% The derivative of feedforward recurrent alignment with update of feedforward weight. 
 	% Development and the derivative of the feedforward recurrent alignment.
+	
+	An alternative to discover the feedforward recurrent alignment hypothesis is to directly observe the dynamic of feedforward recurrent alignment score in the network. With the time dependent update of feedforward weight vector $W$ by Euler-scheme equation (\ref{eq:euler_scheme_ffrec_weight}), the feedforward input for recurrent network $h$ can be updated simultaneously through multiplying input rate $u$, 
+		\begin{equation}
+			h_t = W_t \cdot u_t \, ,
+		\end{equation}
+	with $h_t,\, W_t, \, u_t$ the feedforward input for recurrent network, feedforward interaction, and input at time point $t$. 
+	
+	The develop of feedforward recurrent alignment score over time can be then calculated with its definition inserting the updated feedforward input for recurrent network $h_t$. The feedforward recurrent at time point would be $\nu_t$ with
+		\begin{equation} \label{eq:ffrec_update}
+			\nu_t = \frac{h_t^T J h_t}{\Vert h_t \Vert ^2} = \frac{u_t W_t^T J W_t u_t}{u_t^2 \Vert W_t \Vert ^2} = \frac{W_t^T J W_t}{\Vert W_t \Vert^2}\, . 
+		\end{equation}
+	Because $u_t \in \mathbb{R}$ for all $t$, the feedforward recurrent alignment $\nu_t$ is directly determined by feedforward weight vector $W_t$.  
+	
+	The derivative of feedforward recurrent alignment $\nu_t$ can illustrate the change over time more intuitively. For further calculation, calculating firstly the derivative of numerator and denominator of $\nu_t$ in equation (\ref{eq:ffrec_update}). Defining thereby the numerator as $g(t)$ and denominator $h(t)$. Without loss of generality, the Euclidean norm is applied for denominator. That is
+		\begin{subequations}
+			\begin{align}
+				g(t) &:= W_t^T J W_t\\
+				h(t) &:= \Vert W_t \Vert_2^2
+			\end{align}
+		\end{subequations}
+	Applying product rule for derivative of $g(t)$ and chain rule for $h(t)$, it results in
+		\begin{equation}
+				\frac{\mathrm{d}g(t)}{\mathrm{d}t} = \frac{\mathrm{d}W_t^T}{\mathrm{d}t} J W_t + W_t^T J \frac{\mathrm{d}W_t}{dt} \, .
+		\end{equation}
+	Inserting the Hebbian rule (\ref{eq:final_hebb_ff_weight}) for feedforward weights leads to
+		\begin{equation}
+			\frac{\mathrm{d}g(t)}{\mathrm{d}t} = W_t^T (I_n - J)^{-T}J W_t + W_t^T J(I_n - J)^{-1} W_t \, .
+		\end{equation}
+	Since the recurrent network interaction $J$ is symmetric, the matrix $(I_n-J)$ and its inverse matrix is also symmetric. Therefore, $(I_n - J)^{-T} = (I_n - J)^{-1}$. So, the final derivative of numerator $g(t)$ is
+		\begin{equation}
+			\frac{\mathrm{d}g(t)}{\mathrm{d}t} = W_t^T \left( (I_n - J)^{-1}J + J(I_n - J)^{-1}\right)W_t \, .
+		\end{equation}
+	
+	The derivative of denominator can be obtained after inserting the Euclidean norm 
+		\begin{equation}
+			\begin{split}
+				\frac{\mathrm{d}h(t)}{\mathrm{d}t} & = \frac{\mathrm{d} \Vert W_t \Vert_2^2}{\mathrm{d}t} = \frac{\mathrm{d} \sum_{i=1}^{n} W_{t, i}^2}{\mathrm{d}t}
+				= \sum_{i=1}^{n} \frac{\mathrm{d}W_{t,i}^2}{\mathrm{d}t} = 2W_t^T \frac{\mathrm{d}W_t}{\mathrm{d}t} \\
+				& = 2W_t^T (I_n - J)^{-1} W_t \,.
+			\end{split}
+		\end{equation}
+	The last equation is due to the Hebbian rule differential equation (\ref{eq:final_hebb_ff_weight}). 
+	
+	Following the quotient rule with derivatives of numerator $g(t)$ and denominator $h(t)$, the derivative for feedforward recurrent alignment score is 
+		\begin{equation}
+			\begin{split}
+				\frac{\mathrm{d}\nu_t}{\mathrm{d}t} &= \frac{\frac{\mathrm{d}g(t)}{\mathrm{d}t}h(t) - g(t)\frac{\mathrm{d}h(t)}{\mathrm{d}t}}{h(t)^2} \\
+				&= \frac{W_t^T \left( (I_n - J)^{-1}J + J(I_n - J)^{-1}\right)W_t \Vert W_t \Vert_2^2 - 2W_t^TJW_tW_t^T (I_n - J)^{-1} W_t }{\Vert W_t \Vert_2^4} \\
+				&= \frac{W_t^T}{\Vert W_t \Vert_2} (I_n-J)^{-1} J \frac{W_t}{\Vert W_t \Vert_2} + \frac{W_t^T}{\Vert W_t \Vert_2} J (I_n-J)^{-1} \frac{W_t}{\Vert W_t \Vert_2} \\
+				&\, \, \, \, \, \, \, \, \, -2 \frac{W_t^T}{\Vert W_t \Vert_2} J \frac{W_t}{\Vert W_t \Vert_2} \frac{W_t^T}{\Vert W_t \Vert_2} (I_n-J)^{-1} \frac{W_t}{\Vert W_t \Vert_2}  \, .
+			\end{split}
+		\end{equation}
+	To simplify the notation, defining the normalized feedforward weights as $\bar{W_t}$. Thus, the final formulation of the derivative for feedforward recurrent alignment score at time point $t$ is
+		\begin{equation}
+			\frac{\mathrm{d}\nu_t}{\mathrm{d}t} = \bar{W_t}^T (I_n-J)^{-1}J\bar{W_t} + \bar{W_t}^T J(I_n -J)^{-1} \bar{W_t} - 2\bar{W_t}^TJ\bar{W_t}\bar{W_t}^T(I_n-J)^{-1}\bar{W_t} \, .
+		\end{equation}
+	
 	
 	
 \end{document}
