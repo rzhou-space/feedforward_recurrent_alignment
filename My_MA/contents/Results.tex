@@ -737,17 +737,28 @@
 
 	\subsubsection{Feedforward Weights are determined by Dominant Eigenvectors After Learning}
 	
+	% Background.
+	Project the feedforward weights to the space spanned by eigenvectors of recurrent network results in a linear combination for presentation of feedforward weights through eigenvectors with suitable coefficients (eq. \ref{eq:linear_combi_weight}). The coefficients reflects the influence of corresponding eigenvectors to feedforward weights. Larger absolute value of coefficient indicates stronger influence of the corresponding eigenvector to feedforward weights. 
 	
+	% Expectation.
+	According to the feedforward recurrent alignment hypothesis, large alignment between feedforward input and recurrent network can be obtained by setting feedforward input proportional to dominant eigenvectors. 
+	Therefore, feedforward weights with large coefficients for dominant eigenvectors would quantify a well alignment between feedforward input and recurrent network. Since the projection of feedforward weight could consist of multiple dominant eigenvectors, the projection ratio (eq. \ref{eq:projection_ratio}) takes the projection coefficient of the first twenty most dominant eigenvectors into account and could thus capture the dominance from broad directions. 
 	
-		\begin{SCfigure}[0.9][b]
+	The modeling of the projection ratio follows the update of feedforward weights according to the equation (\ref{eq:calculation_ratio}). If during the learning, the network could align the feedforward input better to recurrent network, leading to more reliable responses, the feedforward weight should align better to recurrent network. Thus, the coefficients for dominant eigenvectors would be expected to be larger during learning. As a result, the projection ratio should increase with development of time. 
+	
+	% Results and analysis.
+	The results illustrated by figure \ref{fig:projection_ratio_in_time} supports the assumption that during learning, the feedforward input aligns better with recurrent network through strengthening the influence of dominant eigenvectors of recurrent network. At least the first twenty most dominant eigenvectors gain more weights in the linear combination for the projection during the Hebbian learning process of feedforward network. Until the stable state, almost all projection concentrates at the first twenty dominant eigenvectors since the projection ratio reaches almost $1$. That is, the sum of coefficients for the first twenty dominant eigenvectors almost equal to sum of coefficients from all eigenvectors. 
+	
+		\begin{SCfigure}[0.9][h]
 			\centering
 			\includegraphics[width=0.5\textwidth]{../figures/ff_weight_projection_ratio.png}
 			\caption{\textbf{Time related development of projection ratio.} Projection ratio defined by equation (\ref{eq:projection_ratio}) quantifies the strength of linear dependency between feedfroward weights and dominant eigenvectors (eigenvectors correspond with largest twenty eigenvalues) of recurrent network. With the time dependent update of feedforward weights (eq. \ref{eq:euler_scheme_ffrec_weight}), the projection coefficients are also updated with time. Step width $\Delta t$ for Euler scheme is $0.1$ over total duration of $T=50$ time units. For statistics, $50$ repeats with different initial feedforward weights were implemented.}
+			\label{fig:projection_ratio_in_time}
 		\end{SCfigure}
 	
 	\subsubsection{Feedforward Recurrent Alignment Score Increases through Learning}
 	
-		\begin{SCfigure}[0.9][b]
+		\begin{SCfigure}[0.9][h]
 			\centering
 			\includegraphics[width=0.5\textwidth]{../figures/ffrec_hebb_learn_derivative.png}
 			\caption{\textbf{Development of feedforward recurrent alignment score and its derivative in dependence of time.} Simultaneously with the update of feedforward weight, the feedforward recurrent alignment score (shown with blue line) can also be updated with equation (\ref{eq:ffrec_update}). The derivative of feedforward recurrent alignment score (shown with orange line) is determined by equation (\ref{eq:derivative_ffrec}). Step width $\Delta t$ for Euler scheme is $0.1$ over total duration of $T=50$ time units. For statistics, $50$ repeats with different initial feedforward weights were implemented.}
