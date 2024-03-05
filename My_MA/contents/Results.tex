@@ -718,6 +718,40 @@
 	
 	% Analysis + Conclusion (Oszillation...)
 	The update dynamic of feedforward recurrent in dependence on times of repeatedly applying prior response as inputs is a oscillation (\ref{fig:ffrec_repeat_input}). %TODO: More analysis?! 
+	Since in the general formulation of iterative feedfroward recurrent alignment score (\ref{eq:update_ffrec}), the score $\nu_n$ only depends on the prior response $r_{n-1}$. The oscillation can only be a consequence of the oscillation of evoked responses. So, repeatedly applying the prior response as feedforward input leading to a stable oscillation of response activities $r_n$ and therefore also the feedforward recurrent alignment score. 
+	
+	\clearpage
+	\subsection{Hebbian Learning of Feedforward Network Leads to Better Alignment between Feedforward Input and Recurrent Network}
+	
+	Now considering the different connection structure inside neural layers in the brain, we extend the focus from only on recurrent network to also take the feedforward network structure into account, which deliver the feedforward inputs to recurrent network (figure \ref{fig:feedforward_recurrent_network}). 
+	
+	The main difference comparing to prior theoretical experiments is, that the feedforward recurrent network allows plasticity. Furthermore, we want to verify the feedforward recurrent alignment hypothesis during the network learning process. That is, the change alignment between dynamic feedforward input and recurrent network. 
+	
+	For firstly a basic understanding about the influence from plasticity, we consider the feedforward network with single neuron input and fixed symmetric recurrent network (figure \ref{fig:single_neuron_feedforward_recurrent_network}). Only the feedforward network is updated with the Hebbian rule, which is the classic rule for activity-dependent synaptic plasticity. The Hebbian rule describes the dynamics of feedforward weights through an ordinary differential equation (eq. \ref{eq:basic_Hebb}). Moreover, the rule reflects the hypothesis for a principle, that neurons that fire together wire together. With the help of Euler scheme, the time development of feedforward weight can be approximated. 
+	
+	To track the alignment between feedforward input and recurrent network, two alternatives were regarded:
+		\begin{itemize}
+			\item Based on the time dependent feedforward weight dynamics, project the weight to the space spanned by recurrent structure. Observe the projection coefficients distribution for dominant eigenvectors of recurrent network.
+			\item Update the feedforward recurrent alignment score simultaneously with time related update of feedforward input. Observe the development of feedforward recurrent alignment score in dependence of time. 
+		\end{itemize}
+
+	\subsubsection{Feedforward Weights are determined by Dominant Eigenvectors After Learning}
+	
+	
+	
+		\begin{SCfigure}[0.9][b]
+			\centering
+			\includegraphics[width=0.5\textwidth]{../figures/ff_weight_projection_ratio.png}
+			\caption{\textbf{Time related development of projection ratio.} Projection ratio defined by equation (\ref{eq:projection_ratio}) quantifies the strength of linear dependency between feedfroward weights and dominant eigenvectors (eigenvectors correspond with largest twenty eigenvalues) of recurrent network. With the time dependent update of feedforward weights (eq. \ref{eq:euler_scheme_ffrec_weight}), the projection coefficients are also updated with time. Step width $\Delta t$ for Euler scheme is $0.1$ over total duration of $T=50$ time units. For statistics, $50$ repeats with different initial feedforward weights were implemented.}
+		\end{SCfigure}
+	
+	\subsubsection{Feedforward Recurrent Alignment Score Increases through Learning}
+	
+		\begin{SCfigure}[0.9][b]
+			\centering
+			\includegraphics[width=0.5\textwidth]{../figures/ffrec_hebb_learn_derivative.png}
+			\caption{\textbf{Development of feedforward recurrent alignment score and its derivative in dependence of time.} Simultaneously with the update of feedforward weight, the feedforward recurrent alignment score (shown with blue line) can also be updated with equation (\ref{eq:ffrec_update}). The derivative of feedforward recurrent alignment score (shown with orange line) is determined by equation (\ref{eq:derivative_ffrec}). Step width $\Delta t$ for Euler scheme is $0.1$ over total duration of $T=50$ time units. For statistics, $50$ repeats with different initial feedforward weights were implemented.}
+		\end{SCfigure}
 	
 	
 \end{document}
