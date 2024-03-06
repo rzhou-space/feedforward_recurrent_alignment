@@ -24,7 +24,7 @@
 	\subsection{Symmetric Recurrent Network Model}
 	% General Information about symmetric interaction network. 
 	Due to the well understood mathematical characters of symmetric RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
-	Therefore, we firstly consider the basic case of having a symmetric recurrent network, which has the symmetric interaction matrix. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
+	Therefore, we firstly consider the basic case of having a symmetric recurrent network, which has a symmetric interaction matrix. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
 	% A figure for network construction.
 		\begin{figure}[H] 
 			%\centering
@@ -52,15 +52,15 @@
 		\begin{equation} \label{eq:gaussian_distribution}
 			{J_{ij}} \sim \mathcal{N}(0, 1).
 		\end{equation}
-	Besides, $J$ has full rank equals the number of neurons, 
+	Besides, $J$ has full rank equals the number of neurons $n$ involved in the RNN, 
 		\begin{equation}
 			\text{rank} (J) = n \, , 
 		\end{equation}
-	where $n$ is the number of neurons involved in the RNN. The eigenvalues $\{\lambda_i\}_{i = 1,...,n}$ of $J$ are limited by parameter $R < 1$ through
+ 	The eigenvalues of $J$ are limited by parameter $R < 1$ through normalization with the maximal original eigenvalue $\lambda_{\text{max}$ form $J$, 
 		\begin{equation} \label{eq:eigval_normal}
-			\lambda_i = \frac{R \tilde{\lambda}_i}{\tilde{\lambda}_{\text{max}}} \, \, \, \, \, \forall i \, ,
+			\tilde{\lambda_i} = \frac{R \lambda_i}{\lambda_{\text{max}}} \, \, \, \, \, \forall i \, ,
 		\end{equation}
-	$\tilde{\lambda}_i$ are the original eigenvalues of $J$. As a result, the maximal eigenvalues after the re-scaling would take value $R <1$.  
+	where $\{\lambda_i\}_{i=1, ..., n}$ are the original eigenvalues of $J$ and $\{\tilde{\lambda_i}\}_{i = 1,...,n}$ the re-scaled eigenvalues. As a result, the maximal eigenvalues after the re-scaling would take value $R <1$.  
 	
 	\subsubsection{Response Steady State} \label{sec:steady_state_response_sym}
 	
@@ -767,7 +767,7 @@
 	where $\phi \in \mathbb{R}^{n \times 1}$ is the vector containing all projection coefficients $\phi_i$ and $A$ is the matrix containing the eigenvectors $e_i$ column wise.  
 	
 	As a result, the projection coefficient can be gained through equivalent reformulation of equation (\ref{eq:linear_combi_weight}), 
-		\begin{equation}
+		\begin{equation} \label{eq:calculation_ratio}
 			\phi = A^{-1} \cdot W_t \, .
 		\end{equation}
 	Matrix $A$ is invertible because all columns of $A$ are linearly independent. 
@@ -775,7 +775,7 @@
 	The distribution of $\phi_i$ reflects to which eigenvectors directions the feedforward weight vector $W$ and thus also the feedforward input $h$ aligns to the recurrent network more or less. According to the feedforward recurrent alignment hypothesis, in experienced feedforward recurrent network, the feedforward input align to the dominant eigenvectors of recurrent interaction matrix, those are the eigenvectors with large eigenvalues. Alignment to dominant eigenvectors can be reflected by the projection coefficients for them. 
 	
 	To more directly quantify the change of alignment of $W$ to dominant eigenvectors, we define the projection ratio $\rho$ as the percentage that the coefficients for the first twenty eigenvectors \footnote{Under the initial condition that the number of neurons $n$ is larger than $20$. } over all coefficients. Since the sign of coefficients only reflects the direction of alignment, we consider the absolute number for calculation of projection ratio $\rho$.
-		\begin{equation}
+		\begin{equation} \label{eq:projection_ratio}
 			\rho := \frac{\sum_{i=1}^{20} \vert \phi_i \vert}{\sum_{i=1}^{n} \vert \phi_i \vert} \, .
 		\end{equation}
 		
@@ -784,7 +784,7 @@
 	% Development and the derivative of the feedforward recurrent alignment.
 	
 	An alternative to discover the feedforward recurrent alignment hypothesis is to directly observe the dynamic of feedforward recurrent alignment score in the network. With the time dependent update of feedforward weight vector $W$ by Euler-scheme equation (\ref{eq:euler_scheme_ffrec_weight}), the feedforward input for recurrent network $h$ can be updated simultaneously through multiplying input rate $u$, 
-		\begin{equation}
+		\begin{equation} \label{eq:feedforward_input}
 			h_t = W_t \cdot u_t \, ,
 		\end{equation}
 	with $h_t,\, W_t, \, u_t$ the feedforward input for recurrent network, feedforward interaction, and input at time point $t$. 
@@ -835,7 +835,7 @@
 			\end{split}
 		\end{equation}
 	To simplify the notation, defining the normalized feedforward weights as $\bar{W_t}$. Thus, the final formulation of the derivative for feedforward recurrent alignment score at time point $t$ is
-		\begin{equation}
+		\begin{equation} \label{eq:derivative_ffrec}
 			\frac{\mathrm{d}\nu_t}{\mathrm{d}t} = \bar{W_t}^T (I_n-J)^{-1}J\bar{W_t} + \bar{W_t}^T J(I_n -J)^{-1} \bar{W_t} - 2\bar{W_t}^TJ\bar{W_t}\bar{W_t}^T(I_n-J)^{-1}\bar{W_t} \, .
 		\end{equation}
 	

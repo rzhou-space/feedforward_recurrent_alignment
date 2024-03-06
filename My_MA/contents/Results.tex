@@ -758,11 +758,21 @@
 	
 	\subsubsection{Feedforward Recurrent Alignment Score Increases through Learning}
 	
+	% Background
+	The another alternative considers the change of feedforward recurrent alignment score directly over time through update of feedforward weights according to the equation (\ref{eq:ffrec_update}). Besides, the derivative of feedforward recurrent alignment score in dependent of time can also be explicitly formulated with help of the Hebbian learning dynamic (eq. \ref{eq:final_hebb_ff_weight}), resulting the final derivative described by equation (\ref{eq:derivative_ffrec}). 
+	
+	% Expectation
+	According to results from the first alternative, the feedforward weights improve its alignment to the recurrent network over time. Moreover, the feedforward recurrent alignment score should increase if the feedforward inputs align better to recurrent network. Feedforward inputs is proportional to the feedforward weights due to the single input rate (eq. \ref{eq:feedforward_input}). Therefore, the development of feedforward recurrent alignment score should be synchronized to the dynamic of projection ratio (figure \ref{fig:projection_ratio_in_time}). 
+	
 		\begin{SCfigure}[0.9][h]
 			\centering
 			\includegraphics[width=0.5\textwidth]{../figures/ffrec_hebb_learn_derivative.png}
 			\caption{\textbf{Development of feedforward recurrent alignment score and its derivative in dependence of time.} Simultaneously with the update of feedforward weight, the feedforward recurrent alignment score (shown with blue line) can also be updated with equation (\ref{eq:ffrec_update}). The derivative of feedforward recurrent alignment score (shown with orange line) is determined by equation (\ref{eq:derivative_ffrec}). Step width $\Delta t$ for Euler scheme is $0.1$ over total duration of $T=50$ time units. For statistics, $50$ repeats with different initial feedforward weights were implemented.}
+			\label{fig:ffrec_Hebb_learn}
 		\end{SCfigure}
 	
+	% Results and anlysis 
+	Implementation of feedforward recurrent alignment score (eq. \ref{eq:ffrec_update}) and its derivative (eq. \ref{eq:derivative_ffrec}) along time results in similar trajectories as the first alternative. Shown in figure \ref{fig:ffrec_Hebb_learn}, the feedforward recurrent alignment score also increases over time until stable state. This coincides with our expectations that two alternatives reflect both the phenomenon of increased alignment between feedforward input and recurrent network during the Hebbian learning of feedforward network with single input rate. 
+
 	
 \end{document}
