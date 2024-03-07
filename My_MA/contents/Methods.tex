@@ -19,12 +19,12 @@
 	
 	\section{Methods}
 	% Introduction.
-	In this chapter, we will give an overview about the recurrent network (RNN) models for exploration of the feedforward recurrent alignment hypothesis that are evolved in this work. The firstly introduced symmetric network model builds the basis for modifications and extensions in other further models. The modified models will be introduced subsequently. Finally, we consider the role of learning could play in the feedforward recurrent alignment hypothesis. 
+	In this chapter, we will give an overview of the recurrent network (RNN) models for exploration of the feedforward recurrent alignment hypothesis that is evolved in this work. The firstly introduced symmetric network model builds the basis for modifications and extensions in other further models. The modified models will be introduced subsequently. Finally, we consider the role of learning could play in the feedforward recurrent alignment hypothesis. 
 	
 	\subsection{Symmetric Recurrent Network Model}
 	% General Information about symmetric interaction network. 
-	Due to the well understood mathematical characters of symmetric RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
-	Therefore, we firstly consider the basic case of having a symmetric recurrent network, which has a symmetric interaction matrix. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
+	Due to the well-understood mathematical characteristics of symmetric RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
+	Therefore, we first consider the basic case of having a symmetric recurrent network, which has a symmetric interaction matrix. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
 	% A figure for network construction.
 		\begin{figure}[H] 
 			%\centering
@@ -42,7 +42,7 @@
 				%\caption{Structure of a recurrent network (RNN)}
 				\caption{}
 			\end{subfigure}
-		\caption{\textbf{Illustration of symmetric recurrent networks (symmetric RNNs).} \\ \textbf{(a)} An example of symmetric connections between two neurons in a network with multiple neurons. If there are connections between two neurons, here for example the green and red neurons, the directed connection from the green neuron to the red neuron has the same strength as the directed connection from the red to the green. \textbf{(b)} Structure of a symmetric RNN with feedforward inputs as the inputs for the recurrent layer. The connections between neurons inside the recurrent layer are symmetric, as illustrated in figure (a).}
+		\caption{\textbf{Illustration of symmetric recurrent networks (symmetric RNNs).} \\ \textbf{(a)} An example of symmetric connections between two neurons in a network with multiple neurons. If there are connections between two neurons, here for example the green and red neurons, the directed connection from the green neuron to the red neuron has the same strength as the directed connection from the red to the green. \textbf{(b)} Structure of a symmetric RNN with feedforward inputs as the inputs for the recurrent layer. The connections between neurons inside the recurrent layer are symmetric, as illustrated in Figure (a).}
 		\label{fig:symmetric_RNN}
 		\end{figure}
 	
@@ -72,23 +72,23 @@
 %			h = h_{\text{det}} + h_{\text{stoch}} . 
 %		\end{equation}
 %	The stochastic part 
-	When considering the relationship between firing rate and synaptic current as linear, the dynamic system of the RNN illustrated in \ref{fig:symmetric_RNN} could be described as \cite{dayan2005theoretical}:
+	When considering the relationship between firing rate and synaptic current as linear, the dynamic system of the RNN illustrated in Figure \ref{fig:symmetric_RNN} could be described by the ordinary differential equation  \cite{dayan2005theoretical}:
 		\begin{equation} \label{eq:sym_response_ODE}
-			\tau_r \frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h \overset{\tau_r = 1}{\Rightarrow} \frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h\, , 
+			\tau_r \frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h \,  \overset{\tau_r = 1}{\Rightarrow} \, \frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h\, , 
 		\end{equation}
-	with the vector $r \in \mathbb{R}^{n \times 1}$ describing responses of neurons in the recurrent layer, the vector $h \in \mathbb{R}^{n \times 1}$ as feedforward inputs ,and $\tau_r$ the time constant controlling the speed of dynamic. 
-	The steady state of the dynamic system \ref{eq:sym_response_ODE} can be received by setting the ordinary differential equation to zero. For simplicity, the time constant is set to one. We then have
+	with the vector $r \in \mathbb{R}^{n \times 1}$ describing firing rate of neurons in the recurrent layer, the vector $h \in \mathbb{R}^{n \times 1}$ as feedforward inputs, and $\tau_r$ the time constant controlling the speed of dynamic. 
+	The steady state of the dynamic system eq.(\ref{eq:sym_response_ODE}) can be received by setting the ordinary differential equation to zero. For simplicity, the time constant is set to $1$. We then have the formulation for steady-state response $r^*$:
 		\begin{equation} \label{eq:steady_state}
 			\frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h = 0 \Rightarrow r = (I_n - J)^{-1} \cdot h =: r^* \, ,
 		\end{equation}
-	$r^*$ the steady state for responses. $I_n \in \mathbb{R}^{n \times n}$ is the identity matrix. Since $J$ is full rank, the matrix $(I_n - J)$ is invertible. Therefore, the steady state exists.
+	where $I_n \in \mathbb{R}^{n \times n}$ the identity matrix. Since $J$ is full rank, the matrix $(I_n - J)$ is invertible. Therefore, the steady state exists.
 	
 	\paragraph{Stability of Steady State}
-	The dynamic \ref{eq:sym_response_ODE} could also be written in an elementary expression:
+	The dynamic eq.(\ref{eq:sym_response_ODE}) could also be written in an elementary expression:
 		\begin{equation}
 			 f_i (r_1, ..., r_n) := \frac{\mathrm{d} r_i}{\mathrm{d} t} = - r_i + \sum_{j=1}^{n} J_{ij} r_j + h_i  \text{   for } i = 1, ..., n\, .
 		\end{equation}
-	The derivative of $f_i$ to $r_j$ is
+	The partial differentiation of $f_i$ to $r_j$ is
 		\begin{equation}
 			\frac{\partial f_i}{\partial r_j} = 
 			\begin{cases}
@@ -96,7 +96,7 @@
 				J_{ij} & \text{if} \, \, i \neq j
 			\end{cases} \, \, .
 		\end{equation}
-	The Jacobian matrix $A$ of the dynamic system $\frac{\mathrm{d} r}{\mathrm{d} t}$ is then
+	The Jacobian matrix $A$ of the dynamic system (eq.\ref{eq:sym_response_ODE}) is then
 		\begin{equation} \label{eq:Jacobian_matrix}
 			A := 
 			 \begin{pmatrix}
@@ -106,78 +106,79 @@
 			\end{pmatrix}
 			= - I_n + J \, .
 		\end{equation}
-	Therefore, the Jacobian matrix $A$ is a linear transformation of the symmetric recurrent interaction matrix $J$, which is independent of the steady state response. So, $A$ has the same set of eigenvectors \footnote{For a symmetric matrix, the set of left eigenvectors equal the set of right eigenvectors} as $J$. With $E := \{e_i\}_{i = 1, ..., n}$ the matrix containing eigenvectors of $J$ column-wise, 
+	Therefore, the Jacobian matrix $A$ is a linear transformation of the symmetric recurrent interaction matrix $J$, which is independent of the steady-state response. So, $A$ has the same set of eigenvectors \footnote{For a symmetric matrix, the set of left eigenvectors equal the set of right eigenvectors} as $J$. With $E := \{e_i\}_{i = 1, ..., n}$ the matrix containing eigenvectors of $J$ column-wise, it follows the reformulation 
 		\begin{equation} \label{eq:steady_state_eigenvalues_sym}
 			(- I_n + J) E = - I_n \cdot E + J \cdot E = -I_n \cdot E + \Lambda \cdot E = (-I_n + \Lambda) E \, ,
 		\end{equation}
 	$\Lambda$ the diagonal matrix with eigenvalues $\{\lambda_i\}_{i = 1,...,n}$ of $J$ on its diagonal. This means, $\{-1 + \lambda_i\}_{i=1, ..., n}$ are eigenvalues for the Jacobian matrix A. 
 	
-	The eigenvalues of the Jacobian matrix $A$ determines the stability of steady states. Here, since the matrix $A$ is symmetric, all its eigenvalues $-1 + \lambda_i, i = 1, ..., n$ are from $\mathbb{R}$. Because the eigenvalues $\lambda_i$ of matrix $J$ is limited by the parameter $R<1$, defined in \ref{eq:eigval_normal}, we have 
+	The eigenvalues of the Jacobian matrix $A$ determine the stability of steady states. Here, since the matrix $A$ is symmetric, all its eigenvalues $-1 + \lambda_i, i = 1, ..., n$ are from $\mathbb{R}$. Because the eigenvalues $\lambda_i$ of matrix $J$ is limited by the parameter $R<1$, defined in eq.(\ref{eq:eigval_normal}), we have 
 		\begin{equation} \label{eq:sym_stable_fix_point}
 			-1 + \lambda_i \overset{(\ref{eq:eigval_normal})}{<} -1 + 1 = 0 \, .
 		\end{equation}
-	That is, all eigenvalues of the Jacobian matrix $A$ are negative. This indicates that the steady state $r^*$ is stable. Under the assumption that the system reaches its steady state quick enough, we could apply the steady state $r^*$ for further analysis. 
+	That is, all eigenvalues of the Jacobian matrix $A$ are negative. This indicates that the steady state $r^*$ is stable. Under the assumption that the system reaches its steady state quickly enough, we could apply the steady state $r^*$ for further analysis. 
 	
 	\subsubsection{Feedforward Recurrent Alignment for Symmetric Interactions} \label{sec:ffrec_definition}
 	% TODO: The meaning of the feedforward recurrent alignment hypothesis (perhaps in the introduction better) 
 	%In which case will it be applied.
 	%TODO: The clarifying of mean firing rate in introduction perhaps?
-	Generally, the feedforward inputs can be considered as a firing rate distribution with certain mean value. The mean firing rate is essential for the strength of inputs. We therefore consider mainly the mean firing rate of inputs. For the rest of work, if mentioning feedforward inputs without further definition, we mean the mean firing rate of inputs. 
+	Generally, the feedforward inputs can be considered as a firing rate distribution with a certain mean value and disturbed with some noise captured by variance. The mean firing rate is essential for characterizing the strength of inputs. We therefore consider mainly the mean firing rate of inputs. For the rest of the work, if mentioning feedforward inputs without further definition, we refer to the mean firing rate of inputs. 
 	
 	The alignment of a feedforward input $h \in \mathbb{R}^{n \times 1}$ with the recurrent network $J$ is defined as \cite{tragenap2023nature}
 		\begin{equation} \label{eq:ffrec_align}
-			\nu := \frac{h^T J h}{\parallel h \parallel_2 ^2}
+			\nu := \frac{h^T J h}{\parallel h \parallel ^2}\, ,
 		\end{equation}	
-	If the inputs are aligned to the eigenvectors $e_i$ of the recurrent interaction $J$, i.e., 
+	where we consider the Euclidean norm without loss of generality. $T$ denotes the vector transpose. 
+	If the inputs are aligned to the eigenvector $e_i$ of the recurrent interaction $J$, i.e. the feedforward input is proportional to the aligned eigenvector, 
 		\begin{equation} \label{eq:h_prop_eigvec}
 			h \propto e_i  \, ,
 		\end{equation}
-	the feedforward recurrent alignment $\nu$ is proportional to the eigenvalues $\lambda_i$, because inserting the proportionality (\ref{eq:h_prop_eigvec}) in (\ref{eq:ffrec_align}) leads to
+	the feedforward recurrent alignment $\nu$ is proportional to the eigenvalues $\lambda_i$, because inserting the proportionality eq.(\ref{eq:h_prop_eigvec}) in eq.(\ref{eq:ffrec_align}) leads to
 		\begin{equation} \label{eq:ffrec_equals_eigval}
-			\nu = \frac{h^T J h}{\parallel h \parallel_2 ^2} \propto \frac{{e_i}^T J e_i}{\parallel e_i \parallel_2 ^2} = \frac{\lambda_i {e_i}^T e_i}{\parallel e_i \parallel_2 ^2} = \lambda_i \, .
+			\nu = \frac{h^T J h}{\Vert h \Vert ^2} \propto \frac{{e_i}^T J e_i}{\Vert e_i \Vert^2} = \frac{\lambda_i {e_i}^T e_i}{\Vert e_i \Vert ^2} = \lambda_i \, .
 		\end{equation}
-	It was therefore observed that the maximal alignment was attained when the input was proportional to the eigenvector $e_{\text{max}}$ with maximal eigenvalue $\lambda_{\text{max}}$ \cite{tragenap2023nature}. 
+	It is therefore observed that the maximal alignment was attained when the input is aligned to the eigenvector $e_{\text{max}}$ with maximal eigenvalue $\lambda_{\text{max}}$ \cite{tragenap2023nature}. 
 	
 	\subsubsection{Response Properties for Evaluation} \label{sec:response_properties_for_evaluation}
 	% TODO:general introduction where does this come? Or should it be in the introduction instead?
 	% trial to trial correlation, intra-trial stability, dimensionality and alignment to spontaneous activity.
 	\paragraph{Trial-to-trial correlation} \label{para:ttc_sym}
-	Given the feedforward inputs that are from the same distribution for multiple trials, the correlation between responses from different trials indicates the reliability of the responses. Large correlation implies high reliability of the response generated by the RNN. 
+	Given the feedforward inputs that are from the same distribution for multiple trials, the correlation between responses from different trials indicates the reliability of the responses. A large correlation implies high reliability of the response generated by the RNN. 
 	
-	Model the inputs $h \in \mathbb{R} ^{n \times 1}$ as multivariate normal distributions with mean vector $\mu \in \mathbb{R}^{n \times 1}$ and covariance matrix $\Sigma \in \mathbb{R}^{n \times n}$
+	Modeling the inputs $h \in \mathbb{R} ^{n \times 1}$ as multivariate normal distributions with mean vector $\mu \in \mathbb{R}^{n \times 1}$ and covariance matrix $\Sigma \in \mathbb{R}^{n \times n}$
 		\begin{equation} \label{eq:input_distribution}
 			h \sim \mathcal{N} (\mu, \Sigma) \, \text{ with } \Sigma := \sigma_{\text{trial}}I_n. 
 		\end{equation}
-	Then, the steady state response $r^* = (I_n - J)^{-1} \cdot h $ from (\ref{eq:steady_state}) has the linearly transformed normal distribution
+	Then, the steady state response $r^* = (I_n - J)^{-1} \cdot h $ from eq.(\ref{eq:steady_state}) has the linearly transformed normal distribution
 		\begin{equation} \label{eq:steady_state_distribute}
 			r^* \sim \mathcal{N} \left((I_n - J)^{-1}\mu, (I_n - J)^{-1} \Sigma (I_n -J)^{-T}\right) \, ,
 		\end{equation}
-	where the mean vector and covariance matrix are linearly transformed. The property could be proved analogously as in \cite{Soch2019} with the moment-generating function of the multivariate normal distribution
+	where the mean vector and covariance matrix are linearly transformed. The property could be proved analogously as in \cite{Soch2019} with the moment-generating function $M_h$ of the multivariate normal distributed input $h$ as following
 		\begin{equation}
 			M_h(t) = \mathbb{E}\left[\text{exp}(t^Th)\right] = \text{exp} \left[t^T \mu + \frac{1}{2} t^T \Sigma t \right] \, .
 		\end{equation}
-	Therefore, the moment-generating function of the random vector $r^*$ becomes
+	The moment-generating function of the vector $r^* = (I_n - J)^{-1} \cdot h$ becomes
 		\begin{equation}
 			\begin{split}
-				M_{r^*} & = M_h \left( (I_n-J)^{-T} t\right) \\
+				M_{r^*}(t) & = M_h \left( (I_n-J)^{-T} t\right) \\
 				        & = \text{exp} \left[
 				         						t^T \left( (I_n - J)^{-1} \mu\right) + \frac{1}{2} t^T (I_n - J)^{-1} \Sigma (I_n - J)^{-T} t    
-				         				\right]
-			\end{split} \, ,
+				         				\right] \, ,
+			\end{split} 
 		\end{equation}
-	which indicates the linearly transformed distribution of $r^*$ as in (\ref{eq:steady_state_distribute}).
+	which indicates the linearly transformed distribution of $r^*$ as in eq.(\ref{eq:steady_state_distribute}).
 	
-	As calculated in \cite{tragenap2023nature}, the trial to trial correlation $\beta$ for one stimulus $s$ is calculated by taking the mean of correlations between $N$ response trials that evoked by this stimulus. That is
+	As defined in \cite{tragenap2023nature}, the trial to trial correlation $\beta_s$ for one stimulus $s$ is calculated by taking the mean of correlations between $N$ response trials that evoked by this stimulus. That is
 		\begin{equation} \label{eq:ttc_sym}
-			\beta_s = \frac{2}{N(N-1)} \sum_{i = 1, j = i+1}^{N} corr(r_i^s, r_j^s) \, ,
+			\beta_s = \frac{2}{N(N-1)} \sum_{i = 1, j = i+1}^{N} \text{corr}(r_i^s, r_j^s) \, ,
 		\end{equation}
-	where $r_i^s$ is the $i$-th response trial that evoked by stimulus $s$. 
+	where $r_i^s$ is the $i$-th response trial that evoked by stimulus $s$ and $\text{corr}(r_i^s, r_j^s)$ the Pearson correlation between two response patterns. 
 	
 	\paragraph{Intra-trial stability}
 	
-	It was observed that presenting ongoing visual grating stimuli, the responses in the visually naive cortex has a stronger variation than they are after visual experience. In order to reflect the variation of responses during the stimulation period, the quantity of "intra-trial stability" was defined \cite{tragenap2023nature}. 
+	It was observed that when presenting ongoing visual grating stimuli, the responses in the visually naive cortex have a stronger variation than they are after the visual experience. To reflect the variation of responses during the stimulation period, the quantity of "intra-trial stability" was defined \cite{tragenap2023nature}. 
 	
-	To model the time dependent input $h(t) \in \mathbb{R}^{n \times 1}$ distributed as (\ref{eq:input_distribution}) and its evoked steady state responses $r(t) \in \mathbb{R}^{n \times 1}$, the following stochastic differential equations were formulated
+	To model the time-dependent input $h(t) \in \mathbb{R}^{n \times 1}$ with mean vector $\mu$ and its evoked steady-state responses $r(t) \in \mathbb{R}^{n \times 1}$, the following stochastic differential equations are formulated
 		\begin{subequations} \label{eq:sde_intra_trial_stability}
 			\begin{align}
 				\mathrm{d} h & = \mu \mathrm{dt} + \sigma_{\text{time}} \mathrm{d} W \\
@@ -186,20 +187,20 @@
 		\end{subequations}
 	with $W$ the Wiener process, which is a continuous-time stochastic process with independent Gaussian increments. 
 	
-	To approximate the evoked response $r(t)$, the equation (\ref{eq:sde_intra_trial_stability}b) is solved numerically with Euler-Maruyama scheme 
+	To approximate the evoked response $r(t)$, eq.(\ref{eq:sde_intra_trial_stability}b) is solved numerically with Euler-Maruyama scheme 
 		\begin{equation} \label{eq:euler_maruyama}
 			r_{t+1} = r_t + (-r_t + J \cdot \mu) \Delta t + \sigma_{\text{time}} \sqrt{\Delta t} \Delta \tilde{W}_t \, ,
 		\end{equation}
-	with $r_t$ the response at time point $t$, $\Delta t$ the step width for iteration, and $\Delta \tilde{W}_t \in \mathbb{R}^{n \times 1}$ the Gaussian increment at time point $t$ defined as the multivariate normal distribution with mean vector $0_v$ and covariance matrix $I_n$
+	with $r_t$ the response at time point $t$, $\Delta t$ the step width for iteration, and $\Delta \tilde{W}_t \in \mathbb{R}^{n \times 1}$ the Gaussian increment at time point $t$ defined by the multivariate normal distribution with zero vector $0_v$ as mean vector and identity matrix $I_n$ as covariance matrix, 
 		\begin{equation}
 			\Delta \tilde{W}_t \sim \mathcal{N}(0_v, I_n) \, .
 		\end{equation}
 	
-	For a certain step width $\tilde{\Delta t}$, the intra-trial stability $c(\Delta \tilde{t})$ was defined by the correlation between normalized response at time $t$ and its delayed response at time $t + \Delta \tilde{t}$ 
+	For an another step width $\Delta \tilde{t}$, the intra-trial stability $c(t, \Delta \tilde{t})$ was defined by the correlation between z-scored responses $\bar{r}$ at time $t$ and its delay at time $t + \Delta \tilde{t}$ 
 		\begin{equation}
-			c(t, \Delta \tilde{t}) := \bar{r}(t)^T \bar{r}(t + \Delta t) \, , 
+			c(t, \Delta \tilde{t}) := \bar{r}(t)^T \bar{r}(t + \Delta \tilde{t}) \, , 
 		\end{equation}
-	where the normalized response is defined as
+	where the z-scored response is defined as the variation from mean value normalized by variance, 
 		\begin{equation}
 			\bar{r}(t) := \frac{r - \langle r \rangle}{\sigma_r} \, ,
 		\end{equation}
@@ -214,11 +215,12 @@
 		\end{equation}
 	
 	\paragraph{Dimensionality}
-	%TODO: Sources for dimensionality meaning and linear dimensionality definition.
+	%The dimensionality of neuron responses reflect the complexity of the information they encoded. %TODO: literature.
+	%A diverse response pattern corresponds with a broader distribution of the variance over principal components, leading to a higher-dimensional linear manifold. %TODO: lietrature
+	%The corresponding dimensionality for more diverse and variable response pattern is therefore higher \cite{tragenap2023nature}. %TODO: Is the understanding correct? Further literatures?
 	
-	The dimensionality of neuron responses reflect the complexity of the informatbetaion they encoded. %TODO: literature.
-	A diverse response pattern corresponds with a broader distribution of the variance over principal components, leading to a higher-dimensional linear manifold. %TODO: lietrature
-	The corresponding dimensionality for more diverse and variable response pattern is therefore higher \cite{tragenap2023nature}. %TODO: Is the understanding correct? Further literatures?
+	Reduction in the diversity of modular patterns following the onset of experience was observed in the experiments with the primary visual cortex of ferrets. Through the projection of activity patterns into the space spanned by their leading principal components, it could be quantified that the early modular responses are more diverse, residing in a higher-dimensional linear manifold than those found in the experienced cortex following the onset of visual experience. This suggested that these initial modular patterns reflect a more flexible repertoire of network responses to visual input, fundamentally different from the experience cortex. To capture this trend, the linear "dimensionality" was defined and computed \cite{tragenap2023nature}. 
+	
 	Given the multivariate normal distributed inputs $h \in \mathbb{R}^{n \times 1}$
 		\begin{equation} \label{eq:input_distribution_dimensionality}
 			h \sim \mathcal{N}(0_v, \Sigma^{\text{Dim}}) \, ,
@@ -229,78 +231,81 @@
 		\end{equation}
 	with 
 		\begin{equation} \label{eq:Sigma_dim}
-			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{-2(i-L)}{\beta}\right) e_i e_i^T \, , 
+			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) e_i e_i^T \, , 
 		\end{equation}
-	in which the parameter $M := \kappa \beta$ and $\beta$ reflects the dimensionality \cite{tragenap2023nature} and $\kappa$ for determining the number of directions $e_i$ that contribute to the dimensionality. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as $e_i$ for (\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order. The exponential factor in (\ref{eq:Sigma_dim}) simulates the exponential decay of variance ratio observed in prior data \cite{tragenap2023nature}. 
+	in which the parameter $M_{\text{dim}} := \kappa \beta_{\text{dim}}$ and $\beta_{\text{dim}}$ reflects the dimensionality \cite{tragenap2023nature} and $\kappa$ for determining the number of directions $e_i$ that contribute to the dimensionality. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as basis vectors $e_i$ for covariance matrix $\Sigma^{\text{Dim}}$ in eq.(\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order, 
+		\begin{equation} \label{eq:descding_order}
+			\mathbf{e}_{\text{max}}, ..., \mathbf{e}_i, \mathbf{e}_j, ..., \mathbf{e}_{\text{min}} \, \, \text{such that} \, \, 	\lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
+		\end{equation}
+	The exponential factor in eq.(\ref{eq:Sigma_dim}) simulates the exponential decay of variance ratio observed in data \cite{tragenap2023nature}. 
 	
-	The linear effective dimensionality based on participation ratio was defined %TODO: literature
-	to quantify the tendency of dimensionality during visual maturation.
-	The participation ratio is defined as %TODO: literature.
+	The linear effective dimensionality
+	for quantifying the change of pattern diversity during visual maturation is defined based on participation ratio 
 		\begin{equation} \label{eq:effective_dimensionality_analytical}
 			d_{\text{eff}} := \frac{\left(\sum_{i} \lambda_i\right)^2}{\left( \sum_{i} \lambda_i^2\right)} \, ,
 		\end{equation}
-	where $\lambda_i$ the eigenvalues of a certain response pattern with covariance $\mathbf{\Sigma}$. Since as defined in (\ref{eq:Sigma_dim}), $\Sigma^{\text{Dim}}$ has the same eigenvectors (aka. principal components )as $J$. Therefore, the eigenvalues $\lambda_i^{\text{Dim}}$(aka. variance ratio or variance explained) for $\Sigma^{\text{Dim}}$ are transformed eigenvalues $\lambda_i$ of $J$ expressed as
-		\begin{equation}
-			\lambda_i^{\text{Dim}} = \text{exp}\left(\frac{-2(i-L)}{\beta}\right) \lambda_i \, .
+	where $\lambda_i$ the eigenvalues of a certain covariance matrix $\Sigma$ from an activity pattern distribution. Since as defined in eq.(\ref{eq:Sigma_dim}), eigenvectors $e_i$ of $\Sigma^{\text{Dim}}$ are also eigenvectors for $J$. The eigenvectors of a covariance matrix are also known as principal components. Therefore, the eigenvalues $\lambda_i^{\text{Dim}}$ for the covariance matrix $\Sigma^{\text{Dim}}$, also known as variance ratio, are re-scaled eigenvalues $\lambda_i$ of $J$ expressed as
+		\begin{equation} \label{eq:eigval_sigma_dim}
+			\lambda_i^{\text{Dim}} = \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) \lambda_i \, .
 		\end{equation}
-	The covariance of the responses share the same eigenvectors as $\Sigma^{\text{Dim}}$ based on its distribution (\ref{eq:response_distribution_dimensionality}) and therefore also the same as $J$. The eigenvalues (aka. variance ratio) for the responses could be constructed analogously with
+	The covariance of the responses shares the same eigenvectors as $\Sigma^{\text{Dim}}$ based on its distribution eq.(\ref{eq:response_distribution_dimensionality}) and therefore also the same as $J$. The eigenvalues $\lambda_i^{\text{Act}}$ for the responses can be obtained through re-scaling eq.(\ref{eq:eigval_sigma_dim}) 
 		\begin{equation} \label{eq:response_variance_ratio_dimensionality}
-			\lambda_i^{\text{Act}} = \text{exp}\left(\frac{-2(i-L)}{\beta}\right) \frac{1}{(1-\lambda_i)^2} \, ,
+			\lambda_i^{\text{Act}} = \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) \frac{1}{(1-\lambda_i)^2} \, ,
 		\end{equation}
-	for $i = L, ..., L+M$, due to the inverse transformation. 
+	for $i = L, ..., L+M$. %, due to the inverse transformation. 
 %	 For the covariance $\Sigma^{\text{Dim}}$ from inputs, if having its eigenvalues $\lambda_i^{\text{Dim}}$, the eigenvalues $\lambda_i^{\text{Act}}$ of the steady state responses could be transformed based on the distribution (\ref{eq:response_distribution_dimensionality}). It leads to the following relation
 %		\begin{equation}
 %			\lambda_i^{\text{Act}} = \frac{1}{(1-\lambda_i^{\text{Dim}})^2} = \, . %TODO: the exp factors
 %		\end{equation}
 %	Therefore, the 
 	
-	Insert the eigenvalues of responses (\ref{eq:response_variance_ratio_dimensionality}) in the formula for effective dimensionality to get the final formulation of dimensionality for responses
+	Insert the eigenvalues of responses eq.(\ref{eq:response_variance_ratio_dimensionality}) in the formula for effective dimensionality to get the final formulation of dimensionality for responses with eigenvalues of $J$, 
 		\begin{equation} \label{eq:dim_analytical_sym}
-			d^r_{\text{eff}} = \frac{\left(\sum_{i = L}^{L + M} \text{exp}\left(-2 \frac{i-L}{\beta}\right)(1-\lambda_i)^{-2}\right)^2}{\sum_{i=L}^{L+M} \text{exp}\left(-4 \frac{i-L}{\beta}\right)(1-\lambda_i)^{-4}}
+			d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\lambda_i)^{-2}\right)^2}{\sum_{i=L}^{L+M} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\lambda_i)^{-4}} \, .
 		\end{equation}
 	
-	Since the vector of explained variance ratios in the principal component analysis (PCA) is the normalized vector containing eigenvales of the covariance matrix re-scaled by the largest eigenvalue in descending order, which then explains how much variance does the corresponding principal component contribute. Therefore, another way to access the dimensionality is to empirically determine the explained ratio of generated data samples through PCA and insert the variance ratio into the definition of effective dimentionality, i.e.,
+	The vector of explained variance ratios in the principal component analysis (PCA) is the normalized vector containing eigenvalues of the covariance matrix re-scaled by the largest eigenvalue in descending order, which then explains how much variance the corresponding principal component contributes. Therefore, another way to access the dimensionality is to empirically determine the explained ratio of generated data samples through PCA and insert the variance ratio into the definition of effective dimensionality, i.e.,
 		\begin{equation} \label{eq:dim_empirical_sym}
-			d_{\text{eff}} = \frac{\left(\sum_{i=L}^{L+M}\text{var}_i\right)^2}{\sum_{i=L}^{L+M}\text{var}_i^2} 
+			d_{\text{eff, emp}} = \frac{\left(\sum_{i=L}^{L+M}\text{var}_i\right)^2}{\sum_{i=L}^{L+M}\text{var}_i^2} 
 		\end{equation}
 	with $\text{var}_i$ the $i$-th variance ratio. 
 	
 	\paragraph{Alignment with spontaneous activity}
 	
-	The alignment of activity patterns to spontaneous activity reflects in principle the size of overlaps between activity patterns and spontaneous activity pattern. 
+	The alignment of activity patterns to spontaneous activity reflects principally the size of overlaps between activity patterns and spontaneous activity pattern. 
 	% is in principle the dimensionality explained by the principal components of spontaneous activity. 
-	Assuming having the evoked response pattern as $R$ and the spontaneous activity pattern as $S$, the projection of $R$ to $S$ could be quantified as the covariance matrix of $R$ explained by the principal components (a.k.a. eigenvectors of covariance matrix) of $S$, which results a variance ratio vector
+	Assuming having the evoked response pattern as $V$ and the spontaneous activity pattern as $S$, the projection of $V$ to $S$ could be quantified as the covariance matrix of $V$ explained by the principal components of $S$, which results a variance ratio vector with elements $v_i$ calculated as
 	%we then have the variance of activity pattern $R$ explained by principal components of pattern $S$ expressed as a vector $\mathbf{v}$ with 
 		\begin{equation} \label{eq:var_explain_spont_act_sym}
-			\mathbf{v}_i = \frac{\mathbf{p}_{i, S}^T \cdot \mathbf{\Sigma_R} \cdot \mathbf{p}_{i, S}}{\text{Tr}(\mathbf{\Sigma_R})} \, , 
+			v_i = \frac{p_{i, S}^T \cdot \Sigma_V \cdot p_{i, S}}{\text{Tr}(\Sigma_V)} \, , 
 		\end{equation}
-	for $i = 1, ..., n$. $\mathbf{p}_{i, S}$ are the principal component of spontaneous activity and $\mathbf{\Sigma_R}$ the covariance matrix of evoked activity. 
+	for $i = 1, ..., n$. $p_{i, S}$ are the principal component of spontaneous activity and $\Sigma_V$ the covariance matrix of evoked activity. 
 	%TODO: the connections between variance explained and alignment. 
 	%It was observed in \cite{tragenap2023nature} that patterned visual experience is required to cause stable alignment between visual responses and the spontaneous activities, while naive visual responses show only loose alignment with spontaneous activities. To capture this change of property as a quantity instead of a vector as (\ref{label}), it had to firstly define the alignment between two activity patterns. The alignment of $R$ to $S$ was defined as the average of pattern $S$ explained by normalized trials $r_{i, R}$. The alignment between pattern $S$ and one trial $r_{i, R}$ from $R$ is defined as
-	Consider the projection of activity pattern $R$ in all directions of spontaneous pattern $S$ together to reflect the overall overlaps between two patterns, we calculate firstly the alignment between a response trial $r_{i, R}$ form $R$ to the spontaneous pattern $S$ 
+	Consider the projection of activity pattern $V$ in all directions of spontaneous pattern $S$ together to reflect the overall overlaps between two patterns, we calculate the alignment between a response trial $r_{i, V}$ form $V$ to the spontaneous pattern $S$ 
 		\begin{equation} \label{eq:align_to_spont_act_sym}
-			\gamma_i = \frac{r^T_{i, R} \cdot \Sigma_S \cdot r_{i,R}}{\Vert r_{i, R} \Vert^2 \text{Tr}(\Sigma_S)}\, ,
+			\gamma_i = \frac{r^T_{i, V} \cdot \Sigma_S \cdot r_{i,V}}{\Vert r_{i, V} \Vert^2 \text{Tr}(\Sigma_S)}\, ,
 		\end{equation}
-	where $\Sigma_S$ is the covariance of pattern $S$. The final alignment between $S$ and $R$ is then the average value of alignment between $S$ and all trials of $R$. 
+	where $\Sigma_S$ is the covariance of pattern $S$. The final alignment, denoted as $\gamma$, between $S$ and $V$ is then the average value of alignment between spontaneous activity $S$ and all trials of evoked activity. 
 	
-	To model the inputs and responses, we assumed that spontaneous activity was evoked by inputs from broad sources. Besides, since the spontaneous activity already exists almost a week before eye opening, we assume that they already fit to the activity space generated by recurrent network \cite{tragenap2023nature}. Therefore, the inputs would be explained by more directions (or eigenvectors) than stimuli evoked responses as modeled before with (\ref{eq:input_distribution_dimensionality}), that is higher dimensionality. Since the parameter $\beta$ in (\ref{eq:input_distribution_dimensionality}) indicates the dimensionality, we could set for spontaneous activity higher $\beta_{\text{spont}} > \beta$ to generate high dimensional inputs. 
-	Therefor, we than have the broad inputs $h^{\text{spont}} \in \mathbb{R}^{n \times 1}$ and spontaneous activity $r^{\text{spont}} \in \mathbb{R}^{n \time 1}$, which are multivariate distributed vectors 
+	To model the inputs and responses, we assume that spontaneous activity was evoked by inputs from broad sources. Besides, since the spontaneous activity already exists almost a week before eye-opening for ferrets, we assume that they already fit into the activity space generated by recurrent network \cite{tragenap2023nature}. Therefore, the inputs would be explained by more directions (or eigenvectors) than stimuli-evoked responses as modeled before with eq.(\ref{eq:input_distribution_dimensionality}). The spontaneous activity then has a higher dimensionality. Since the parameter $\beta_{\text{dim}}$ in eq.(\ref{eq:input_distribution_dimensionality}) indicates the dimensionality, we could set for spontaneous activity higher dimensionality with $\beta_{\text{spont}} > \beta_{\text{dim}}$ to generate high dimensional inputs. 
+	Therefor, we than have the broad inputs $h^{\text{spont}} \in \mathbb{R}^{n \times 1}$ and spontaneous activity $r^{\text{spont}} \in \mathbb{R}^{n \times 1}$, which are both multivariate normal distributed vectors 
 		\begin{equation}
-			\mathbf{h}^{\text{spont}} \sim \mathbf{\mathcal{N}}(\mathbf{0_v}, \mathbf{\Sigma}^{\text{spont}})
+			h^{\text{spont}} \sim \mathcal{N}(0_v, \Sigma^{\text{spont}})
 		\end{equation}
 	and 
 		\begin{equation}
-			\mathbf{r}^{\text{spont}} \sim \mathbf{\mathcal{N}}\left( \mathbf{0_v}, (\mathbf{I_n} - \mathbf{J})^{-1} \mathbf{\Sigma}^{\text{spont}}(\mathbf{I_n} - \mathbf{J})^{-T}\right) \, .
+			r^{\text{spont}} \sim \mathcal{N}\left( 0_v, (I_n - J)^{-1} \Sigma^{\text{spont}}(I_n - J)^{-T}\right) \, .
 		\end{equation}
-	The covariance matrix $\mathbf{\Sigma}^{\text{spont}}$ is constructed in the same way as $\mathbf{\Sigma}^{\text{Dim}}$ only with $L=1$ and larger $\beta_{\text{spont}}$, that is
+	The covariance matrix $\Sigma^{\text{spont}}$ is constructed in the same way as $\Sigma^{\text{Dim}}$ only with $L=1$ and larger $\beta_{\text{spont}}$ for $M_{\text{spont}} := \kappa \beta_{\text{spont}}$, that is
 		\begin{equation} \label{eq:Sigma_spont}
-			\mathbf{\Sigma}^{\text{spont}} := \sum_{i=1}^{M+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
+			\Sigma^{\text{spont}} := \sum_{i=1}^{M_{\text{spont}}+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
 		\end{equation}
 	
 	\clearpage
 	\subsection{Asymmetric Recurrent Network Model}
 	% Reason for considering asymmetric networks.
-	Different as symmetric recurrent networks, asymmetric recurrent networks do not necessary have symmetric interaction strength between two neurons. That is, if we have two neurons $n_i$ and $n_j$, the interaction strength from $n_i$ to $n_j$ can generally differ from the interaction strength from $n_j$ to $n_i$. Therefore, the network has a more complex neural interactions and dynamics. Compare to symmetric recurrent network, the asymmetric recurrent network reflects more general neural interactions and thus more biologically realistic. 
+	Different from symmetric recurrent networks, asymmetric recurrent networks do not necessarily have symmetric interaction strength between two neurons. That is, if we have two neurons $n_i$ and $n_j$, the interaction strength from $n_i$ to $n_j$ can generally differ from the interaction strength from $n_j$ to $n_i$. Therefore, the network has more complex neural interactions and dynamics. Compared to a symmetric recurrent network, the asymmetric recurrent network reflects more general neural interactions and is thus more biologically realistic. 
 	
 	\begin{figure}[H] 
 		%\centering
@@ -318,59 +323,68 @@
 			%\caption{Structure of a recurrent network (RNN)}
 			\caption{}
 		\end{subfigure}
-		\caption{\textbf{Illustration of asymmetric recurrent networks (asymmetric RNNs).} In general, asymmetric recurrent networks do not have symmetric interaction strength between to neurons. \textbf{(a)} An example of asymmetric connections between two neurons in a network with multiple neurons. There are connections between the green and red neurons. The connection from green one to red one is stronger than the connection from the red to green. There are also connections that only from one neuron to the other but no connection back from the other neuron.  \textbf{(b)} Structure of a asymmetric RNN with feedforward inputs as the inputs for the recurrent layer. The connections between neurons inside the recurrent layer are asymmetric, as illustrated in figure (a).}
+		\caption{\textbf{Illustration of asymmetric recurrent networks (asymmetric RNNs).} In general, asymmetric recurrent networks do not have symmetric interaction strength between two neurons. \textbf{(a)} An example of asymmetric connections between two neurons in a network with multiple neurons. There are connections between the green and red neurons. The connection from green to red is stronger than the connection from red to green. Some connections are only from one neuron to the other but no connection back from the other neuron.  \textbf{(b)} Structure of an asymmetric RNN with feedforward inputs as the inputs for the recurrent layer. The connections between neurons inside the recurrent layer are asymmetric, as illustrated in Figure (a).}
 		\label{fig:asymmetric_RNN}
 	\end{figure}
 	
 	 
 	\subsubsection{Asymmetric Recurrent Interaction} \label{sec:asym_recurrent_network}
 	% Definition of the asymmetric recurrent interaction network. The problems that come up with the asymmetricity.
-	For the modeling, we construct the asymmetric interaction matrix $J$ through disturbing symmetric interaction matrix by a general asymmetric random matrix
+	For the modeling, we construct the asymmetric interaction matrix $J$ through disturbing a symmetric interaction matrix by a general asymmetric random matrix
 		\begin{equation} \label{eq:asym_interaction_matrix}
-			J = a J_{\text{sym}} + (1-a) J_{\text{asym}} \, .
+			J := a J_{\text{sym}} + (1-a) J_{\text{asym}} \, .
 		\end{equation}
-	The symmetric part is generated as described in section \ref{sec:symmetric_recurrent_interaction}. The asymmetric part has also Gaussian distributed entries with mean $0$ and $1$ as variance (\ref{eq:gaussian_distribution}). Parameter $a$ therefore indicates the degree of symmetry in the network. 
+	The symmetric part is generated as described in section \ref{sec:symmetric_recurrent_interaction}. The asymmetric part has Gaussian distributed entries with mean $0$ and variance $1$. Parameter $a$ indicates the degree of symmetry in the network. 
 	
-	The recurrent network dynamics remains the same as in symmetric case, described by (\ref{eq:sym_response_ODE}). Therefore, the steady state also keeps its form as (\ref{eq:steady_state}). Stability analysis of the steady state follows the same procedure as for symmetric interaction matrix (section \ref{sec:steady_state_response_sym}). However, here we have to mind that the asymmetric interaction matrix $J$ now have left and right eigenvectors, which are not identical to each other any more. The Jacobian matrix $A = -I_n + J$ defined from (\ref{eq:Jacobian_matrix}) still has the same set of eigenvectors as $J$. The eigenvalues are found in the similar way as (\ref{eq:steady_state_eigenvalues_sym}) but with left and right eigenvectors. If $E_l$ and $E_r$ the matrices containing the left and right eigenvectors column-wise, it follows
+	The recurrent network dynamics remains the same as in symmetric case, described by eq.(\ref{eq:sym_response_ODE}). Therefore, the steady state also keeps its form as eq.(\ref{eq:steady_state}). Stability analysis of the steady state follows the same procedure as for symmetric interaction matrix (section \ref{sec:steady_state_response_sym}). However, here we have to keep in mind that the asymmetric interaction matrix $J$ now have left and right eigenvectors, which are not identical to each other any more. The Jacobian matrix $A = -I_n + J$ defined in eq.(\ref{eq:Jacobian_matrix}) still has the same set of eigenvectors as $J$. The eigenvalues are found in the similar way as eq.(\ref{eq:steady_state_eigenvalues_sym}) but with left and right eigenvectors. If $E_l$ and $E_r$ the matrices containing the left and right eigenvectors column-wise, it follows
 		\begin{equation}
 			\begin{split}
 				E_l^*(-I_n + J) &= - E_l^* + E_l^* J =  - E_l^* + \Lambda E_l^* = (-I_n + \Lambda) E_l^* \\
 				(-I_n + J) E_r &= - E_r + J E_r = -E_r + E_r \Lambda = E_r (-I_n + \Lambda) \, , 
 			\end{split}
 		\end{equation}	
-	with $E_l^*$ the conjugate transport matrix of $E_l$, $I_n$ the identity matrix, and $\Lambda$ the diagonal matrix that contains eigenvalues of $J$ on its diagonal. The eigenvalues $\{\lambda_i\}$ for $J$ are in general complex numbers
+	with $E_l^*$ the conjugate transpose matrix of $E_l$, $I_n$ the identity matrix, and $\Lambda$ the diagonal matrix that contains eigenvalues of $J$ on its diagonal. The eigenvalues $\{\lambda_i\}$ for $J$ are in general complex numbers
 	\begin{equation}
 		\{\lambda_i \in \mathbb{C} \mid \lambda_i \text{ eigenvalues of $J$}\} \, .
 	\end{equation}
 	Therefore, the eigenvalues for the Jacobian matrix $A$ is now $-I_n + \Lambda \in \mathbb{C}^{n \times n}$. 
 	
-	To determine the stability of steady state, we now have to consider the real part of $(-I_n + \Lambda)$. If $\exists i: -1 + \text{Re}(\lambda_i) > 0$, the steady state will be unstable. However, if $\forall i: -1 + \text{Re}(\lambda_i) < 0$, the steady state is then stable and we will have
+	To determine the stability of steady state, we now have to consider the real part of Jacobian matrix $A =-I_n + \Lambda$. 
+	Criteria below are followed. If
+		\begin{equation*}
+			\exists i: -1 + \text{Re}(\lambda_i) > 0 \Rightarrow \text{the steady state will be unstable.}
+		\end{equation*}
+	However, if 
+		\begin{equation*}
+			\forall i: -1 + \text{Re}(\lambda_i) < 0 \Rightarrow \text{the steady state is stable.}
+		\end{equation*}
+	As a result, the responses converge to the steady state after enough long time, 
 		\begin{equation} \label{eq:asym_stable_fix_point}
 			\forall i: -1 + \text{Re}(\lambda_i) < 0 \, \,  \Rightarrow \, \, \text{lim}_{t \rightarrow \infty} r(t) = r^*
 		\end{equation}
-	Thus, we need to limit the range of eigenvalues for $J$ such that the real part of eigenvalues is limited by $R < 1$. The limitation could be achieved by dividing the complex eigenvalues by maximal absolute magnitude.
+	Thus, we need to limit the range of eigenvalues for $J$ such that the real part of eigenvalues is limited by $R < 1$ and we could then apply the steady state for further analysis. The limitation could be achieved by dividing the complex eigenvalues by maximal absolute magnitude and re-scaled by $R$, 
 		\begin{equation} \label{eq:asym_normalization}
-			\tilde{\lambda}_i = \frac{R \lambda_i}{\Vert\lambda\Vert_{\text{max}}} \, \, \, \, \, \forall i \, ,
+			\tilde{\lambda}_i = \frac{R \lambda_i}{\text{max}\Vert\lambda\Vert} \, \, \, \, \, \forall i \, .
 		\end{equation}  
-	The contribution of eigenvalues is influenced by the parameter $a$, which determines the proportion of symmetric interaction. In the case of only having symmetric interaction network, all eigenvalues are real and therefore the distribution forms a line in the complex plane. On the other hand, if $J$ is only a general asymmetric interaction network, the distribution forms a circle \cite{rajan2006eigenvalue}. For $a$ between $0$ and $1$, the distribution is a symmetric ellipse. 
+	The distribution of eigenvalues is influenced by the parameter $a$, which determines the proportion of symmetric interaction. In the case of only having a symmetric interaction network, all eigenvalues are real, and therefore the distribution forms a line in the complex plane. On the other hand, if $J$ is only a general asymmetric interaction network, the distribution forms a circle \cite{rajan2006eigenvalue}. For $a$ between $0$ and $1$, the distribution is a symmetric ellipse. 
 		\begin{figure} [H]
 			\centering
 			\includegraphics[width=\textwidth]{../figures/asym_eigval_distribution.pdf}
-			\caption{\textbf{Eigenvalue distribution in dependence of parameter $a$ in (\ref{eq:asym_interaction_matrix}).} In general, an asymmetric matrix has eigenvalues in complex plane. The degree of symmetry determines the form of distribution from a line ($a = 1$, only real eigenvalues) to a full circle ($a = 0$) with radius $R < 1$. Between $a = 0$ and $a = 1$, the distribution is a symmetric ellipse along imaginary part $=0$. Sub figures from left to right show the eigenvalue distribution in the complex plane from $a = 1, 0.5,$ and $1$. The gray line marks the radius $-R$ and $R$. Here $R = 0.85 < 1$.}
+			\caption{\textbf{Eigenvalue distribution in dependence of parameter $a$ in eq.(\ref{eq:asym_interaction_matrix}).} In general, an asymmetric matrix has eigenvalues in complex plane. The degree of symmetry determines the form of distribution from a line ($a = 1$, only real eigenvalues) to a full circle ($a = 0$) with radius $R < 1$. Between $a = 0$ and $a = 1$, the distribution is a symmetric ellipse along the line where imaginary part equals $0$. Subfigures from left to right show the eigenvalue distribution in the complex plane from $a = 1, 0.5,$ and $0$. The gray line marks the radius $-R$ and $R$. Here $R = 0.85 < 1$.}
 		\end{figure}
 	
 	\subsubsection{Modifications of Feedforward Recurrent Alignment for Asymmetric Interactions} \label{sec:modify_ffrec_alignment_score}
 	% Reason for modification.
 	% The three Hypothesis/Modification that were looked at. 
-	We want to have the similar quantification of feedforward recurrent alignment as for the symmetric interaction matrix (section \ref{sec:ffrec_definition}). However, when aligning the feedforward input to eigenvectors of asymmetric recurrent interaction network $J$ like (\ref{eq:ffrec_equals_eigval}), the result calculated by (\ref{eq:ffrec_align}) is a complex number and can therefore be hardly interpreted. To embed such a sore with analogical idea, we deliberate the following modifications and try to discover the outcomes. 
+	We want to have the similar quantification of feedforward recurrent alignment as for the symmetric interaction matrix (section \ref{sec:ffrec_definition}). However, when aligning the feedforward input to eigenvectors of asymmetric recurrent interaction network $J$ like in eq.(\ref{eq:ffrec_equals_eigval}), the result calculated with eq.(\ref{eq:ffrec_align}) is a complex number and can therefore be hardly interpreted. To embed such a sore with analogical idea, we deliberate the following modifications and try to evaluate the outcomes. 
 	
 	Aligning feedforward input $h \in \mathbb{C}^{n \times 1}$ to the asymmetric interaction $J$, we consider:
 		\begin{enumerate}
-			\item \label{sec:modicication_real_part} Only the real part of input $h$ and calculate the feedforward recurrent alignment with $\tilde{h} = \text{Re}(h) \in \mathbb{R}^{n \times 1}$.
+			\item \label{sec:modicication_real_part} Only the real part of input $h$ is relevant and calculate the feedforward recurrent alignment with $\tilde{h} := \text{Re}(h) \in \mathbb{R}^{n \times 1}$.
 				\begin{equation} \label{eq:ffrec_real_part}
 					\nu_{\text{Re}} := \frac{\tilde{h}^T J \tilde{h}}{\Vert \tilde{h} \Vert^2} = \frac{\text{Re}(h)^T J \text{Re}(h)}{\Vert \text{Re}(h)\Vert^2} \, .
 				\end{equation}
-			\item \label{sec:modification_magnitude} Consider the magnitude of all entries in feedforward input $h$ and take $\tilde{h_i} = \vert h_i \vert \in \mathbb{R} \, \, \forall i$. Therefore $\tilde{h} \in \mathbb{R}^{n \times 1}$.
+			\item \label{sec:modification_magnitude} Consider the magnitude of all entries in feedforward input $h$ and calculate entries $\tilde{h_i} := \vert h_i \vert \in \mathbb{R} \, \, \forall i$. Therefore $\tilde{h} \in \mathbb{R}^{n \times 1}$, and the feedforward recurrent alignment has the formulation
 				\begin{equation} \label{eq:ffrec_mag}
 					\nu_{\text{mag}} := \frac{\tilde{h}^T J \tilde{h}}{\Vert \tilde{h} \Vert^2} \text{ with } \tilde{h}_i = \vert h_i \vert \in \mathbb{R} \, .
 				\end{equation}
@@ -378,42 +392,40 @@
 				\begin{equation} \label{eq:symmetrized_J}
 					\tilde{J} = \frac{J + J^T}{2} \, .
 				\end{equation}
-				Instead of align the feedforward input directly to $J$, we align indirectly to $\tilde{J}$ with its eigenvectors $\tilde{e}_i \in \mathbb{R}^{n \times 1}$. If having feedforward input aligned to eigenvectors to $J$ with $\tilde{h} = \tilde{e}_i $, the feedforward recurrent alignment will be calculated with eigenvectors of $\tilde{J}$ instead:
+				Instead of aligning the feedforward input directly to $J$, we align it indirectly to $\tilde{J}$ with its eigenvectors $\tilde{e}_i \in \mathbb{R}^{n \times 1}$. So the modified alignment is $\tilde{h} := \tilde{e}_i $, the feedforward recurrent alignment will be calculated with eigenvectors of $\tilde{J}$:
 				\begin{equation} \label{eq:ffrec_symmetrized}
-					\nu_{\text{sym}} =  \frac{\tilde{h}^T J \tilde{h}}{\Vert \tilde{h} \Vert^2} = \frac{\tilde{e}_i^T J \tilde{e}_i}{\Vert \tilde{e}_i \Vert^2} \in \mathbb{R} \, ,
+					\nu_{\text{sym}} =  \frac{\tilde{h}^T J \tilde{h}}{\Vert \tilde{h} \Vert^2} = \frac{\tilde{e}_i^T J \tilde{e}_i}{\Vert \tilde{e}_i \Vert^2} \in \mathbb{R} \, .
 				\end{equation}
-				with $\tilde{\lambda}_i$ eigenvalues of $\tilde{J}$ . 
 		\end{enumerate}
 	
 	\subsubsection{Related Modification for Evaluation} \label{sec:modification_asym}
 	% Change in dimensionality 
-	As for symmetric interaction network, four activity properties are taken into account to evaluate the feedforward recurrent alignment hypothesis with measurement of the alignment scores. In the case of asymmetric interaction, the modified alignment scores (section \ref{sec:modify_ffrec_alignment_score}). 
+	As for symmetric RNNs, four activity properties are taken into account to evaluate the feedforward recurrent alignment hypothesis with the measurement of the alignment score. In the case of asymmetric RNNs, the modified alignment scores (section \ref{sec:modify_ffrec_alignment_score}) are considered in the evaluation. 
 	
-	More than the four response properties that considered in the case of symmetric recurrent interaction matrix, for new definition of feedforward recurrent alignment scores, the monotony of score and corresponding eigenvalues have to be verified. Following are more details about how modifications in section \ref{sec:modify_ffrec_alignment_score} influence the modulation of properties that are involved in the evaluation. 
+	More than the four response properties that are considered in the case of symmetric recurrent interaction matrix, for a new definition of feedforward recurrent alignment score, the monotony of score and corresponding eigenvalues have to be verified. Following are more details about how modifications in section \ref{sec:modify_ffrec_alignment_score} influence the modeling of properties that are involved in the evaluation. 
 	
-	\paragraph{Monotony} For a certain eigenvector $e_i$, its corresponding eigenvalues $\lambda_i$ can reflect the strength of response due to the response amplification %TODO: response amplification in methods!!. 
-	Dominant eigenvectors with large eigenvalues can therefore trigger strong response and suppress noise, leading to more reliable evoked activity. If the feedforward recurrent alignment score could well predict the reliability of evoked activities, inserting dominant eigenvectors should result in large score value. Therefore, large feedforward recurrent alignment score calculated with modified eigenvectors $\tilde{h}$ should corresponds with large eigenvalue. In other words, a monotonic positive correlation should exist between eigenvalues and feedforward recurrent alignment score inserting corresponding modified eigenvectors. 
+	\paragraph{Monotony} For a certain eigenvector $e_i$, its corresponding eigenvalues $\lambda_i$ can reflect the strength of the response. % due to the response amplification %TODO: response amplification in methods!!. 
+	Dominant eigenvectors with large eigenvalues can therefore trigger strong response and suppress noise, leading to more reliable evoked activity. If the feedforward recurrent alignment score could well predict the reliability of evoked activities, inserting dominant eigenvectors should result in large alignment score values. Therefore, a large feedforward recurrent alignment score calculated with modified eigenvector $\tilde{h}$ should correspond with large eigenvalue. In other words, a monotonic positive correlation should exist between eigenvalues and feedforward recurrent alignment score inserting corresponding modified eigenvectors. When reliable responses occur, both feedforward recurrent alignment score and eigenvalue should be large.  
 	
-		
 	\paragraph{Trial-to-trial correlation} 
-	Similar to the case with symmetric interaction network, the first characteristic that is evaluated is the trial-to-trial correlation. With above modifications in section \ref{sec:modify_ffrec_alignment_score}, the inputs are aligned to $\tilde{h}$ for all modifications. That is the mean vector for modeling the inputs by multivariate normal distribution is determined by $\tilde{h}$. 
+	Similar to the case with symmetric RNNs, the first characteristic that is evaluated is the trial-to-trial correlation. With above modifications in section \ref{sec:modify_ffrec_alignment_score}, the inputs are aligned with $\tilde{h}$ for all modifications. That is the mean vector for modeling the inputs by multivariate normal distribution is determined by $\tilde{h}$, 
 		\begin{equation}
 				h \sim \mathcal{N}(\tilde{h}, \sigma_{\text{trial}I_n}) \, .
 		\end{equation}
-		The steady state response evoked by the inputs are transformed multivariate normal distribution
+		The steady state responses evoked by the inputs are transformed multivariate normal distribution
 		\begin{equation}
 				r \sim \mathcal{N}\left((1-J)^{-1}\tilde{h}, \sigma_{\text{trial}} (1-J)^{-1} (1-J)^{-T}\right) \, .
 		\end{equation}
-	Trial-to-trial correlation is determined by $\beta_s$ defined in equation (\ref{eq:ttc_sym}). 
+	Trial-to-trial correlation is determined by $\beta_s$ defined in eq.(\ref{eq:ttc_sym}). 
 	
-	\paragraph{Intra-trial stability} Modulation of the single trial is described by the stochastic differential equations (\ref{eq:sde_intra_trial_stability}). When the inputs are aligned to the modified eigenvectors, the mean value of inputs are again determined by $\tilde{h}$ defined in modifications above. As a result, the stochastic differential equations after modification is 
+	\paragraph{Intra-trial stability} Modulation of the single trial is described by the stochastic differential equations (\ref{eq:sde_intra_trial_stability}). When the inputs are aligned to the modified eigenvectors, the mean value of inputs are again determined by $\tilde{h}$ defined in modifications above. As a result, the stochastic differential equations with modifications are 
 		\begin{subequations}
 			\begin{align}
 				\mathrm{d} h & = \tilde{h} \mathrm{dt} + \sigma_{\text{time}} \mathrm{d} W \\
 				\mathrm{d} r & = (-r + J \cdot \tilde{h}) \mathrm{d}t + \sigma_{\text{time}} \mathrm{d} W \, ,
 			\end{align}
 		\end{subequations}
-	The solution of evoked activity is followed by Euler-Maruyama scheme (\ref{eq:euler_maruyama}). Intra-trial stability is then calculated with (\ref{eq:its_sym}). 
+	The solution of evoked activity is approximated by Euler-Maruyama scheme eq.(\ref{eq:euler_maruyama}). Intra-trial stability is then calculated by $\bar{c}(\Delta t)$ with eq.(\ref{eq:its_sym}). 
 	
 	\paragraph{Dimensionality}% Modification for the covariance matrix and analytical dimensionality. 
 	With symmetric interaction networks, the covariance matrix for generation of inputs and responses is constructed with eigenvectors of interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with asymmetric interaction matrix, the eigenvectors are basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix need to be modified synchronously to have at least vectors from $\mathbb{R}^{n \times 1}$. 
@@ -429,12 +441,12 @@
 			  		
   	 The covariance matrix for generating inputs is constructed similar to it with symmetric interaction network (\ref{eq:Sigma_dim}) but with $\tilde{e}_i$ defined above, 
   	  	\begin{equation} \label{eq:modifications_dim}
-  	  		\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{2(i-L)}{\beta}\right) \tilde{e}_i \tilde{e}_i^T \, .
+  	  		\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(\frac{2(i-L)}{\beta_{\text{dim}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
   	  	\end{equation}
 		  	  	
  	  Analogously, calculating the effective dimensionality defined by (\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
   	  	  	\begin{equation} \label{eq:modification_eff_dim}
-  	  	  		d^r_{\text{eff}} = \frac{\left(\sum_{i = L}^{L + M} \text{exp}\left(-2 \frac{i-L}{\beta}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M} \text{exp}\left(-4 \frac{i-L}{\beta}\right)(1-\tilde{\lambda}_i)^{-4}}
+  	  	  		d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M_{\text{dim}}} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-4}}
   	  	  	\end{equation}
 		  	  	
 	\paragraph{Alignment to spontaneous activity}. % Modification due to dimensionality modification.
