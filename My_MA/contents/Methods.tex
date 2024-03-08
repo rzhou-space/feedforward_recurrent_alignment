@@ -452,7 +452,7 @@
 	\paragraph{Alignment to spontaneous activity} % Modification due to dimensionality modification.
 	The same formulation of covariance matrix with a higher dimensionality $\beta_{\text{spont}}$ is used for generation of broader endogenous inputs for spontaneous activity, similar to section \ref{sec:response_properties_for_evaluation}. The same modifications above for dimensionality in eq.(\ref{eq:modifications_dim}) can be taken over into covariance matrix for endogenous inputs. The formulation of covariance matrix for spontaneous input is defined for symmetric RNNs in eq.(\ref{eq:Sigma_spont}). Applying the modifications above, insert therefore $\tilde{e}_i$ and receive  
 	  	\begin{equation} \label{eq:Sigma_spont_asym}
-	  		\Sigma^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} 		\text{exp}\left(\frac{2(i-1)}{\beta_{\text{spont}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
+	  		\Sigma^{\text{spont}} := \sum_{i=1}^{M_{\text{spont}} + 1} 	\text{exp}\left(\frac{2(i-1)}{\beta_{\text{spont}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
 	  	\end{equation}
 				  
 	\clearpage
@@ -531,102 +531,104 @@
 	\clearpage
 	\subsection{Black Box Recurrent Network Model}
 	% Background
-	Until now, we assume that we already know the structure of recurrent networks and evaluate the feedforward recurrent alignment hypothesis on the networks. However, in reality during the experiments, mostly only a small part of the network is known and the total structure of the network keeps mostly like a black box. As a result, the eigenvectors of the networks are generally unknown. The feedforward recurrent alignment cannot use the dominant modes to characterize the development of feedforward recurrent network system. 
+	Until now, we assume that we already know the structure of recurrent networks and evaluate the feedforward recurrent alignment hypothesis on the networks. However, in reality during the experiments, mostly only a small part of the network is known and the total structure of the network is mostly like a black box. As a result, dominant directions for generating reliable neural activity with networks are generally unknown. The feedforward recurrent alignment cannot use the dominant modes to characterize the development of feedforward recurrent network systems any more. 
 	
 	% Motivation from multiple experiments. Literatures
-	It was pointed out that the reliability of evoked dynamics in recurrent networks is dependent on the stimulus used. As a consequence, to a recurrent network would correspond a set of stimuli which are more efficiently transmitted than others \cite{marre2009reliable}. 
+	It was pointed out that the reliability of evoked dynamics in recurrent networks is dependent on the stimulus used. As a consequence, a recurrent network would correspond to a set of stimuli that are more efficiently transmitted than others \cite{marre2009reliable}. 
 	Especially the stimulus inputs that align with the structure of endogenous sub-networks would be recurrently amplified, leading to more reliable evoked responses \cite{mulholland2023selective}. 
 	
-	Besides, the similarity between spontaneous and evoked activity in sensory cortical areas could be a signature of efficient transmission and propagation across cortical networks. Based on a better recall caused by a match between spontaneous activity and input statistics, it was hypothesized that the recurrent connectivity could have been shaped by a learning process so that the spontaneous activity matches the natural input statistics \cite{marre2009reliable}. 
+	Besides, the similarity between spontaneous and evoked activity in sensory cortical areas could be a signature of efficient transmission and propagation across cortical networks. Based on a better recall caused by a match between spontaneous activity and input statistics, it was hypothesized that the recurrent connectivity could have been shaped by a learning process so that the spontaneous activity matches the natural input statistics to increase the efficient transmission \cite{marre2009reliable}. 
 	
 	% Explanation of the intuition. Want to approximate the dominant modes.
-	Therefore, we wonder if we could apply the experimental measurable spontaneous activity to characterize the feedforward recurrent alignment. Without knowing the eigenvectors of the recurrent networks, align feedforward inputs to the spontaneous activity instead of the recurrent networks. This can be a further modification for modeling feedforward recurrent alignment for general asymmetric recurrent networks. 
-	%TODO: connections between white noise and spontaneous activity --> H.Mulholland Lab see results. + difference between white noise evoked spontaneous-like activity (generating similar data) and spontaneous activity we modeled (fitting to ex.data).
+	Therefore, we wonder if we could apply spontaneous-like activity to characterize the feedforward recurrent alignment. Without knowing the eigenvectors of the recurrent interactions, align feedforward inputs to the spontaneous-like activity patterns instead. This can be realized for general asymmetric RNNs with a further modification at modeling feedforward recurrent alignment. 
 	
-	Furthermore, we consider to repeatedly apply the recurrently amplified spontaneous stimuli as inputs to discover if the amplified spontaneous activity could increase the alignment to the recurrent network. 
+	To model the spontaneous-like activity, the lab of H.Mulholland \cite{cosyne2023} suggested on possible way with white noise. Thus, for aligning inputs to spontaneous-like activity, we model it with alignment to white-noise-evoked activity.  
+	
+	Furthermore, we consider repeatedly applying the recurrently amplified spontaneous stimuli as inputs to discover the effect of repetitions of white-noise-evoked activity on feedforward recurrent alignment. 
 	
 	\subsubsection{Approximation with White Noise Evoked Activity} \label{sec:white_noise_approx_ffrec}% Low rank is here not necessary (could perhaps shortly in Appendix).
 	%TODO: distinguish the white noise evoked spontanous activity and modeled spontanous acttivity at alignment. Therefore from beginning change the sponatenous activity to white noise evoked ...
 	% TODO: Connection between white noise evoked activity and spontaneous activity.
-	With unknown recurrent structure, which we assume to be asymmetric generally, it is then difficult to find the stimuli pattern such that the trial-to-trial correlation, intra-trial stability and alignment between evoked activity to spontaneous activity to be high while keeping dimensionality low. In other words, we cannot apply the eigenvalues of the recurrent network to align with inputs and then characterize the development of feedforward inputs leading to stable response properties. 
+	With an unknown recurrent structure, which is in general asymmetric, it is then difficult to find the stimuli pattern such that the trial-to-trial correlation, intra-trial stability, and alignment between evoked activity to spontaneous activity are high while keeping dimensionality low. In other words, we cannot apply the eigenvectors of the recurrent interaction to align with inputs and then characterize the development of feedforward inputs leading to stable response properties. 
 	
-	Alternatively, we align the inputs to spontaneous pattern and explore the response properties correlation with feedforward recurrent alignment. 
+	Alternatively, we align the inputs to white-noise-evoked activity and explore the response properties in correlation with feedforward recurrent alignment. 
 		
 	% Definition of feedforward recurrent alignment with principal component.
-	Spontaneous activity is evoked by white noise $h \in \mathbb{R}^{n \times 1}$, which is modulated by multivariate normal distribution with mean zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix the identity matrix $I_n \in \mathbb{R}^{n \times n}$, 
+	White noise is modeled by multivariate normal distribution with mean vector the zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix the identity matrix $I_n \in \mathbb{R}^{n \times n}$, 
 		\begin{equation}
 			h_{\text{white}} \sim \mathcal{N}(0_v, I_n) \, .
 		\end{equation}
-	The spontaneous activity is then modeled by the transformed steady state response $r \in \mathbb{R}^{n \times 1}$, which is also multivariate normal distributed with transformed covariance matrix, 
+	The white-noise-evoked activity is then modeled by the transformed steady-state response $r \in \mathbb{R}^{n \times 1}$, which is also multivariate normal distributed with transformed covariance matrix (section \ref{sec:response_properties_for_evaluation}), 
 		\begin{equation}
 			r_{\text{white}} \sim \mathcal{N}\left(0_v, (1-J)^{-1}(1-J)^{-T}\right) \, .
 		\end{equation}
-	The response pattern is determined by the covariance matrix. If align the inputs to response patterns, the eigenvectors of covariance matrices are aligned. The eigenvectors of a covariance matrix are also known as principal components for the distribution. 
+	The form of response pattern is determined by the covariance matrix. If aligning the inputs to response patterns, the eigenvectors of covariance matrices are aligned. The eigenvectors of a covariance matrix are also known as principal components for the distribution. 
 	
-	To model the feedforward recurrent alignment hypothesis, the inputs are aligned to principal components and the feedforward alignment score is formulated with principal components instead of with modified eigenvectors of asymmetric recurrent network like section \ref{sec:modify_ffrec_alignment_score}. For a input $h$ aligned to a principal component $p$, the feedforward recurrent alignment is constructed with 
+	To model the feedforward recurrent alignment hypothesis, the inputs are now aligned to principal components of white-noise-evoked activity and the feedforward alignment score is formulated with principal components instead of with modified eigenvectors of asymmetric recurrent network as in section \ref{sec:modify_ffrec_alignment_score}. Since covariance matrix is symmetric, its eigenvectors and eigenvalues are of real numbers. For an input $h$ aligned to a principal component $p$, the feedforward recurrent alignment is constructed with 
 		\begin{equation} \label{eq:ffrec_white_noise}
 			\nu := \frac{p^T J p}{\Vert p \Vert^2} \, .
 		\end{equation}
 	
 	% Evaluation of the modification. monotony, ttc, its, dim, align to spont.act
-	The original recurrent network is now approximated by the spontaneous response pattern and the inputs are aligned to principal components of the spontaneous response pattern. As for the recurrent networks, some properties of the new formulated feedforward recurrent alignment score have to be evaluated. The perspectives that we take into account are:
+	In the newly defined feedforward recurrent alignment eq.(\ref{eq:ffrec_white_noise}), the original recurrent network is now approximated by the spontaneous-like response patterns and the inputs are aligned to the principal components of the spontaneous-like response pattern. The same as prior in the work, some properties of the newly formulated feedforward recurrent alignment score are going to be evaluated, and especially the expected correlations between response properties and feedforward recurrent alignment eq.(\ref{eq:ffrec_white_noise}) should be fulfilled. The perspectives that we take into account are:
 		\begin{itemize}
-			\item Monotonously growing correlation between feedforward recurrent alignment score and eigenvalues of covariance matrix from spontaneous activity pattern.
+			\item Monotonously positive correlation between feedforward recurrent alignment score and eigenvalues of covariance matrix from the white-noise-evoked pattern.
 			\item Positive correlation between feedforward recurrent alignment score and trial-to-trial correlation.
 			\item Positive correlation between feedforward recurrent alignment score and intra-trial stability.
 			\item Negative correlation between feedfroward recurrent alignment score and dimensionality.
-			\item Feedforward recurrent alignment score is positive correlated with alignment of evoked activity to spontaneous activity.
+			\item Feedforward recurrent alignment score is positively correlated with alignment of evoked activity to spontaneous activity.
 		\end{itemize}
 	
 	% Monotony Method.
-	\paragraph{Monotony} The feedforward recurrent alignment should reflect how well the input pattern is aligned with the considered recurrent network. The more the input pattern is aligned with the dominant projection direction in activity space, the stronger should be the evoked response due to response amplification. %TODO: should move the response amplification from results to introduction or method perhaps?.
-	The response strength is determined by the corresponding eigenvalue of aligned direction. Since the inputs are aligned to the spontaneous activity pattern, the feedforward recurrent alignment should be monotonusly positive correlated with the eigenvalues of spontaneous activity pattern. 
+	\paragraph{Monotony} The feedforward recurrent alignment should reflect how well the input pattern is aligned with the considered recurrent network. The more the input pattern is aligned with the dominant projection direction in activity space spanned by eigenvectors of recurrent interaction, the stronger should be the evoked response. %due to response amplification. %TODO: should move the response amplification from results to introduction or method perhaps?.
+	
+	The response strength is determined by the corresponding eigenvalue of the aligned direction. Large eigenvalues result in stronger evoked activity \cite{dayan2005theoretical}. Since the inputs are aligned to the white-noise-evoked activity pattern, the feedforward recurrent alignment should be monotonously positively correlated with the eigenvalues of the white-noise-evoked activity pattern. 
 	
 	% ttc method.
-	\paragraph{Trial-to-trial correlation} We consider the case of general asymmetric recurrent network from section \ref{sec:asym_recurrent_network} with formulation considering different grade of symmetry (\ref{eq:asym_interaction_matrix}). Thus, the modification is similar to section \ref{sec:modify_ffrec_alignment_score}. The input pattern $h$ is aligned to the principal component $p$ of the covariance matrix from spontaneous activity pattern and therefore modeled by
+	\paragraph{Trial-to-trial correlation} We consider the case of general asymmetric recurrent network from section \ref{sec:asym_recurrent_network} with formulation considering different grade of symmetry in eq.(\ref{eq:asym_interaction_matrix}) for theoretical exploration. Thus, the modification is similar to section \ref{sec:modification_asym}. The input pattern $h$ is aligned to the principal component $p$ of the covariance matrix from white-noise-evoked activity pattern and therefore modeled by
 		\begin{equation}
-			h \sim \mathcal{N}(p, \sigma_{\text{trial}I_n}) \, .
+			h \sim \mathcal{N}(p, \sigma_{\text{trial}}I_n) \, .
 		\end{equation}
-	The steady state response evoked by the inputs are transformed multivariate normal distribution
+	The steady-state response evoked by the inputs are transformed multivariate normal distribution
 		\begin{equation}
 			r \sim \mathcal{N}\left((1-J)^{-1}p, \sigma_{\text{trial}} (1-J)^{-1} (1-J)^{-T}\right) \, .
 		\end{equation}
-	The trial-to-trial correlation reflects the variation between different trials. It is again the average of pairwise Pearson correlation between response trials as defined by $\beta_s$ (\ref{eq:ttc_sym}). 
+	The trial-to-trial correlation reflects the variation between different trials from one stimulus. It is the average of pairwise Pearson correlation between response trials as defined by $\beta_s$ with eq.(\ref{eq:ttc_sym}). 
 	
 	% its method.
-	\paragraph{Intra-trial stability} Intra-trial stability quantifies the variation inside one response trial evoked by input. One time-dependent input and evoked steady state response trial is approximated by Euler-Maruyama scheme \ref{eq:euler_maruyama}. The input pattern $h$ is aligned to principal components $p$ of activity pattern. Therefore, the mean vector for $h$ is the aligned principal component $p$. The input and evoked response are therefore formulated as
+	\paragraph{Intra-trial stability} Intra-trial stability quantifies the variation inside one response trial evoked by input. One time-dependent input and evoked steady-state response trial is approximated by Euler-Maruyama scheme described by (\ref{eq:euler_maruyama}). The input pattern $h$ is aligned to principal components $p$ of white-noise-evoked activity pattern. Therefore, the mean vector for input distribution is the aligned principal component $p$. The input and evoked response are therefore approximated as
 		\begin{subequations}
 			\begin{align}
 				\mathrm{d} h & = p \mathrm{dt} + \sigma_{\text{time}} \mathrm{d} W \\
 				\mathrm{d} r & = (-r + J \cdot p) \mathrm{d}t + \sigma_{\text{time}} \mathrm{d} W \, .
 			\end{align}
 		\end{subequations}
-	The intra-trial stability is the time average of delayed response correlation defined by (\ref{eq:input_distribution_dimensionality}). 
+	The intra-trial stability is the time average of delayed-response correlation defined by eq.(\ref{eq:input_distribution_dimensionality}). 
 	
 	% dim method
-	\paragraph{Dimensionality} For modulation of change in dimensionality along alignment, the covariance matrix for input distribution is constructed as \ref{eq:Sigma_dim} but with principal components $p_i$ of spontaneous activity as an approximation to the eigenvectors of the original recurrent network.  
-		\begin{equation}
-			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M} \text{exp}\left(\frac{-2(i-L)}{\beta}\right) p_i p_i^T \, .
+	\paragraph{Dimensionality} For modeling the change in dimensionality against alignment score, the covariance matrix for input distribution is constructed as eq.(\ref{eq:Sigma_dim}) but with principal components $p_i$ of white-noise-evoked activity as an approximation to the eigenvectors of the original recurrent network, 
+		\begin{equation} \label{eq:dim_white_noise}
+			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) p_i p_i^T \, .
 		\end{equation}
 	The input and the evoked activity are modeled by multivariate normal distribution 
-		\begin{subequations} \label{eq:dim_white_noise}
+		\begin{subequations} 
 			\begin{align}
 				h & \sim \mathcal{N}(0_v, \Sigma^{\text{Dim}}) \\
 				r & \sim \mathcal{N}(0_v, (I_n - J)^{-1} \Sigma^{\text{Dim}} (I_n - J)^{-T}) \,.
 			\end{align}
 		\end{subequations}
-	The effective dimensionality (\ref{eq:effective_dimensionality_analytical}) is approximated empirically by the eigenvalues of covariance matrix from spontaneous activity pattern (\ref{eq:dim_empirical_sym}). 
+	The effective dimensionality from is approximated by the eigenvalues of covariance matrix from white-noise-evoked activity pattern based on eq.(\ref{eq:dim_empirical_sym}). 
 	
 	% alignment to spont. act
-	\paragraph{Alignment between evoked activity and spontaneous activity}  To grantee the spontaneous has a broader input than the evoked activity, the spontaneous activity here for alignment to evoked activity is constructed similar to (\ref{eq:dim_white_noise}) but with a higher dimensioality $\beta_{\text{spont}} > \beta$. For the formulation of covariance matrix for spontaneous activity, the principal components from white noise evoked activity pattern is used in (\ref{eq:Sigma_spont_asym}). 
+	\paragraph{Alignment between evoked activity and spontaneous activity}  To grantee the spontaneous has a broader input than the evoked activity, the spontaneous activity for alignment to evoked activity is constructed similarly to eq.(\ref{eq:dim_white_noise}) with a higher dimensioality $\beta_{\text{spont}} > \beta_{\text{dim}}$. For the formulation of covariance matrix for spontaneous activity, the principal components from white-noise-evoked activity pattern is use, 
 		\begin{equation}
-			\Sigma^{\text{spont}} := \sum_{i=L}^{M+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) p_i p_i^T \, .
+			\Sigma^{\text{spont}} := \sum_{i=L}^{M_{\text{spont}}+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) p_i p_i^T \, .
 		\end{equation}
 	The spontaneous activity is then modeled by
 		\begin{equation} \label{eq:spont_act_white_noise}
 			r \sim \mathcal{N}(0_v, (I_n - J)^{-1} \Sigma^{\text{spont}} (I_n - J)^{-T}) \,. 
 		\end{equation}
-	The amount of overlap between evoked activity pattern (\ref{eq:dim_white_noise}b) and the principal components of spontaneous activity (\ref{eq:spont_act_white_noise}) quantifies the alignment (\ref{eq:align_to_spont_act_sym}). The average alignment over all $N$ evoked response trials is the final alignment score for alignment to spontaneous activity.
+	The amount of overlap between evoked activity pattern generated with eq.(\ref{eq:dim_white_noise}b) and the principal components of spontaneous activity from eq.(\ref{eq:spont_act_white_noise}) quantifies the alignment between them. The average alignment over all $N$ evoked-response trials is the final alignment to spontaneous activity.
 		\begin{equation}
 			\gamma = \frac{1}{N} \left(\frac{r^T_{i} \cdot \Sigma^{\text{spont}} \cdot r_{i}}{\Vert r_{i} \Vert^2 \text{Tr}(\Sigma^{\text{spont}} )}\right)
 		\end{equation}
