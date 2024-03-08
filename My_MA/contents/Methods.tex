@@ -428,29 +428,29 @@
 	The solution of evoked activity is approximated by Euler-Maruyama scheme eq.(\ref{eq:euler_maruyama}). Intra-trial stability is then calculated by $\bar{c}(\Delta t)$ with eq.(\ref{eq:its_sym}). 
 	
 	\paragraph{Dimensionality}% Modification for the covariance matrix and analytical dimensionality. 
-	With symmetric interaction networks, the covariance matrix for generation of inputs and responses is constructed with eigenvectors of interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with asymmetric interaction matrix, the eigenvectors are basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix need to be modified synchronously to have at least vectors from $\mathbb{R}^{n \times 1}$. 
+	With symmetric interaction networks, the covariance matrix for the generation of inputs and responses is constructed with eigenvectors of the interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with an asymmetric interaction matrix, the eigenvectors are the basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix needs to be modified synchronously to have at least real vectors. 
 				  
-	The same problem exists also for the analytical calculation for effective dimensionality (\ref{eq:effective_dimensionality_analytical}): we now have complex eigenvalues that lead to the dimensionality also complex. To overcome this problem, we work along the same modifications as above for covariance matrix.
+	The same problem exists also for the analytical calculation for effective dimensionality in  eq.(\ref{eq:effective_dimensionality_analytical}): we now have complex eigenvalues that lead to the dimensionality also complex. To overcome this problem, we work along the same modifications as above for covariance matrix.
 				  
-	As a result, having $e_i$ eigenvectors and $\lambda_i$ of asymmetric interaction network $J$
+	As a result, having $e_i \in \mathbb{C}^{n \times 1}$ eigenvectors and eigenvalues $\lambda_i \in \mathbb{C}$ of asymmetric interaction network $J$, we transfer complex eigenvectors and eigenvalues to real vectors and values based on section \ref{sec:modify_ffrec_alignment_score}: 
 	  \begin{itemize}
-			  	\item For modification \ref{sec:modicication_real_part} (\ref{eq:ffrec_real_part}), applying $\tilde{e}_i = \text{Re}(e_i)$ for construction covariance matrix and $\tilde{\lambda}_i = \text{Re}\lambda_i$ for calculation of effective dimensionality. 
-			  	\item For modification \ref{sec:modification_magnitude} (\ref{eq:ffrec_mag}), applying magnitude for all entries in $e_i$ to formulate $\tilde{e}_i$ and $\tilde{\lambda}_i = \vert \lambda_i \vert$ also magnitude of eigenvalues. 
-			  	\item For modification \ref{sec:modification_symmetrized} (\ref{eq:ffrec_symmetrized}), applying eigenvectors $\tilde{e}_i$ and eigenvalues $\tilde{\lambda}_i$ from $\tilde{J}$ (\ref{eq:symmetrized_J}).
+			  	\item For modification \ref{sec:modicication_real_part} with eq.(\ref{eq:ffrec_real_part}), applying $\tilde{e}_i := \text{Re}(e_i)$ for construction covariance matrix and $\tilde{\lambda}_i := \text{Re}(\lambda_i)$ for calculation dimensionality.
+			  	\item For modification \ref{sec:modification_magnitude} with eq.(\ref{eq:ffrec_mag}), applying magnitude for all entries in $e_i$ to formulate $\tilde{e}_i$ and  also magnitude of eigenvalues $\tilde{\lambda}_i := \vert \lambda_i \vert$. 
+			  	\item For modification \ref{sec:modification_symmetrized} with eq.(\ref{eq:ffrec_symmetrized}), applying eigenvectors $\tilde{e}_i$ and eigenvalues $\tilde{\lambda}_i$ from symmetrized interaction matrix $\tilde{J}$ by  eq.(\ref{eq:symmetrized_J}).
 	  \end{itemize}
 			  		
-  	 The covariance matrix for generating inputs is constructed similar to it with symmetric interaction network (\ref{eq:Sigma_dim}) but with $\tilde{e}_i$ defined above, 
+  	 The covariance matrix for generating inputs is constructed similar to it with symmetric interaction network defined by  eq.(\ref{eq:Sigma_dim}) but with $\tilde{e}_i$ from above, 
   	  	\begin{equation} \label{eq:modifications_dim}
   	  		\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(\frac{2(i-L)}{\beta_{\text{dim}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
   	  	\end{equation}
 		  	  	
- 	  Analogously, calculating the effective dimensionality defined by (\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
+ 	  Analogously, calculating the effective dimensionality analytically defined by eq.(\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
   	  	  	\begin{equation} \label{eq:modification_eff_dim}
   	  	  		d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M_{\text{dim}}} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-4}}
   	  	  	\end{equation}
 		  	  	
-	\paragraph{Alignment to spontaneous activity}. % Modification due to dimensionality modification.
-	Since the same formulation of covariance matrix with a larger parameter $\beta_{\text{spont}}$ is used for generation of broader endogenous inputs, the same modifications above for dimensionality (\ref{eq:modifications_dim}) can be taken over into covariance matrix of endogenous inputs like (\ref{eq:Sigma_spont}),
+	\paragraph{Alignment to spontaneous activity} % Modification due to dimensionality modification.
+	The same formulation of covariance matrix with a higher dimensionality $\beta_{\text{spont}}$ is used for generation of broader endogenous inputs for spontaneous activity, similar to section \ref{sec:response_properties_for_evaluation}. The same modifications above for dimensionality in eq.(\ref{eq:modifications_dim}) can be taken over into covariance matrix for endogenous inputs. The formulation of covariance matrix for spontaneous input is defined for symmetric RNNs in eq.(\ref{eq:Sigma_spont}). Applying the modifications above, insert therefore $\tilde{e}_i$ and receive  
 	  	\begin{equation} \label{eq:Sigma_spont_asym}
 	  		\Sigma^{\text{spont}} := \sum_{i=1}^{\kappa\beta_{\text{spont}}} 		\text{exp}\left(\frac{2(i-1)}{\beta_{\text{spont}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
 	  	\end{equation}
@@ -458,18 +458,20 @@
 	\clearpage
 	\subsection{Low Rank Recurrent Network Model}
 	% Reasons and importance for looking at low rank networks. (limitations of full rank RNN and advantages of low-rank RNN.)
-	Until now, we considered full ranked random recurrent networks in both symmetric and asymmetric cases. Those fully recurrent connectivity structure is one of the most popular and best-studied classes of network models. However, randomly connected network display only very stereotyped responses to external inputs, can implement only a limited range of iniput-output computations \cite{mastrogiuseppe2018linking}. 
+	Until now, we considered full-rank RNNs in both symmetric and asymmetric cases. Fully recurrent connectivity structure is one of the most popular and best-studied classes of network models. However, randomly connected networks display only very stereotyped responses to external inputs and can implement only a limited range of input-output computations \cite{mastrogiuseppe2018linking}. 
 	
-	Furthermore, experimental large-scale neural recordings have established that the transformation of sensory stimuli into motor outputs relies on low-dimensional dynamics at the population level \cite{mastrogiuseppe2018linking}. Besides, actual cortical connectivity appears to be neither fully random nor fully structured \cite{harris2013cortical}. Understanding how low-dimensional computations on mixed, distributed representations emerge from the structure of the recurrent connectivity and inputs to cortical networks is a major challenge \cite{mastrogiuseppe2018linking}. The neural computations can also be understood at the level of dynamical systems that govern low-dimensional trajectories of collective neural activity \cite{beiran2021shaping}. 
+	Experimental large-scale neural recordings have established that the transformation of sensory stimuli into motor outputs relies on low-dimensional dynamics at the population level \cite{mastrogiuseppe2018linking}. Besides, actual cortical connectivity appears to be neither fully random nor fully structured \cite{harris2013cortical}. Understanding how low-dimensional computations on mixed, distributed representations emerge from the structure of the recurrent connectivity and inputs to cortical networks is still a major challenge with large potential \cite{mastrogiuseppe2018linking}. It could help to understand the neural computations at the level of dynamical systems that govern low-dimensional trajectories of collective neural activity \cite{beiran2021shaping}. 
 	
-	Low-rank recurrent neural networks (RNNs) rely on connectivity matrices that are restricted to be low rank, which directly generate low-dimensional dynamics. The rank of the network determines the number of collective variables needed to provide a full description of the collective dynamics \cite{beiran2021shaping}. 
+	Low-rank RNNs rely on connectivity matrices that are restricted to be low rank, which directly generates low-dimensional dynamics. The rank of the network determines the number of collective variables needed to provide a full description of the collective dynamics \cite{beiran2021shaping}. 
 	
 	\subsubsection{Construction of Low Rank Interactions} \label{sec:low_rank_construct}
 	% Two different ways for constructing the low rank interactions. 
 	% Construction of the symmetric and asymmetric low rank interactions. 
-	Low-rank networks has the rank smaller than the number neurons. We found two possible constructions of low rank RNNs, which differs if the network is disturbed with Gaussian distributed random noise. 
+	Low-rank networks have a rank smaller than the number of neurons. We found two possible constructions of low-rank RNNs, which differ if the network is disturbed with Gaussian distributed random noise. 
+	
 	\paragraph{Low-rank RNNs without random noise \cite{beiran2021shaping, dubreuil2022role}.}
-	Here, neurons in low-rank RNNs are organized in distinct populations that correspond to clusters in the space of low-rank connectivity patterns. Each population is defined by its statistics of connectivity, described by a multi-variate Gaussian distribution, so that the full network is specified by a mixture of Gaussians \cite{beiran2021shaping}.
+	Here, neurons in low-rank RNNs are organized in distinct populations that correspond to clusters in the space of low-rank connectivity patterns. Each population is defined by its statistics of connectivity, described by a multivariate Gaussian distribution, so that the full network is specified by a mixture of Gaussians \cite{beiran2021shaping}.
+		\vspace{-0.5cm}
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.6\textwidth]{../figures/low_rank_RNN_without_noise.jpg}
@@ -480,51 +482,51 @@
 		\begin{equation} \label{eq:low_rank_RNN_without_noise}
 			J_{ij} = \frac{1}{n}\sum_{g = 1}^{G} l_i^{(g)}r_j^{(g)} \, \, \text{or} \, \, J = \frac{1}{n} \sum_{g=1}^{G} l^{(g)} r^{(g)T} \, . 
 		\end{equation}
-	The connectivity is therefore characterized by a set of $G$ $n$-dimensional vectors, or the $g$-th connectivity patterns, $l^{(g)} = \left\{l_i^{(g)}\right\}_{i = 1, ..., n } \in \mathbb{R}^{n \times 1}$ and $r^{(g)} = \left\{r_i^{(g)}\right\}_{i = 1, ..., n } \in \mathbb{R}^{n \times 1}$ for $g = 1, ..., G$. $\left\{l^{(g)}\right\}$ are the left singular vectors of the connectivity matrix and $\left\{r^{(g)}\right\}$ the right. The vectors $\left\{l^{(g)}\right\}$ and $\left\{r^{(g)}\right\}$ are mutually orthogonal and randomly multi-variate Gaussian distributed \cite{beiran2021shaping}. 
+	The connectivity is therefore characterized by a set of $G$ $n$-dimensional vectors, denoted as connectivity patterns $l^{(g)} = \left\{l_i^{(g)}\right\}_{i = 1, ..., n } \in \mathbb{R}^{n \times 1}$ and $r^{(g)} = \left\{r_i^{(g)}\right\}_{i = 1, ..., n } \in \mathbb{R}^{n \times 1}$ for $g = 1, ..., G$. $\left\{l^{(g)}\right\}$ are the left singular vectors of the connectivity matrix and $\left\{r^{(g)}\right\}$ the right. The vectors $\left\{l^{(g)}\right\}$ and $\left\{r^{(g)}\right\}$ are mutually orthogonal and randomly multivariate Gaussian distributed \cite{beiran2021shaping}. 
 	
 	\paragraph{Low-rank RNNs with random noise \cite{mastrogiuseppe2018linking}.}
-	Similar to the construction of low-rank connection above (figure \ref{fig:low_rank_RNN_without_noise} defined by (\ref{eq:low_rank_RNN_without_noise})), \cite{mastrogiuseppe2018linking} suggested that the connectivity matrix can be constructed with a part $P$ to be fixed and known and a random uncorrelated part.
+	Similar to the construction of low-rank connection matrix above (figure \ref{fig:low_rank_RNN_without_noise} defined by eq.(\ref{eq:low_rank_RNN_without_noise})), \cite{mastrogiuseppe2018linking} suggested that the connectivity matrix can be constructed with a part $P$ to be fixed and known and a random uncorrelated part.
 		\begin{figure} [H]
 			\centering
 			\includegraphics[width=0.75\textwidth]{../figures/low_rank_RNN_with_noise.pdf}
-			\caption{\textbf{Low-rank recurrent networks (RNNs) constructed with fixed part and random noise \cite{mastrogiuseppe2018linking}.} The connectivity matrix is given by a sum of an uncontrolled, random matrix and a structured, controlled matrix $P$. Except for the fixed and know part $P$, which is a mixture of uncorrelated Gaussians, the RNN is disturbed by random noise.}
+			\caption{\textbf{Low-rank recurrent networks (RNNs) constructed with fixed part and random noise \cite{mastrogiuseppe2018linking}.} The connectivity matrix is given by the sum of a structured, controlled matrix $P$ and an uncontrolled, random matrix. Except for the fixed and known part $P$, which is a mixture of uncorrelated Gaussians, the RNN is disturbed by random noise.}
 			\label{fig:low_rank_RNN_with_noise}
 		\end{figure}
-	The fixed part $P$ has the same construction as the network without noise (\ref{eq:low_rank_RNN_without_noise}). The uncontrolled random matrix can be constructed in a complex way with certain current-to-rate transfer function \cite{mastrogiuseppe2018linking}. 
+	The fixed part $P$ has the same construction as the network without noise in eq.(\ref{eq:low_rank_RNN_without_noise}). The uncontrolled random matrix can be generally constructed in a complex way with certain current-to-rate transfer function to lend more complexity \cite{mastrogiuseppe2018linking}. We denote the random noise part with $J_{\text{rand}}$. The low-rank RNN can be formulated as
 	%For simplicity, we will try the random noise with a fully Gaussian distributed matrix. 
-	That is
 		\begin{equation} \label{eq:low_rank_with_noise}
 			J = \frac{1}{n} \sum_{g=1}^{G} l^{(g)} r^{(g)T} + J_{\text{rand}} \, ,
 		\end{equation}
-	with $J_{\text{rand}}$ a $n \times n$ random matrix. 
+	with $J_{\text{rand}} \in \mathbb{R}^{n \times n}$ a random matrix. 
 	
 	\subsubsection{Feedforward Recurrent Alignment Hypothesis with Low-rank RNNs} \label{sec:ffrec_low_rank}
-	To test the feedforward recurrent alignmnent hypothesis applying the low-rank RNNs, we firstly consider the simple case of having symmetric low-rank connectivity, because symmetric structure is easier to interpret. Then we tried the asymmetric low-rank RNNs to discover the influence of rank on response properties. 
+	To test the feedforward recurrent alignment hypothesis applying the low-rank RNNs, we first consider the simple case of having symmetric low-rank connectivity with more easier interpretable dynamic. Then we tried the asymmetric low-rank RNNs and additionally discover the influence of rank on response properties. 
 	
-	\paragraph{Symmetric low-rank RNN}This could be achieved through choosing the left connectivity vectors $\left\{l^{(g)}\right\}$ equal the right connectivity vectors $\left\{r^{(g)}\right\}$. As a result the low-rank RNN without noise can be formulated by sum of symmetric matrices and therefore also symmetric:
+	\paragraph{Symmetric low-rank RNN}This could be achieved through choosing the left connectivity vectors $\left\{l^{(g)}\right\}$ equal the right connectivity vectors $\left\{r^{(g)}\right\}$. As a result, the low-rank RNN without noise can be formulated by sum of symmetric matrices and therefore also symmetric:
 		\begin{equation} \label{eq:sym_low_rank}
 			J = \frac{1}{n}\sum_{g =1}^{G} l^{(g)} l^{(g)T} \, \, \text{or} \, \, J = \frac{1}{n}\sum_{g =1}^{G} r^{(g)} r^{(g)T} \, .
 		\end{equation}
-	If considering the connectivity matrix with noise, for simplicity, we add a random $n \times n$ symmetrized Gaussian distributed matrix to $J$ from (\ref{eq:sym_low_rank}).
+	If considering the connectivity matrix with noise, for simplicity, we add a random $n \times n$ symmetrized Gaussian distributed matrix as $J_{\text{rand}}$ to $J$ in eq.(\ref{eq:sym_low_rank}).
 	
-	The dynamics and conditions for stable stability of the response in the symmetric low-rank RNNs should be kept the same as with symmetric full rank RNNs (\ref{eq:sym_response_ODE}, \ref{eq:sym_stable_fix_point}). In order to keep the steady state of responses stable, the eigenvalues $\lambda_i \in \mathbb{R}$ of the low-rank RNNs $J$ (\ref{eq:sym_low_rank}) are limited by $R < 1$ through normalizing with the maximal eigenvalue (\ref{eq:eigval_normal}). 
+	The dynamics and conditions for stable stability of the response in the symmetric low-rank RNNs should be kept the same as with symmetric full rank RNNs eq.(\ref{eq:sym_response_ODE}, \ref{eq:sym_stable_fix_point}). To keep the steady state of responses stable, the eigenvalues $\lambda_i \in \mathbb{R}$ of the symmetric low-rank RNNs $J$ in eq.(\ref{eq:sym_low_rank}) are limited by $R < 1$ through normalizing with the maximal eigenvalue as done by eq.(\ref{eq:eigval_normal}). 
 	
-	\paragraph{Asymmetric low-rank RNN} When the set of left connectivity vector  $\left\{l^{(g)}\right\}$ is different from the set of right connectivity vector $\left\{r^{(g)}\right\}$, we receive the asymmetric low-rank with (\ref{eq:low_rank_RNN_without_noise}) for the case without random noise. If considering the random noise, we again add a simple $n \times n$ Gaussian distributed full rank asymmetric matrix as figure \ref{fig:low_rank_RNN_with_noise} illustrated (\ref{eq:low_rank_with_noise}). 
+	\paragraph{Asymmetric low-rank RNN} When the set of left connectivity vector  $\left\{l^{(g)}\right\}$ is different from the set of right connectivity vector $\left\{r^{(g)}\right\}$, we receive the asymmetric low-rank RNN with eq.(\ref{eq:low_rank_RNN_without_noise}) for the case without random noise. If considering the random noise, we again add a simple $n \times n$ Gaussian distributed full rank asymmetric matrix as Figure \ref{fig:low_rank_RNN_with_noise} illustrated with definition  eq.(\ref{eq:low_rank_with_noise}). 
 	
-	To enable the stable steady state of responses, as shown in asymmetric RNNs (\ref{eq:asym_stable_fix_point}), the real part of eigenvalues $\text{Re}(\lambda_i)$ of asymmetric RNNs $J$ (\ref{eq:low_rank_with_noise}) are limited by $R < 1$ through normalization with the maximal magnitude of eigenvalues (\ref{eq:asym_normalization}). 
+	To enable the stable steady state of responses, as shown in asymmetric RNNs in eq.(\ref{eq:asym_stable_fix_point}), the real part of eigenvalues $\text{Re}(\lambda_i)$ of an asymmetric RNN with interaction matrix $J$ defined in eq.(\ref{eq:low_rank_with_noise}) are limited by $R < 1$ through normalization with the maximal magnitude of eigenvalues as done in eq.(\ref{eq:asym_normalization}). 
 	
 	\subsubsection{Evaluation of Feedforward Recurrent Alignment Hypothesis Based on Response Properties}
-	Similar to the analysis on full rank networks, we also want to evaluate the modulation of feedforward recurrent alignment for low-rank RNNs based on the four response properties in correlation with feedforward recurrent alignment: 
+	Similar to the analysis on full-rank RNNs, we also want to evaluate the application of feedforward recurrent alignment with low-rank RNNs based on the four response properties, especially with the focus on the correlation between response properties and feedforward recurrent alignment score. Those four properties are:
 		\begin{itemize}
-			\item Trial-to-trial correlation
-			\item Intra-trial stability
-			\item Dimensionality 
-			\item Alignment of evoked activity pattern to spontaneous activity pattern
+			\item Trial-to-trial correlation $\beta_s$ defined in eq.(\ref{eq:ttc_sym}).
+			\item Intra-trial stability $\bar{c}$ defined in eq.(\ref{eq:its_sym}).
+			\item Dimensionality in both analytical and empirical formulations $d_{\text{eff, ana}}$ and $d_{\text{eff, emp}}$ defined in eq.(\ref{eq:dim_analytical_sym}) and eq.(\ref{eq:dim_empirical_sym}). 
+			\item Alignment of evoked activity pattern to spontaneous activity pattern $\gamma$ defined in eq.(\ref{eq:align_to_spont_act_sym}).
 		\end{itemize}
 	
-	\paragraph{Symmetric low-rank RNN} For symmetric low-rank RNN, the methods for modulations and evaluations are traced back to the full rank symmetric RNN before. The feedforward recurrent alignment is defined by (\ref{eq:ffrec_align}). Moreover, the trial-to-trial correlation is quantified with (\ref{eq:ttc_sym}), the intra-trial stability with (\ref{eq:its_sym}), the dimensionality with (\ref{eq:dim_analytical_sym}) and (\ref{eq:dim_empirical_sym}), and at the end the alignment to spontaneous activity with (\ref{eq:align_to_spont_act_sym}). 
+	\paragraph{Symmetric low-rank RNNs} For symmetric low-rank RNNs, the methods for modeling and evaluations are traced back to the full-rank symmetric RNNs before in section \ref{sec:response_properties_for_evaluation}. The feedforward recurrent alignment is defined by eq.(\ref{eq:ffrec_align}). Since the eigenvectors and eigenvalues for symmetric low-rank RNNs are real vectors and real numbers, the definitions and methods for symmetric full-rank RNNs can be directly applied in the same way. 
+	%Moreover, the trial-to-trial correlation is quantified with (\ref{eq:ttc_sym}), the intra-trial stability with (\ref{eq:its_sym}), the dimensionality with (\ref{eq:dim_analytical_sym}) and (\ref{eq:dim_empirical_sym}), and at the end the alignment to spontaneous activity with (\ref{eq:align_to_spont_act_sym}). 
 	
-	\paragraph{Asymmetric low-rank RNN} Since for asymmetric low-rank RNNs, the problem of complex eigenvectors and eigenvalues still exists, the modifications undertaken at asymmetric full rank RNNs (section \ref{sec:modify_ffrec_alignment_score} and \ref{sec:modification_asym}) can therefore be directly applied here, when align the inputs to the RNN. Generally, the modifications that were considered can be roughly described as: 1) only consider real part of eigenvalues and eigenvectors, 2) consider for each neuron the magnitude of inputs and variance ratio, 3) align the inputs to symmetrized network to approximate. 
+	\paragraph{Asymmetric low-rank RNNs} Since for asymmetric low-rank RNNs, the problem of complex eigenvectors and eigenvalues still exists, the modifications for dealing with this problem at asymmetric full-rank RNNs (section \ref{sec:modify_ffrec_alignment_score} and \ref{sec:modification_asym}) can therefore be directly applied here when aligning the inputs to asymmetric low-rank RNNs. Generally, the modifications that are considered can be roughly described as 1) only consider the real part of complex eigenvalues and eigenvectors, 2) consider the magnitude of complex eigenvectors and eigenvalues, 3) align the inputs to symmetrized network to approximate. Apply the eigenvectors and eigenvalues from the symmetrized interaction matrix.
 	
 	\clearpage
 	\subsection{Black Box Recurrent Network Model}
