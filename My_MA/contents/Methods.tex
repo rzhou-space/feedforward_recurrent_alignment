@@ -634,20 +634,20 @@
 		\end{equation}
 	
 	\subsubsection{Iterative Approximation with Low Dimensional Inputs} \label{sec:repeat_low_dim_inputs}
-	Low dimensional inputs can be generated experimentally easier than high dimensional inputs %, while the high dimensional inputs are almost not possible to be generated. 
+	Low dimensional inputs can be generated experimentally easier than high dimensional inputs. %, while the high dimensional inputs are almost not possible to be generated. 
 	So, we wonder if the feedforward recurrent alignment can also be adapted to represent the development and better alignment under the settings that, 1) only low dimensional inputs are offered and 2) the original recurrent network is asymmetric but unknown.
 	
-	To model the low dimensional input, random orthonormal basis vectors for construction of covariance matrix $e_i$ are obtained through Gram-Schmidt process. The same scheme as $\Sigma^{\text{Dim}}$ is applied, 
+	To model the low dimensional input, random orthonormal basis vectors $e_i$ for construction of covariance matrix are obtained through Gram-Schmidt process. The same scheme as for the construction of covariance $\Sigma^{\text{Dim}}$ from eq.(\ref{eq:Sigma_dim}) is applied, 
 		\begin{equation}
 			\Sigma_{\text{Low}} := \sum_{i=0}^{M} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{Low}}}\right) e_i e_i^T \, .
 		\end{equation}
 	Low dimensionality is realized by parameter $\beta_{\text{Low}}$, which should be smaller than it in $\Sigma^{\text{Dim}}$ and $\Sigma^{\text{spont}}$.
 	
-	The low dimensional inputs are then modeled as multivariate normal distribution with mean the zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix $\Sigma^{\text{Low}}$, 
+	The low dimensional inputs are then modeled by multivariate normal distribution with zero vector $0_v \in \mathbb{R}^{n \times 1}$ as mean vector and $\Sigma_{\text{Low}}$ as covariance matrix, 
 		\begin{equation} \label{eq:low_dim_input_white_noise}
 			h_{\text{Low}} \sim \mathcal{N}(0_v, \Sigma_{\text{Low}}) \, .
 		\end{equation}
-	The response evoked by low dimensional input (\ref{eq:low_dim_input_white_noise}) is the linearly transformed multivariate normal distribution
+	The response evoked by low dimensional input from eq.(\ref{eq:low_dim_input_white_noise}) is modeled by the linearly transformed multivariate normal distribution
 		\begin{equation}
 			r_0 \sim \mathcal{N}\left( 0_v, (1-J)^{-1} \Sigma_{\text{Low}} (1-J)^{-T} \right) \, .
 		\end{equation}
@@ -659,11 +659,11 @@
 	Prior knowledge predicts stimulus inputs that align to spontaneous activity can be recurrently amplified and lead to more reliable responses \cite{mulholland2023selective}. 
 	%Besides, the recurrent connectivity pattern shapes so that the inputs matches better with spontaneous activity during development \cite{marre2009reliable}. the response can be better aligned with the spontaneous activity than the input 
 	%TODO: briding the idea of repeatly applying the response.
-	We therefore wonder if the responses also align better with the recurrent network and if the repeated apply of responses lead to a development of alignment to recurrent network. In other words, if the alignment of responses could also capture the neural development process in a certain way.
+	We, therefore, wonder if the responses also align better with the recurrent network and if the repeated application of responses leads to a development of input alignment to the recurrent network. In other words, if the alignment of iterative responses could also capture the neural development process in a certain way.
 	
-	For that, we apply repeatedly the prior response as the input for the network and at the same time update step wise the corresponding feedforward recurrent alignment. 
+	For that, we apply repeatedly the prior response as the input for the network and at the same time update step-wise the corresponding feedforward recurrent alignment. 
 	
-	If $r_0$ is the input for the recurrent network, the evoked response $r_1$ is due to the linear transformation of normal distribution also a multivariate normal distribution with linearly transformed variance.
+	If $r_0$ is the input for the recurrent network, the evoked response $r_1$ is due to the linear transformation of normal distribution also a multivariate normal distribution with linearly transformed variance, 
 		\begin{equation}
 			r_1 \sim \mathcal{N}\left(0_v, \left((1-J)^{-1}\right)^2 \Sigma_{\text{Low}} \left((1-J)^{-T}\right)^2\right) \, .
 		\end{equation}
@@ -675,45 +675,45 @@
 		\begin{equation}
 			r_n \sim \mathcal{N}\left( 0_v, \left((1-J)^{-1}\right)^{n+1} \Sigma_{\text{Low}} \left((1-J)^{-T}\right)^{n+1} \right) \,. 
 		\end{equation}
-	The corresponding $n$-th feedforward recurrent $\nu_n$ alignment has the general formulation with $r_{n-1}$,
+	The corresponding $n$-th feedforward recurrent $\nu_n$ alignment has the general formulation with its input $r_{n-1}$,
 		\begin{equation} \label{eq:update_ffrec}
 			\nu_n = \frac{r_{n-1}^T J r_{n-1}}{\Vert r_{n-1} \Vert^2} \,.
 		\end{equation}
 	
 	
 	\clearpage
-	\subsection{Hebbian Learning in Feedforward Recurrent Networks}
+	\subsection{Hebbian Learning in Feedforward Recurrent Networks} \label{sec:Hebb_learn}
 	% Following the iterative approximation from the last section. Motivation. The goal.
-	In the neocortex, which forms the convoluted outer surface of the human brain, neurons lie in six vertical layers highly coupled within cylindrical columns. Feedforward connections bring input to a given region from another region located at an earlier stage along a particular processing pathway. Recurrent synapses interconnect neurons within a particular region that are considered to be at the same stage along the processing pathway \cite{dayan2005theoretical}. 
+	In the neocortex, which forms the convoluted outer surface of the human brain, neurons lie in six vertical layers highly coupled within cylindrical columns. There are multiple types of connections. Feedforward connections bring input to a given region from another region located at an earlier stage along a particular processing pathway. Recurrent synapses interconnect neurons within a particular region that are considered to be at the same stage along the processing pathway \cite{dayan2005theoretical}. 
 	
-	Until now, we only considered the recurrent layer under given feedforward inputs (figure \ref{fig:symmetric_RNN}b and figure \ref{fig:asymmetric_RNN}b). However, the feedforward inputs are also the outputs from feedforward network. In this part of work, we will expand the network structure to feedforward recurrent network containing input layer, feedforward interaction and output layer connected by recurrent interactions.
+	Until now, we only considered the recurrent layer under given feedforward inputs (Figure \ref{fig:symmetric_RNN}b and Figure \ref{fig:asymmetric_RNN}b). However, the feedforward inputs are also the outputs from the feedforward network. In this part of the work, we will expand the network structure to a feedforward recurrent network containing an input layer, feedforward interaction, and output layer connected by recurrent interactions.
 	
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.5\textwidth]{../figures/feedforward_recurrent.pdf}
-			\caption{\textbf{Illustration of a general feedforward recurrent network construction.} Shown in the figure is a feedforward recurrent network with input layer, output layer, a feedforward synaptic weight matrix for feedforward interactions, and a recurrent synaptic weight matrix for recurrent interactions. Firing rate models are applied in both input layer and output layer for modeling.}
+			\caption{\textbf{Illustration of a general feedforward recurrent network construction.} Shown in the figure is a feedforward recurrent network with an input layer, an output layer, a feedforward synaptic weight matrix for feedforward interactions, and a recurrent synaptic weight matrix for recurrent interactions. Firing rate models are applied in both the input and output layer for modeling.}
 			\label{fig:feedforward_recurrent_network}
 		\end{figure} 
 	
 	% Hebbian Learning and plasiticity.
-	Activity-dependent synaptic plasticity is widely believed to be the basic phenomenon underling learning and memory, and it is also thought to play a crucial role in the development of neural circuits \cite{dayan2005theoretical}. To count in this essential characteristic of networks during the development, we integrate the plasticity in the network dynamic. 
+	Activity-dependent synaptic plasticity is widely believed to be the basic phenomenon underlying learning and memory, and it is also thought to play a crucial role in the development of neural circuits \cite{dayan2005theoretical}. To count on this essential characteristic of networks during their development, we integrate the plasticity in the network dynamic. 
 	
-	The fundamental rule for synaptic plasticity in learning and memory is called the Hebb rule, raised by Donald Hebb in 1949. Hebb suggested that if input from neuron A often contributes to the firing of neuron B, then the synapse from A to B should be strengthened. In other words, neuron that fire together, wire together. The activity-dependent synaptic plasticity of the Hebbian type refers to the plasticity that is based on correlation of pre- and postsynaptic firing \cite{dayan2005theoretical}. 
+	The fundamental rule for synaptic plasticity in learning and memory is called the Hebbian rule, raised by Donald Hebb in 1949. Hebb suggested that if input from neuron A often contributes to the firing of neuron B, then the synapse from A to B should be strengthened. In other words, neurons that fire together, wire together. The activity-dependent synaptic plasticity of the Hebbian type refers to the plasticity that is based on the correlation of pre-and postsynaptic firing \cite{dayan2005theoretical}. 
 	
-	There are different types of training procedures for Hebbian type plasticity, including unsupervised learning, supervised learning, reinforcement learning, and so on. we mainly focus on the unsupervised learning. Unsupervised learning provides a model for the effects of experience on mature networks \cite{dayan2005theoretical}. Based on our network model (figure \ref{feedforward_recurrent_network}), we consider the case in which there are multiple postsynaptic neurons. 
+	There are different types of training procedures for Hebbian-type plasticity, including unsupervised learning, supervised learning, reinforcement learning, and so on. we mainly focus on unsupervised learning. Unsupervised learning provides a model for the effects of experience on mature networks \cite{dayan2005theoretical}. Based on our network model (Figure \ref{feedforward_recurrent_network}), we consider the case in which there are multiple postsynaptic neurons. 
 	
 	\subsubsection{Model Setting}
 	% One input neuron model. Figure for the model construction. 
-	To relief the understanding of dynamics during the modeling, we start with the simplified assumption of random symmetric recurrent interaction $J$ and linear feedfroward recurrent networks.
+	To relieve the understanding of dynamics during the modeling, we start with the simplified assumption of random symmetric recurrent interaction $J$ and linear feedforward recurrent networks.
 	
-	Two basis cases are considered for our start up modeling: 1) only one input rate $u$, and 2) only Hebbian learning update of feedforward interaction $W$. The output layer keeps occupied by number of $n$ output neurons. 
+	Two basic cases are considered for our start-up modeling: 1) only one input rate $u$, and 2) only Hebbian learning update of feedforward interaction $W$. The output layer is occupied by a number of $n$ output neurons. 
 	
-	The feedforward interaction $W$ can be described as a $\mathbb{R}^{n \times 1}$ dimensional vector containing $W_i$ the strength of connection between $i$-th output neuron and input neuron. Output rates $v \in \mathbb{R}^{n \times 1}$ describes the activity firing rate for output neurons. The random symmetric interaction $J \in \mathbb{R}^{n \times n}$ is constructed in the same way as for feedforward recurrent alignment hypothesis in section \ref{sec:symmetric_recurrent_interaction}. 
+	The feedforward interaction $W$ can be described as a $\mathbb{R}^{n \times 1}$ dimensional vector containing $W_i$ the strength of connection between $i$-th output neuron and input neuron. Output rates $v \in \mathbb{R}^{n \times 1}$ describes the activity firing rate for output neurons. The random symmetric interaction $J \in \mathbb{R}^{n \times n}$ is constructed in the same way as for feedforward recurrent alignment hypothesis for symmetric RNNs in section \ref{sec:symmetric_recurrent_interaction}. 
 	
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.5\textwidth]{../figures/single_neuron_feedforward_recurrent.pdf}
-			\caption{\textbf{Illustration of feedforward recurrent network model with single input neuron.} For start up of feedforward recurrent network dynamic analysis, the simple case of only one input neuron with fixed random symmetric recurrent interaction $J$. The output layer has number of $n$ neurons. The feedforward interaction matrix is updated with Hebbian rules.}
+			\caption{\textbf{Illustration of feedforward recurrent network model with single input neuron.} For start-up of feedforward recurrent network dynamic analysis, the simple case of only one input neuron with fixed random symmetric recurrent interaction $J$. The output layer has a number of $n$ neurons. The feedforward interaction matrix is updated with the Hebbian rule.}
 			\label{fig:single_neuron_feedforward_recurrent_network}
 		\end{figure}
 	
@@ -721,13 +721,13 @@
 		\begin{equation} \label{eq:response_ffrec_network}
 			\tau \frac{dv}{dt} = -v + W \cdot u + J \cdot v \,.
 		\end{equation}
-	For simplicity, the time scale constant is set to be $1$. The feedforward input is summarized by the part $h := W \cdot u \in \mathbb{R}^{n \times 1}$.  
+	For simplicity, the time scale constant is set to be $1$. $h := W \cdot u \in \mathbb{R}^{n \times 1}$ summarizes the feedforward input for recurrent interaction part. 
 	
 	Provided that the real parts of the eigenvalues of $J$ are less than $1$, this equation has a stable fixed point with a steady-state output activity vector determined by (shown in section \ref{sec:steady_state_response_sym} and \ref{sec:asym_recurrent_network})
 		\begin{equation} \label{eq:steady_eq_ffrec}
 			v = W \cdot u + J \cdot v \, .
 		\end{equation}
-	Solving the above equation (\ref{eq:steady_eq_ffrec}), the steady state response for the feedforward recurrent network is
+	Solving the above equation (\ref{eq:steady_eq_ffrec}), the steady state response of output layer for the feedforward recurrent network is
 		\begin{equation} \label{eq:steady_state_ffrec}
 			v^* = (I_n - J)^{-1} \cdot W \cdot u \, .
 		\end{equation}
@@ -738,7 +738,7 @@
 		\begin{equation} \label{eq:basic_Hebb}
 			\tau_w \frac{dW}{dt} = vu \, , 
 		\end{equation}
-	where $\tau_w$ is a time constant that controls the rate at which the weights change and for simplicity set to be $1$. If and only if both presynaptic rate $u$ and postsynaptic rate $v$ has the same signs in rates, meaning that both pre- and postsynaptic activies are both suppressed or activated at the same time, the connection weight between those two neurons increases. Therefore, the equation (\ref{eq:basic_Hebb}) implies that simultaneous pre- and postsynaptic activity increases the feedforward synaptic strength.
+	where $\tau_w$ is a time constant that controls the rate at which the weights change and for simplicity is set to be $1$. If and only if both presynaptic rate $u$ and postsynaptic rate $v$ have the same signs in rates, meaning that both pre-and postsynaptic activities are both suppressed or activated at the same time, the connection weight between those two neurons increases. Therefore, the eq.(\ref{eq:basic_Hebb}) implies that simultaneous pre-and postsynaptic activity increases the feedforward-synaptic strength.
 	
 	To compute the weight changes induced by a series of input patterns $u$, a convenient alternative is to average over all of the different input patterns and compute the weight change induced by this average, leading to the average Hebbian rule:
 		\begin{equation} \label{eq:average_Hebb}
@@ -746,15 +746,15 @@
 		\end{equation}
 	with angle brackets $\langle \, \rangle$ denoting averages over the ensemble of input patterns presented during training. 
 	
-	Replace the output rate $v$ in equation (\ref{eq:average_Hebb}) with the steady state formulation (\ref{eq:steady_state_ffrec}), the average plasticity rule can be rewrote as 
+	Replace the output rate $v$ in eq.(\ref{eq:average_Hebb}) with the steady state formulation eq.(\ref{eq:steady_state_ffrec}), the average plasticity rule can be rewrote as 
 		\begin{equation}
 			\frac{dW}{dt} = \langle (I_n - J)^{-1} \cdot W \cdot u u \rangle = (I_n - J)^{-1} \cdot W \cdot \langle uu \rangle \, .
 		\end{equation}
-	Defining $Q := \langle uu \rangle$ the input autocorrelation, the final formulation of average rule is
+	Defining $Q := \langle uu \rangle$ the input autocorrelation, the final formulation of the average rule is
 		\begin{equation}
 			\frac{dW}{dt} = (I_n - J)^{-1} \cdot W \cdot Q \, .
 		\end{equation}
-	Since for the simple case here that $u \in \mathbb{R}$, the input autocorrelation $Q = 1$ for all input patterns. Therefore, specifically for the simple network (figure \ref{fig:single_neuron_feedforward_recurrent_network}) we consider, the average rule can be further written as
+	Since for the simple case here that $u \in \mathbb{R}$, the input autocorrelation $Q = 1$ for all input patterns. Therefore, specifically for the simple network (Figure \ref{fig:single_neuron_feedforward_recurrent_network}) we consider, the average rule can be further simplified as
 		\begin{equation} \label{eq:final_hebb_ff_weight}
 			\frac{dW}{dt} = (I_n - J)^{-1} \cdot W \, .
 		\end{equation} 
@@ -765,64 +765,65 @@
 		\begin{equation} \label{eq:euler_scheme_ffrec_weight}
 			W_{t+1} = W_t + \Delta t (I_n - J)^{-1} \cdot W_t \, , 
 		\end{equation}
-	where $\Delta t$ is a enough small time distance during the total time period $T$. The initial weight $W_0$ for iteration is random Gaussian distributed.
+	where $\Delta t$ is a enough small time distance during the total time period $T_{\text{Hebb}}$. The initial weight $W_0$ for iteration is random Gaussian distributed.
 	
-	As a result, the change of connections between each output neuron and the single input neuron over time can be approximated through equation (\ref{eq:euler_scheme_ffrec_weight}). The distribution of the weights can be an important information about which connections are strengthened over time by unsupervised learning of feedforward interaction. 
+	As a result, the change of connections between each output neuron and the single input neuron over time can be approximated through eq.(\ref{eq:euler_scheme_ffrec_weight}). The distribution of the weights can be important information about which connections are strengthened over time by unsupervised learning of feedforward interaction. 
 	
 	% Introduce the idea and perpose for projections. 
-	Moreover, the output from feedforward interaction $h := W \cdot u$ is exactly the feedforward input for the recurrent interaction.  Continuing the idea from feedforward recurrent alignment hypothesis, align the feedforward input $h$ well to recurrent network could predict the reliability of evoked activity. Since $u \in \mathbb{R}$, the feedforward input for recurrent network is proportional to the feedforward weight vector $W$. Therefore, we align the feedforward weight vector $W$ to recurrent network through projection of vector $W$ to space spanned by eigenvectors of recurrent network. 
+	Moreover, the output from feedforward interaction $h := W \cdot u$ is exactly the feedforward input for the recurrent interaction.  Continuing the idea from the feedforward recurrent alignment hypothesis, aligning the feedforward input $h$ well to the recurrent network could predict the reliability of evoked activity. Since $u \in \mathbb{R}$, the feedforward input for the recurrent network is proportional to the feedforward weight vector $W$. Therefore, we align directly the feedforward weight vector $W$ to the recurrent network through the projection of vector $W$ to space spanned by eigenvectors of the recurrent network. 
 	
-	Recurrent network has symmetric interaction $J$, thus the eigenvectors $\{e_i\}_{i = 1, ..., n}$ of $J$ is a set of basis vectors that span the vector space $\mathbb{R}^n$. The feedforward weight vector $W \in \mathbb{R}^{n \times 1}$ can be expressed as linear combination of eigenvectors $\{e_i\}$. For better interpretation, $\{e_i\}$ are ordered so that their corresponding eigenvalues $\{\lambda_i\}$ are in descending order:
+	Recurrent network has symmetric interaction $J$, thus the eigenvectors $\{e_i\}_{i = 1, ..., n}$ of $J$ is a set of basis vectors that span the vector space $\mathbb{R}^n$. The feedforward weight vector $W \in \mathbb{R}^{n \times 1}$ can be thus expressed as linear combination of eigenvectors $\{e_i\}$. For better interpretation, $\{e_i\}$ are ordered so that their corresponding eigenvalues $\{\lambda_i\}$ are in descending order:
 		\begin{equation}
 			e_{\text{max}}, ..., e_i, e_j, ..., e_{\text{min}} \, \, \text{such that} \, \, \lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
 		\end{equation} 
-	The feedforward weight vector $W_t$ at time point $t$ can be formulated as
+	The feedforward weight vector $W_t$ at time point $t$ can be formulated as the linear combination
 		\begin{equation} \label{eq:linear_combi_weight}
 			W_t = \sum_{i = 1}^{n} \phi_i e_i = A \phi \, ,
 		\end{equation}
-	where $\phi \in \mathbb{R}^{n \times 1}$ is the vector containing all projection coefficients $\phi_i$ and $A$ is the matrix containing the eigenvectors $e_i$ column wise.  
+	where $\phi \in \mathbb{R}^{n \times 1}$ is the vector containing all projection coefficients $\phi_i$ and $A$ is the matrix containing the eigenvectors $e_i$ column-wise.  
 	
-	As a result, the projection coefficient can be gained through equivalent reformulation of equation (\ref{eq:linear_combi_weight}), 
+	As a result, the projection coefficient can be gained through equivalent reformulation of eq.(\ref{eq:linear_combi_weight}), 
 		\begin{equation} \label{eq:calculation_ratio}
 			\phi = A^{-1} \cdot W_t \, .
 		\end{equation}
 	Matrix $A$ is invertible because all columns of $A$ are linearly independent. 
 	
-	The distribution of $\phi_i$ reflects to which eigenvectors directions the feedforward weight vector $W$ and thus also the feedforward input $h$ aligns to the recurrent network more or less. According to the feedforward recurrent alignment hypothesis, in experienced feedforward recurrent network, the feedforward input align to the dominant eigenvectors of recurrent interaction matrix, those are the eigenvectors with large eigenvalues. Alignment to dominant eigenvectors can be reflected by the projection coefficients for them. 
+	The distribution of $\phi_i$ reflects to which eigenvector-directions the feedforward weight vector $W$ aligns to. Since the feedforward input $h$ is proportional to $W$, the distribution also determines the directions to which the input $h$ is aligned.  According to the feedforward recurrent alignment hypothesis, in an experienced feedforward recurrent network, the feedforward input aligns to dominant eigenvectors of the recurrent interaction matrix, those are the eigenvectors with large eigenvalues. The strength of alignment to dominant eigenvectors can be reflected by the projection coefficients for them. 
 	
-	To more directly quantify the change of alignment of $W$ to dominant eigenvectors, we define the projection ratio $\rho$ as the percentage that the coefficients for the first twenty eigenvectors \footnote{Under the initial condition that the number of neurons $n$ is larger than $20$. } over all coefficients. Since the sign of coefficients only reflects the direction of alignment, we consider the absolute number for calculation of projection ratio $\rho$.
+	To more directly quantify the change of alignment of $W$ to dominant eigenvectors, we define the projection ratio $\rho$ as the percentage that the coefficients for the first twenty eigenvectors \footnote{Under the initial condition that the number of neurons $n$ is larger than $20$.} take over all coefficients. Since the sign of coefficients only reflects the direction of alignment, we consider the absolute value of coefficients for the calculation of projection ratio $\rho$.
 		\begin{equation} \label{eq:projection_ratio}
-			\rho := \frac{\sum_{i=1}^{20} \vert \phi_i \vert}{\sum_{i=1}^{n} \vert \phi_i \vert} \, .
+			\rho := \frac{\sum_{i=1}^{20} \vert \phi_i \vert}{\sum_{i=1}^{n} \vert \phi_i \vert} \, ,
 		\end{equation}
+	where $n$ is the total number of output neurons. 
 		
 	\subsubsection{Dynamics of Feedforward Recurrent Alignment}
 	% The derivative of feedforward recurrent alignment with update of feedforward weight. 
 	% Development and the derivative of the feedforward recurrent alignment.
 	
-	An alternative to discover the feedforward recurrent alignment hypothesis is to directly observe the dynamic of feedforward recurrent alignment score in the network. With the time dependent update of feedforward weight vector $W$ by Euler-scheme equation (\ref{eq:euler_scheme_ffrec_weight}), the feedforward input for recurrent network $h$ can be updated simultaneously through multiplying input rate $u$, 
+	An alternative to discover the feedforward recurrent alignment hypothesis is to directly observe the dynamic of feedforward recurrent alignment score during Hebbian learning. With the time-dependent update of feedforward weight vector $W$ by Euler scheme in  eq.(\ref{eq:euler_scheme_ffrec_weight}), the feedforward input for recurrent network $h$ can be updated simultaneously through multiplying input rate $u$, 
 		\begin{equation} \label{eq:feedforward_input}
 			h_t = W_t \cdot u_t \, ,
 		\end{equation}
-	with $h_t,\, W_t, \, u_t$ the feedforward input for recurrent network, feedforward interaction, and input at time point $t$. 
+	with $h_t,\, W_t, \, u_t$ the feedforward input for recurrent network, feedforward interaction, and input firing rate at time point $t$. 
 	
-	The develop of feedforward recurrent alignment score over time can be then calculated with its definition inserting the updated feedforward input for recurrent network $h_t$. The feedforward recurrent at time point would be $\nu_t$ with
+	The development of feedforward recurrent alignment score over time can be then calculated with its definition inserting the updated feedforward input for recurrent network $h_t$. The feedforward recurrent at time point would be $\nu_t$ with
 		\begin{equation} \label{eq:ffrec_update}
 			\nu_t = \frac{h_t^T J h_t}{\Vert h_t \Vert ^2} = \frac{u_t W_t^T J W_t u_t}{u_t^2 \Vert W_t \Vert ^2} = \frac{W_t^T J W_t}{\Vert W_t \Vert^2}\, . 
 		\end{equation}
 	Because $u_t \in \mathbb{R}$ for all $t$, the feedforward recurrent alignment $\nu_t$ is directly determined by feedforward weight vector $W_t$.  
 	
-	The derivative of feedforward recurrent alignment $\nu_t$ can illustrate the change over time more intuitively. For further calculation, calculating firstly the derivative of numerator and denominator of $\nu_t$ in equation (\ref{eq:ffrec_update}). Defining thereby the numerator as $g(t)$ and denominator $h(t)$. Without loss of generality, the Euclidean norm is applied for denominator. That is
+	The derivative of feedforward recurrent alignment $\nu_t$ can illustrate the change over time more intuitively. For further calculation, firstly the derivative of the numerator and denominator of $\nu_t$ in eq.(\ref{eq:ffrec_update}). Defining thereby the numerator as $g(t)$ and denominator $h(t)$. Without loss of generality, the Euclidean norm is applied for denominator. That is
 		\begin{subequations}
-			\begin{align}
-				g(t) &:= W_t^T J W_t\\
-				h(t) &:= \Vert W_t \Vert_2^2
+			\begin{align} 
+				g(t) &:= W_t^T J W_t \, .\\ 
+				h(t) &:= \Vert W_t \Vert_2^2 \, .
 			\end{align}
 		\end{subequations}
-	Applying product rule for derivative of $g(t)$ and chain rule for $h(t)$, it results in
+	Applying product rule for derivative of $g(t)$, it results in
 		\begin{equation}
 				\frac{\mathrm{d}g(t)}{\mathrm{d}t} = \frac{\mathrm{d}W_t^T}{\mathrm{d}t} J W_t + W_t^T J \frac{\mathrm{d}W_t}{dt} \, .
 		\end{equation}
-	Inserting the Hebbian rule (\ref{eq:final_hebb_ff_weight}) for feedforward weights leads to
+	Inserting the Hebbian rule eq.(\ref{eq:final_hebb_ff_weight}) for feedforward weights leads to
 		\begin{equation}
 			\frac{\mathrm{d}g(t)}{\mathrm{d}t} = W_t^T (I_n - J)^{-T}J W_t + W_t^T J(I_n - J)^{-1} W_t \, .
 		\end{equation}
@@ -831,7 +832,7 @@
 			\frac{\mathrm{d}g(t)}{\mathrm{d}t} = W_t^T \left( (I_n - J)^{-1}J + J(I_n - J)^{-1}\right)W_t \, .
 		\end{equation}
 	
-	The derivative of denominator can be obtained after inserting the Euclidean norm 
+	The derivative of denominator $h(t)$ can be obtained after inserting the Euclidean norm and applying chain rule for its derivative,  
 		\begin{equation}
 			\begin{split}
 				\frac{\mathrm{d}h(t)}{\mathrm{d}t} & = \frac{\mathrm{d} \Vert W_t \Vert_2^2}{\mathrm{d}t} = \frac{\mathrm{d} \sum_{i=1}^{n} W_{t, i}^2}{\mathrm{d}t}
@@ -839,9 +840,9 @@
 				& = 2W_t^T (I_n - J)^{-1} W_t \,.
 			\end{split}
 		\end{equation}
-	The last equation is due to the Hebbian rule differential equation (\ref{eq:final_hebb_ff_weight}). 
+	The last equation is due to the Hebbian rule from eq.(\ref{eq:final_hebb_ff_weight}). 
 	
-	Following the quotient rule with derivatives of numerator $g(t)$ and denominator $h(t)$, the derivative for feedforward recurrent alignment score is 
+	Following the quotient rule with derivatives of numerator $g(t)$ and denominator $h(t)$, the derivative for feedforward recurrent alignment score $\nu_t$ is 
 		\begin{equation}
 			\begin{split}
 				\frac{\mathrm{d}\nu_t}{\mathrm{d}t} &= \frac{\frac{\mathrm{d}g(t)}{\mathrm{d}t}h(t) - g(t)\frac{\mathrm{d}h(t)}{\mathrm{d}t}}{h(t)^2} \\
@@ -850,7 +851,7 @@
 				&\, \, \, \, \, \, \, \, \, -2 \frac{W_t^T}{\Vert W_t \Vert_2} J \frac{W_t}{\Vert W_t \Vert_2} \frac{W_t^T}{\Vert W_t \Vert_2} (I_n-J)^{-1} \frac{W_t}{\Vert W_t \Vert_2}  \, .
 			\end{split}
 		\end{equation}
-	To simplify the notation, defining the normalized feedforward weights as $\bar{W_t}$. Thus, the final formulation of the derivative for feedforward recurrent alignment score at time point $t$ is
+	To simplify the notation, define the normalized feedforward weights as $\bar{W_t}$. Thus, the final formulation of the derivative for feedforward recurrent alignment score $\nu_t$ at time point $t$ is
 		\begin{equation} \label{eq:derivative_ffrec}
 			\frac{\mathrm{d}\nu_t}{\mathrm{d}t} = \bar{W_t}^T (I_n-J)^{-1}J\bar{W_t} + \bar{W_t}^T J(I_n -J)^{-1} \bar{W_t} - 2\bar{W_t}^TJ\bar{W_t}\bar{W_t}^T(I_n-J)^{-1}\bar{W_t} \, .
 		\end{equation}
