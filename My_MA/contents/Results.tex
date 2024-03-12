@@ -21,83 +21,89 @@
 	
 	\subsection{Response Properties from symmetrical Recurrent Interaction Networks in Correlation with Feedforward Recurrent Alignment} \label{sec:results_symmetric}
 	% TODO: is inspired by the Rayleigh Coefficient for eigenvalue approximation in mathmatics. -- literature to it. 
-	The feedforward recurrent alignment, defined in the method under section \ref{sec:ffrec_definition} quantify the degree of how much the feedforward input is aligned with the direction that spanned the recurrent network. If the input is well aligned with the maximal eigenvector of the recurrent interaction $J$, the random noise in the response would be suppressed by the evoked response due to the selective amplification. That is, with response amplification
+	The feedforward recurrent alignment, defined in the method under section \ref{sec:ffrec_definition} quantifies the degree of how much the feedforward input is aligned with the direction that is spanned by eigenvectors of the recurrent network. If the input is well aligned with the eigenvector corresponding to the maximal eigenvalue of the recurrent interaction $J$, the random noise in the response would be suppressed by the evoked response due to selective amplification. Response amplification determines the steady-state response, 
 		\begin{equation} \label{eq:response_amplification}
-			\mathbf{r}^* = \sum_{i = 1}^{n} \frac{(\mathbf{e}_i \cdot \mathbf{h}) \mathbf{e}_i}{1-\lambda_i} \, , 
+			r^* = \sum_{i = 1}^{n} \frac{(e_i \cdot h) e_i}{1-\lambda_i} \, ,
 		\end{equation}
-	the steady state response is then dominated by the projection of the input vector $\mathbf{h}$ along the axis defined by the eigenvector $\mathbf{e}_{\text{max}}$ whose eigenvalue $\lambda_{\text{max}}$ is maximal and near one \cite{dayan2005theoretica}. 
+	where $\cdot$ denotes the dot product between two vectors. 
+	
+	The steady state response is then dominated by the projection of the input vector $h$ along the axis defined by the eigenvector $e_{\text{max}}$ whose eigenvalue $\lambda_{\text{max}}$ is maximal and near one \cite{dayan2005theoretica}. 
 		\begin{equation} \label{eq:selective_amplification}
-			\mathbf{r}^* \approx \frac{(\mathbf{e}_{\text{max}} \cdot \mathbf{h}) \mathbf{e}_{\text{max}}}{1 - \lambda_{\text{max}}}
+			r^* \approx \frac{(e_{\text{max}} \cdot h) e_{\text{max}}}{1 - \lambda_{\text{max}}}
 		\end{equation}
-	The projection of input on eigenvector $\mathbf{e}_{\text{max}}$ reaches its maximal when $\mathbf{h}$ is approximately $\mathbf{e}_{\text{max}}$ itself. Therefore, the steady state responses reaches its maximum and the feedforward recurrent alignment equals the maximal eigenvalue $\lambda_{\text{max}}$ of $J$ because of (\ref{eq:ffrec_equals_eigval}). 
+	The projection of input $h$ on eigenvector $e_{\text{max}}$ reaches its maximal when $h$ is approximately $e_{\text{max}}$ itself. Therefore, the steady state responses reaches its maximum and the feedforward recurrent alignment equals the maximal eigenvalue $\lambda_{\text{max}}$ of $J$ because of eq.(\ref{eq:ffrec_equals_eigval}). 
 	
-	On the other hand, if the input is not well aligned with the dominant eigenvectors, the random noise is large relative to the response. For an extreme example, if the input is aligned with the eigenvector with minimal eigenvalue $\lambda_{\text{min}}$, the response will almost not contribute to the steady state response at all due to the response amplification (\ref{eq:response_amplification}). This could also be reflected by the feedforward recurrent alignment, which equals $\lambda_{\text{min}}$ in this case because of (\ref{eq:ffrec_equals_eigval}). 
+	On the other hand, if the input is not well aligned with the dominant eigenvectors, the random noise is large relative to the response. For an extreme example, if the input is aligned with the eigenvector $e_{\text{min}}$ with minimal eigenvalue $\lambda_{\text{min}}$, the response will almost not contribute to the steady state response at all due to the response amplification eq.(\ref{eq:response_amplification}). This could also be reflected by the feedforward recurrent alignment, which equals $\lambda_{\text{min}}$ in this case because of eq.(\ref{eq:ffrec_equals_eigval}). 
 	
-	We can thus conclude that the feedforward recurrent alignment (\ref{eq:ffrec_align}) reflects the alignment between the feedforward input and the dominant eigenvectors of the recurrent interaction network $J$. In the following sections, the four properties introduced at section \ref{sec:response_properties_for_evaluation} will be evaluated in the model and compare to the tendency observed in \cite{tragenap2023nature}. 
+	We can thus conclude that the feedforward recurrent alignment eq.(\ref{eq:ffrec_align}) reflects the alignment between the feedforward input and the dominant eigenvectors of the recurrent interaction network $J$. The better the input $h$ is aligned to the dominant eigenvectors of $J$, the stronger and more reliable the response, and at the same time the higher the feedforward recurrent alignment score.
+	
+	In the following sections, the four properties introduced at section \ref{sec:response_properties_for_evaluation} will be evaluated in the model and compare to the tendency observed in \cite{tragenap2023nature}. 
 	
 	\subsubsection{Trial-to-Trial Correlation increases with larger Alignment}
 	
-	As defined in the paragraph \ref{para:ttc_sym}, the inputs are constructed by multivariate normal distribution (\ref{eq:input_distribution}). To model the alignment of inputs with eigenvectors, the eigenvectors of the interaction matrix $J$ are chosen to be the the mean vector $\mathbf{\mu}$ for input distribution. That is
+	As defined under section \ref{sec:response_properties_for_evaluation} in paragraph "Trial-to-trial correlation", the inputs are constructed by multivariate normal distribution eq.(\ref{eq:input_distribution}). When aligning the input $h$ with eigenvectors $e_i$, $e_i$ are the the mean vector for input distribution as defined in eq.(\ref{eq:input_distribution}), 
 		\begin{equation}
-			\mathbf{h_i} \sim \mathcal{N} (\mathbf{e}_i, \sigma_i^2\mathbf{I_n}) \, . 
+			h_i \sim \mathcal{N} (e_i, \sigma_{\text{trial}}^2 I_n) \, . 
 		\end{equation}
-	The degree of alignment of input on the dominant eigenvector $\mathbf{e}_{\text{max}}$ is then determined approximately by the size of eigenvalue, to which the eigenvector is corresponded. 
+	The feedforward recurrent alignment score is then determined by corresponding eigenvalue $\lambda_i$ due to eq.(\ref{eq:ffrec_equals_eigval}), and reaches its maximal when align input $h$ to $e_{\text{max}}$. 
+	%The degree of alignment of input on the dominant eigenvector $e_{\text{max}}$ is then determined approximately by the size of eigenvalue, to which the eigenvector is corresponded. 
 	
 	%And as explained above, the better the input is aligned with the dominant eigenvector, the better the approximation. 
 	
-	We want to find out the correlation between the feedforward recurrent and the trial-to-trial correlation $\beta_s$, defined by (\ref{eq:ttc_sym}). Therefore, sort the eigenvectors in the order such that their corresponding eigenvalues are in ascending order. That is
+	We want to find out the correlation between the feedforward recurrent and the trial-to-trial correlation $\beta_s$ defined by eq.(\ref{eq:ttc_sym}). If sorting the eigenvectors in the order such that their corresponding eigenvalues are in ascending order, 
 		\begin{equation} \label{eq:ascending_order}
-			\mathbf{e}_{\text{min}}, ..., \mathbf{e}_i, \mathbf{e}_j, ..., \mathbf{e}_{\text{max}} \, \, \text{such that} \, \, \lambda_{\text{min}} < ...< \lambda_i < \lambda_j < ... < \lambda_{\text{max}} \, ,
+			e_{\text{min}}, ..., e_i, e_j, ..., e_{\text{max}} \, \, \text{such that} \, \, \lambda_{\text{min}} < ...< \lambda_i < \lambda_j < ... < \lambda_{\text{max}} \, ,
 		\end{equation}
-	with $\lambda_i$ the corresponding eigenvalue for eigenvector $\mathbf{e}_i$. As a result, the inputs that aligned with eigenvectors in this order have an increasing feeedforward recurrent alignment approximately. 
+	with $\lambda_i$ the corresponding eigenvalue for eigenvector $e_i$. The inputs that aligned with eigenvectors in this order should have monotonously increasing feedforward recurrent alignments.
 	
-	Generating the results with (\ref{eq:steady_state_distribute}) for $N$ trials. The trial-to-trial correlation can be calculated with (\ref{eq:ttc_sym}). 
-	\vspace{-0.4cm}
+	Generating the results with eq.(\ref{eq:steady_state_distribute}) for $N$ trials. The trial-to-trial correlation can be calculated with eq.(\ref{eq:ttc_sym}). 
+
 		\begin{SCfigure}[0.9][h] 
 			\centering
-			\caption{\textbf{Correlation between feedforward recurrent alignment and trial to trial correlation.} Inputs aligned to eigenvectors $\mathbf{e}_i$ of interaction matrix $J$ in the ascending order of eigenvalues (\ref{eq:ascending_order}), resulting the feedforward recurrent alignment varies approximately between $\lambda_{\text{min}}$ and $\lambda_{\text{max}}$. For each input alignment to an eigenvector, $N$ trials of evoked responses were generated for calculation of the trial-to-trial correlation.}
+			\caption{\textbf{Correlation between feedforward recurrent alignment and trial to trial correlation for symmetric RNNs.} Inputs aligned to eigenvectors $e_i$ of interaction matrix $J$ in the ascending order of eigenvalues eq.(\ref{eq:ascending_order}), resulting the feedforward recurrent alignment varies approximately between $\lambda_{\text{min}}$ and $\lambda_{\text{max}}$. For each input alignment to an eigenvector, $N=100$ trials of evoked responses were generated for calculation of the trial-to-trial correlation calculated with eq.(\ref{eq:ttc_sym}).}
 			\includegraphics[width=0.5\textwidth]{../figures/ttc_sym.png}
 			\label{fig:ttc_ffrec_sym}
 		\end{SCfigure}
 	
-	We considered visually naive cortex as feedforward recurrent alignment equals zero, which could be interpreted as responses evoked by random inputs. The trial-to-trial correlation with random inputs is then smaller than the case, when the feedforward recurrent alignment takes the maximal value under inputs aligned with $\mathbf{e}_{\text{max}}$. This coincides with the experimental observations od responses from visually naive and experienced primary visual cortex of ferrets \cite{tragenap2023nature}. 
+	We assume feedforward recurrent alignment for visually naive cortex equals zero, which could be interpreted as responses evoked by random inputs. The trial-to-trial correlation with random inputs is smaller than it in the case, when the input is aligned to $e_{\text{max}}$. This coincides with the experimental observations of responses from visually naive and experienced primary visual cortex of ferrets \cite{tragenap2023nature}. 
 	
-	Moreover, the modulation suggests a positive correlation between the feedforward recurrent alignment and the trial-to-trial correlation over the whole alignment range. The result confirms the idea that with the feedforward inputs more and more aligned with the dominant eigenvector of recurrent network, the stability between trials increases also simultaneously and almost continuously. The process of reaching higher trial-to-trial stability is therefore a process of becoming more aligned with the dominant eigenvector. 
+	Moreover, the modeling result Figure \ref{fig:ttc_ffrec_sym} suggests a positive correlation between the feedforward recurrent alignment and the trial-to-trial correlation over the whole alignment range. The result confirms the idea that with the feedforward inputs more and more aligned with the dominant eigenvectors of the recurrent network, the stability between trials increases also simultaneously. The process of reaching higher trial-to-trial stability is therefore a process of becoming more aligned with the dominant eigenvector. 
+	This positive correlation also coincides with the experimental results from ferrets \cite{tragenap2023nature}.
 	
 	%The positive correlation between the feedforward recurrent alignment and the trial-to-trial correlation coincident with the experimental observations od responses from visually naive and experienced primary cortex of ferrets \cite{tragenap2023nature}. Moreover, the modulation suggests that 
 	
 	\subsubsection{Intra-Trial Stability increases with larger Alignment}
 	
-	Now we want to see if our modeling could capture the change in intra-trial stability during the development observed in the primary visual cortex of ferrets \cite{tragenap2023nature}. The intra-trial stability increased after the eye opening and a couple of days. The feedforward recurrent alignment hypothesis suggests that the visual experienced cortex should have a better alignment between feedforward inputs and the dominant modes in recurrent network. To confirm this idea, we would expect the intra-trial stability would be larger with better alignment between input and the dominant eigenvector. 
+	Now we want to see if our modeling could capture the change in intra-trial stability during the development observed in the primary visual cortex of ferrets \cite{tragenap2023nature}. The intra-trial stability increased after the eye-opening and a couple of days. The feedforward recurrent alignment hypothesis suggests that the visually experienced cortex should have a better alignment between feedforward inputs and the dominant modes in the recurrent network. To confirm this idea, we would expect the intra-trial stability would be larger with a higher feedforward recurrent alignment score. 
 	
-	Analogous to trial-to-trial correlation, the eigenvectors are sorted in the descending order according to the eigenvalues (\ref{eq:ascending_order}). The intra-trial stability is calculated with (\ref{eq:its_sym}).
-	\vspace{-0.4cm}
+	Analogous to trial-to-trial correlation, the eigenvectors can be sorted in descending order according to the eigenvalues eq.(\ref{eq:ascending_order}). The intra-trial stability is calculated with eq.(\ref{eq:its_sym}).
+
 	\begin{SCfigure}[0.9][h] 
 		\centering
-		\caption{\textbf{Correlation between feedforward recurrent alignment and intra-trial stability.} Inputs aligned to eigenvectors $\mathbf{e}_i$ of interaction matrix $J$ in the ascending order of eigenvalues (\ref{eq:ascending_order}), resulting the feedforward recurrent alignment varies approximately between $\lambda_{\text{min}}$ and $\lambda_{\text{max}}$. For each input alignment to an eigenvector, the intra-trial stability is calculated with the evoked steady state response.}
+		\caption{\textbf{Correlation between feedforward recurrent alignment and intra-trial stability for symmetric RNNs.} Inputs aligned to eigenvectors $e_i$ of interaction matrix $J$ sorted according to the ascending order of eigenvalues eq.(\ref{eq:ascending_order}), resulting the feedforward recurrent alignment varies approximately between $\lambda_{\text{min}}$ and $\lambda_{\text{max}}$. For one input aligned to an eigenvector, the intra-trial stability is calculated with the evoked steady-state response eq.(\ref{eq:its_sym}).}
 		\includegraphics[width=0.5\textwidth]{../figures/its_sym.png}
 		\label{fig:its_ffrec_sym}
 	\end{SCfigure}
 
-	The result (figure \ref{fig:its_ffrec_sym}) indicates also a positive correlation between the feedforward recurrent alignment and the intra-trial stability. With random feedforward inputs, the feedforward recurrent alignment take the value near zero. So the eye opening happens somewhere between feedforward recurrent equals zero and reaches maximal. Thus, before the eye opening, there is already certain alignment that lead to a certain degree of intra-trial correlation. 
+	The result (Figure \ref{fig:its_ffrec_sym}) indicates a positive correlation between the feedforward recurrent alignment and the intra-trial stability. With random feedforward inputs, the feedforward recurrent alignment takes the value near zero. So the eye-opening happens somewhere between feedforward recurrent equals zero and reaches maximal. Thus, before the eye-opening, there is already a certain alignment that leads to a certain degree of intra-trial correlation. 
 	
-	Furthermore, the correlation is almost exponential. So, the enhancement of the input alignment to the dominant eigenvector is more rapid after the eye opening than before the eye opening. One assumption for this phenomenon could be that after the eye opening, the environment provides more training data for the network so that the alignment between inputs and dominant eigenvector could be improved more efficiently. As a result, the responses get more intense and drive a better alignment forward. A positive loop could arise and speed up until the optimum is reached. 
+	Furthermore, the correlation is almost exponential. So, the enhancement of the input alignment to the dominant eigenvector is more rapid after the eye-opening than before. One assumption for this phenomenon could be that after the eye-opening, the environment provides more training data for the network so that the alignment between inputs and the dominant eigenvector could be improved more efficiently. As a result, the responses get more intense and drive a better alignment forward. A positive loop could arise and speed up until the optimum is reached. 
 	
 	\subsubsection{Dimensionality decreases with larger Alignment}
 	
-	Dimensionality is a generally important property of neural representations and could help to understand processes for example in learning and controlling \cite{bartolo2020dimensionality, badre2021dimensionality}. A low dimensional representation will encode a diverse range of inputs into a small set of common, orthogonal activity patterns. In other words, low dimensional activity pattern require small number of basis vectors from the response space to represent itself. On the other hand, a high dimensional representation will separate even similar inputs into orthogonal activity patterns. Compare to low dimensional representation, a high dimensional activity pattern represents with a large set of basis vectors \cite{badre2021dimensionality}. 
+	Dimensionality is a generally important property of neural representations and could help to understand processes for example in learning and controlling \cite{bartolo2020dimensionality, badre2021dimensionality}. A low-dimensional representation will encode a diverse range of inputs into a small set of common, orthogonal activity patterns. In other words, low-dimensional activity patterns require a small number of basis vectors from the response space to represent themselves. On the contrary, a high-dimensional representation will separate even similar inputs into orthogonal activity patterns. Compared to low-dimensional representation, a high-dimensional activity pattern is represented through a large set of basis vectors \cite{badre2021dimensionality}. 
 	
-	Therefore, we also aim to take a look at the change of dimensionality during the increase of alignment in the modeling. In ferrets primary visual cortex, the dimensionality decreased from days before eye opening to eye opening and then to days after eye opening \cite{tragenap2023nature}. We would then expect that the model should also suggest a decrease of dimensionality with increase of alignment between inputs and dominant eigenvector of recurrent network. 
+	Therefore, we want to take a look at the change of dimensionality during the increase of alignment in the modeling. In ferrets' primary visual cortex, the dimensionality decreased from days before eye opening until days after eye-opening \cite{tragenap2023nature}. We would then expect that the model should also suggest a decrease in dimensionality with an increase in alignment between inputs and dominant eigenvectors of recurrent networks. 
 	
-	For a certain alignment, the principal component analysis reflects actually directly the dimensionality of the evoked activity pattern under this alignment. Because the principal components are the eigenvectors of response covariance, they also build up a set of basis vector for the activity pattern space. The variance ratio of principal components reflect the weight that each eigenvector takes to represent the activity pattern. Thus, if only a small number of principal components contributes the most, the activity pattern is then low dimensional. While if a broad set of principal components are similarly important, the activity pattern is high dimensional.  
+	For a certain alignment, the principal component analysis reflects directly the dimensionality of the evoked activity pattern under this alignment. Because the principal components are the eigenvectors of response covariance, they also build up a set of basis vectors for the activity pattern space. Variance ratios reflect the weight that each principal component takes to represent the activity pattern. Thus, if only a small number of principal components contribute the most, the activity pattern is then low dimensional. If a broad set of principal components are similarly important, the activity pattern is highly dimensional.  
 	
-	With the idea of earning the linear dimensionality defined as participation ratio based on the principal component analysis, the eigenvectors here are ordered in descending order, in the opposite order of ascending order defined above (\ref{eq:ascending_order}). That is 
+	With the idea of obtaining the linear dimensionality defined as participation ratio based on the principal component analysis, the eigenvectors here are ordered in descending order, 
 		\begin{equation} \label{eq:descding_order}
-			\mathbf{e}_{\text{max}}, ..., \mathbf{e}_i, \mathbf{e}_j, ..., \mathbf{e}_{\text{min}} \, \, \text{such that} \, \, \lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
+			e_{\text{max}}, ..., e_i, e_j, ..., e_{\text{min}} \, \, \text{such that} \, \, \lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
 		\end{equation}
 	%For the calculation of the linear dimensionality (\ref{eq:dim_analytical_sym}) and (\ref{eq:dim_empirical_sym}), 
-	For the generation of inputs with covariance matrix $\mathbf{\Sigma^{\text{Dim}}}$ (\ref{eq:Sigma_dim}), a subset of eigenvectors $\{\mathbf{e}_i\}_{i = L, ..., L+M}$ will be chosen for $L=1, ..., \frac{n}{2}$. $M$ then determines how many eigenvectors will contribute to generate inputs and evoked activity. In each such subset of eigenvectors, the leading eigenvector is $\mathbf{e}_L$. Approximate here the feedforward recurrent alignment with the leading eigenvector only. Since $L$ is considered only in range of the first half of eigenvectors ordered as (\ref{eq:descding_order}), the range of feedforward recurrent alignment is between around $0$ and $\lambda_{\text{max}}$. The linear dimensionality analytically and empirically will be calculated according to (\ref{eq:dim_analytical_sym}) and (\ref{eq:dim_empirical_sym}). 
-	
+	For the generation of inputs with covariance matrix $\Sigma^{\text{Dim}}$ defined in eq.(\ref{eq:Sigma_dim}), a subset of eigenvectors $\{e_i\}_{i = L, ..., L+M_{\text{dim}}}$ will be chosen for $L=1, ..., \frac{n}{2}$. $M_{\text{dim}}$ then determines how many eigenvectors will contribute to generating inputs and evoked activity. In each such subset of eigenvectors, the leading eigenvector is $e_L$. Approximate here the feedforward recurrent alignment with the leading eigenvector only. Since $L$ is considered only in the range of the first half of eigenvectors ordered as eq.(\ref{eq:descding_order}), the range of feedforward recurrent alignment is between around $0$ and $\lambda_{\text{max}}$. The linear dimensionality analytically and empirically will be calculated according to eq.(\ref{eq:dim_analytical_sym}) and eq.(\ref{eq:dim_empirical_sym}). 
+
 		\begin{figure}[H] 
 			\centering
 			\begin{subfigure}[b]{0.45\textwidth} 
@@ -110,22 +116,24 @@
 				\label{fig:dim_sym}
 			\end{subfigure}
 			\vspace{-0.2cm}
-			\caption{\textbf{The correlation between dimensionality and feedforward recurrent alignment.} Prior experimental observation suggests that the dimensionality decreases from prior to post eye opening \cite{tragenap2023nature}. With the feedforward recurrent alignment hypothesis, dimensionality property of the neural representation could be captured. \textbf{(a)} Principal component analysis for the evoked activity under best alignment between inputs and dominant eigenvector and spontaneous random alignment. Red line for maximal alignment and green line for spontaneous alignment. \text{(b)} Achieve the correlation between dimensionality and feedforward recurrent alignment with analytical (\ref{eq:dim_analytical_sym}) and empirically (\ref{eq:dim_empirical_sym}). The green line displays the analytical approximation for dimensionality and the blue dots for empirical approximation.} 
+			\caption{\textbf{The correlation between dimensionality and feedforward recurrent alignment for symmetric RNNs.} Prior experimental observations suggested that the dimensionality decreases from prior until post eye-opening \cite{tragenap2023nature}. With the feedforward recurrent alignment hypothesis, the dimensionality property of the neural representation during development could be captured. \textbf{(a)} Principal component analysis for the evoked activity under input aligned to $e_{\text{max}}$ and spontaneous random activity. The red line is for maximal alignment and the green line is for spontaneous alignment. \textbf{(b)} Achieve the correlation between dimensionality and feedforward recurrent alignment with analytically eq.(\ref{eq:dim_analytical_sym}) and empirically eq.(\ref{eq:dim_empirical_sym}). The green line displays the analytical approximation for dimensionality and the blue dots for empirical.} 
 			\label{fig:correlation_dim_ffrec_sym}
 		\end{figure}
 	\vspace{-0.2cm}
-	As explained above, the principal component analysis helps to decode the dimensionality. The curve in figure \ref{fig:correlation_dim_ffrec_sym} (a) of the variance ratio reflects the dimensionality. Spontaneous random alignment has a flatter variance ratio curve, indicating a broader range of eigenvector contribution. Therefore, the spontaneous random alignment has a higher dimensionality. With the feedforward recurrent alignment hypothesis, the spontaneous random alignment matches the state before the eye opening and the maximal alignment for the state after eye opening. Therefore, the hypothesis results the same tendency of dimensionality decrease that observed in ferrets\cite{tragenap2023nature}.
+	As explained above, the principal component analysis helps to decode the dimensionality. The curve in Figure \ref{fig:correlation_dim_ffrec_sym}a of the variance ratio reflects the dimensionality. Spontaneous random alignment has a flatter variance ratio curve, indicating a broader range of eigenvector contributions. Therefore, the spontaneous random alignment has a higher dimensionality than under alignment with $e_{\text{max}}$. 
+	%With the feedforward recurrent alignment hypothesis, the spontaneous random alignment matches the state before the eye opening and the maximal alignment for the state after eye opening. Therefore, the hypothesis results the same tendency of dimensionality decrease that observed in ferrets\cite{tragenap2023nature}.
 	
-	In total, a negative correlation between the dimensionality and feedforward recurrent alignment is shown in figure \ref{fig:correlation_dim_ffrec_sym} (b). The correlation forms nearly a flipped logarithmic function. The error between analytical and empirical results are small, which confirmed the well approximation formulated analytically by (\ref{eq:dim_analytical_sym}). 
+	In total, a negative correlation between the dimensionality and feedforward recurrent alignment is shown in Figure \ref{fig:correlation_dim_ffrec_sym}b. The correlation forms nearly a flipped logarithmic function. The error between analytical and empirical results is small, which confirmed the good approximation formulated analytically by eq.(\ref{eq:dim_analytical_sym}). 
 	
-	Besides, the flipped logarithmic correlation suggests the similar principle for intra-trial stability (figure \ref{fig:its_ffrec_sym}). After eye opening, the reduction of dimensionality becomes larger when the feedforward inputs aligns better with dominant eigenvector. It could be the case, that after the eye opening, the recurrent network tries to encode the environment information with large number of eigenvectors, which is costing for the system. After a period of time of getting used to the stimuli, the system speed up to find out a more efficient encoding with fewer eigenvectors and the information becomes more determined. 
+	Besides, the flipped logarithmic correlation suggests the a similar principle for intra-trial stability (Figure \ref{fig:its_ffrec_sym}). After eye-opening, the reduction of dimensionality becomes larger when the feedforward inputs align better with the dominant eigenvector. It could be the case, that after the eye-opening, the recurrent network tries to encode the environment information with a large number of eigenvectors, which is costly for the system. After some time of getting used to the stimuli and the evoked activity becomes more stable, the information is more determined, and fewer eigenvectors are needed to efficiently to encode it.
+	%the system speed up to find out a more efficient encoding with fewer eigenvectors and the information becomes more determined. 
 	%After finding out a better solution, the improvement will be speed up until the optimum encoding with at least number of eigenvectors. 
 	
-	\subsubsection{Alignment to spontaneous activity increases with larger Alignment}
+	\subsubsection{Alignment to Spontaneous Activity Increases with larger Alignment}
 	
-	Spontaneous activity in neural systems is defined as neural activity that is not driven by an external stimulus. The activity patterns of spontaneous activity is not completely random and have often unique spatiotemporal patterns that instruct neural circuit development in the developing brain. Moreover, normal and aberrant patterns of spontaneous activity underline behavioral states and diseased conditions in adult brains. Therefore, the spontaneous activity is essential for the understanding of brain development \cite{imaizumi2018spontaneous}. The alignment between activity pattern and spontaneous activity pattern could show the structural relation between patterns. Besides, it could also reflect the presentation of spontaneous activity in other activity patterns. 
+	Spontaneous activity in neural systems is defined as neural activity that is not driven by an external stimulus. The activity patterns of spontaneous activity are not completely random and have often unique spatiotemporal patterns that instruct neural circuit development in the developing brain. Moreover, normal and aberrant patterns of spontaneous activity underline behavioral states and diseased conditions in adult brains. Therefore, spontaneous activity is essential for the understanding of brain development \cite{imaizumi2018spontaneous}. The alignment between activity patterns and spontaneous activity patterns could show the structural relation between patterns. %Besides, it could also reflect the presentation of spontaneous activity in other activity patterns. 
 	
-	In baby ferrets' brain, a transformation from visual responses that are loosely aligned with spontaneous activity in the cortex before eye opening to the reliable and well aligned responses several days after eye opening were observed \cite{tragenap2023nature}. Thus, we will expect that the feedforward recurrent hypothesis can reflect the tendency that evoked activity aligned better to spontaneous activity during the development of brain. 
+	In baby ferrets' brains, a transformation from visual responses that are loosely aligned with spontaneous activity in the cortex before eye-opening to reliable and well-aligned responses several days after eye-opening was observed \cite{tragenap2023nature}. Thus, we expect that the feedforward recurrent hypothesis can reflect the tendency that evoked activity aligned better with spontaneous activity during the development of the brain. 
 	\vspace{-0.4cm}
 		\begin{figure}[H] 
 			\centering
@@ -140,35 +148,35 @@
 				\label{fig:align_spont_sym}
 			\end{subfigure}
 			%\vspace{-0.1cm}
-			\caption{\textbf{Correlation between alignment to spontaneous activity and feedforward recurrent alignment.} Spontaneous activity reflects inputs from wide range of different sources and considered to already aligned to the recurrent network\cite{tragenap2023nature}. Aligning activity patterns to spontaneous activity is in principle to explain the activity pattern by the principal components of spontaneous activity. \textbf{(a)} Variance ratio (\ref{eq:var_explain_spont_act_sym}) of spontaneous activity, evoked activity by feedforward input maximally aligning to recurrent network, and evoked activity by randomly aligning to recurrent network explained by principal components of spontaneous activity. The red line illustrates the variance ratio of spontaneous activity, blue line the maximal alignment, and green line the random alignment. Shadow shows the 95\% confident interval for 50 networks. \text{(b)} The correlation between final alignment score to spontaneous activity and feedforward recurrent alignment better than random alignment calculated with (\ref{eq:align_to_spont_act_sym}). The eigenvalues are ordered in the same way as (\ref{eq:descding_order}). Only the first half eigenvectors are taken into account to determine the correlation.}
+			\caption{\textbf{Correlation between alignment to spontaneous activity and feedforward recurrent alignment score in symmetric RNNs.} The spontaneous activity reflects inputs from a wide range of different sources and is considered to be already aligned to the recurrent network\cite{tragenap2023nature}. Aligning activity patterns to spontaneous activity is in principle to explain the activity pattern by the principal components of spontaneous activity. \textbf{(a)} Variance ratio eq.(\ref{eq:var_explain_spont_act_sym}) of spontaneous activity, evoked activity by feedforward input maximally aligned to recurrent network, and evoked activity by randomly aligned to recurrent network explained by principal components of spontaneous activity. The red line illustrates the variance ratio of spontaneous activity, the blue line the maximal alignment, and the green line the random alignment. Shadow shows the 95\% confidence interval for 50 symmetric RNNs. \textbf{(b)} The correlation between final alignment to spontaneous activity and feedforward recurrent alignment eq.(\ref{eq:align_to_spont_act_sym}). The eigenvalues are ordered in descending order as eq.(\ref{eq:descding_order}). Only the first half of eigenvectors are taken into account to determine the correlation.}
 			\label{fig:align_spont_act_sym}
 		\end{figure}
 	
-	Under the assumption that at eye opening, the patterns of feedforward inputs are not as well aligned to the recurrent network as the spontaneous activity, the evoked and spontaneous pattern overlaps only little (figure \ref{fig:align_spont_act_sym}(a), visually comparing green line to red line.) It could be observed here that only the last few principal components has the similar variance ratio, while the first few dominant eigenvectors differs a lot. On the contrary, experience-driven changes that optimize the feedforward-recurrent alignment results in a stronger overlap between distributions of evoked and spontaneous activity pattern (figure \ref{fig:align_spont_act_sym}(a), visually comparing red line to blue line.). Most of the principal components has the similar explained variance ratio. In both cases, the hypothesis matches experimental observations in baby ferrets' brain \cite{tragenap2023nature}.
+	Under the assumption that at eye-opening, the patterns of feedforward inputs are aligned to random activity patterns, thus not as well aligned to the recurrent network as the spontaneous activity. The evoked and spontaneous pattern overlaps only a little (Figure \ref{fig:align_spont_act_sym}(a), visually comparing the green line to the red line.). It could be observed here that only the last few principal components have a similar variance ratio, while the first few dominant eigenvectors differ a lot. There is not much overlap between green and red curves. On the contrary, experience-driven changes that optimize the feedforward-recurrent alignment to $e_{\text{max}}$ results in a stronger overlap between distributions of evoked and spontaneous activity patterns (Figure \ref{fig:align_spont_act_sym}(a), visually comparing red line to blue line.). Most of the principal components have a similar explained variance ratio. Two curves overlap a lot. In both cases, the theoretical modeling hypothesis matches experimental observations in baby ferrets' brains \cite{tragenap2023nature}.
 	
-	To visualize and quantify the overlap between activity patterns from evoked and endogenous pattern, we considered the summarized alignment score (\ref{fig:align_spont_act_sym}). A exponential correlation between alignment to spontaneous activity and feedforward recurrent alignment (figure \ref{fig:align_spont_act_sym}(b)) is suggested by the modeling. The strong growth of overlaps between evoked and endogenous activity starts only shortly before the optimal experience-driven alignment, indicating that the alignment could require a large amount of experience and training. The costly process to optimal alignment to spontaneous activity could on the other hand reflect the importance of the connection between evoked and endogenous activity patterns. 
+	To visualize and quantify the overlaps between activity patterns from evoked and endogenous patterns, we considered the summarized alignment score eq.(\ref{eq:align_to_spont_act_sym}). An exponential correlation between alignment to spontaneous activity and feedforward recurrent alignment (Figure \ref{fig:align_spont_act_sym}b) is suggested by the modeling. The strong growth of overlaps between evoked and endogenous activity starts only shortly before the optimal experience-driven alignment, indicating that the alignment could require a large amount of experience and training. The costly process of optimal alignment to spontaneous activity could on the other hand reflect the importance of the connection between evoked and endogenous activity patterns. 
 	
 	\clearpage
 	\subsection{Evaluation of Feedforward Recurrent Alignment Modulations for asymmetric Recurrent Interaction Networks} \label{sec:asymmetric_results}
-	For symmetric interaction networks, the feedforward recurrent alignment hypothesis and the modulation based on it can demonstrate the response properties observed in ferrets \cite{tragenap2023nature} (section \ref{sec:results_symmetric}). With better alignment between inputs and recurrent network, key results of the response properties were
+	For symmetric interaction networks, the feedforward recurrent alignment hypothesis and the modeling based on it in section \ref{sec:results_symmetric} can demonstrate the response properties observed in ferrets \cite{tragenap2023nature}. With better alignment between inputs and recurrent network, key results of the response properties were
 		\begin{itemize}
 			\item The trial-to-trial correlation increases.
 			\item The intra-trial stability increases.
 			\item The Dimensionality decreases.
-			\item The Alignment of evoked activity to spontaneous activity increases.
+			\item The alignment of evoked activity to spontaneous activity increases.
 		\end{itemize}
 	
-	However, since the symmetric interaction matrices simplify the neural connection dramatically, we try to embed the more biological realistic asymmetric interaction matrices. Considering the modifications listed in methods (section \ref{sec:modify_ffrec_alignment_score}), we want to evaluate the results based on the key results we got with symmetric interaction matrices. 
+	However, since the symmetric interaction matrices simplify the neural connection dramatically, we try to embed the more biology-realistic asymmetric interaction matrices. Considering the modifications listed in methods in section \ref{sec:modify_ffrec_alignment_score}, we want to evaluate the modifications of the feedforward recurrent alignment score based on the key results we got with symmetric RNNs. 
 	
-	Firstly, we check if the feedforward recurrent alignment score keeps the proportionality to eigenvalues as shown with (\ref{eq:ffrec_equals_eigval}). We expect that a suitable modification could keep the positive correlation with eigenvalues. Then, we go through the four response properties to verify if the tendency above are still kept with increased alignment between inputs and recurrent network. 
-	
+	Firstly, we check if the feedforward recurrent alignment score keeps the proportionality to eigenvalues. We expect that a suitable modification could keep the monotonously positive correlation with eigenvalues. Then, we go through the four response properties to verify if the tendency above is still kept with increased alignment between inputs and recurrent network. 
+	\vspace{0.5cm}
 	\subsubsection{Monotony of Feedforward Recurrent Alignment Score in dependence of Eigenvalues}
 	
-	During the development, suggested by feedforward recurrent alignment hypothesis for symmetric interactions, the inputs align from eigenvectors with small eigenvalues to eigenvectors with large eigenvalues. Due to the formulation (\ref{eq:ffrec_align}), feedforward recurrent alignment is proportional to the corresponding eigenvalue of the eigenvector that is aligned with input (\ref{eq:ffrec_equals_eigval}). 
+	During the development, suggested by the feedforward recurrent alignment hypothesis for symmetric interactions, the inputs align better to the RNNs through aligning to dominant eigenvectors. Feedforward recurrent alignment is proportional to the corresponding eigenvalue of the eigenvector that is aligned with input eq.(\ref{eq:ffrec_equals_eigval}). 
 	
-	When considering the asymmetric interaction network, keeping the hypothesis that the input align more and more to the eigenvector with maximal eigenvalue, we examine if the modified feedforward recurrent alignment score could still keep the proportionality that the modified variations increase with larger eigenvalues.
+	When considering the asymmetric interaction network, keeping the hypothesis that the inputs align more and more to the eigenvector with maximal eigenvalue, we examine if the modified feedforward recurrent alignment score could still keep the proportionality to eigenvalues. 
 	%\footnote{Order the complex eigenvalues of the asymmetric interaction matrix through comparing the real parts. Undertaken this comparison with Python build-in function }. 
-	If the positive correlation between the feedforward recurrent alignment and eigenvalues could be kept, the alignment score could at least quantify how well input align to the dominant eigenvector and thus quantify the alignment between input and recurrent network. 
+	If a monotonously positive correlation between the feedforward recurrent alignment and eigenvalues could be kept, the alignment score could at least definitely quantify how well inputs are aligned to the dominant eigenvector. 
 	
 	% figure of proportionality 
 %		\begin{figure}
@@ -176,7 +184,7 @@
 %			\includegraphics[width=\textwidth]{../figures/ffrec_eigval_proportion.pdf}
 %			\caption{text}
 %		\end{figure}
-		\begin{figure}
+		\begin{figure}[H]
 			\centering
 			\begin{subfigure}[b]{0.4\textwidth}
 				\includegraphics[width=\textwidth]{../figures/ffrec_eigval_real_part.png}
@@ -192,17 +200,18 @@
 %				\includegraphics[width=\textwidth]{../figures/ffrec_eigval_symmetrized_J.png}
 %				\caption{}
 %			\end{subfigure}
-			\caption{\textbf{Correlation between eigenvalues and feedforward recurrent alignment.} To verify the considered modifications, a positive correlation between eigenvalues and feedforward recurrent alignment is advantageous. Represent the correlation in the complex plane, since eigenvalues are complex. Color bar indicate the size of feedforward recurrent alignment. The darker the color, the larger the alignment score.  \textbf{(a)} Representation of alignment score calculated with modification \ref{sec:modicication_real_part} (\ref{eq:ffrec_real_part}) in complex plane. \textbf{(b)} Representation of alignment score calculated with modification \ref{sec:modification_magnitude} (\ref{eq:ffrec_mag}) in complex plane.}
+			\caption{\textbf{Correlation between eigenvalues and feedforward recurrent alignment of modifications for asymmetric RNNs.} To verify the considered modifications from section \ref{sec:modify_ffrec_alignment_score}, a monotonously positive correlation between eigenvalues and feedforward recurrent alignment is necessary. Represent the correlation in the complex plane, since eigenvalues are complex. The color-bar indicates the score of feedforward recurrent alignment. The darker the color, the larger the alignment score.  \textbf{(a)} Representation of alignment score calculated with modification \ref{sec:modicication_real_part} by eq.(\ref{eq:ffrec_real_part}) in complex plane. \textbf{(b)} Representation of alignment score calculated with modification \ref{sec:modification_magnitude} by eq.(\ref{eq:ffrec_mag}) in complex plane.}
 		\end{figure}
 	
 	% Conclusion and mathematical explanation of Results for the proportionality.
-	\paragraph{Modification 1}: Apply the real part of complex inputs (\ref{eq:ffrec_real_part}).
+	\vspace{0.5cm}
+	\paragraph{Modification 1}: Apply the real part of complex inputs with eq.(\ref{eq:ffrec_real_part}).
 	
-	With the feedforward recurrent alignment, we mainly consider the correlation of alignment score and eigenvalues under alignment between inputs and eigenvectors of recurrent network $J$. Inserting inputs equal the eigenvectors $h = e_i \in \mathbb{C}^{n \times 1}$ into (\ref{eq:ffrec_real_part}), it leads to
+	With the feedforward recurrent alignment, we mainly consider the correlation between alignment score and corresponding eigenvalues. Inserting inputs $h$ aligned to eigenvectors, for simplicity $h := e_i \in \mathbb{C}^{n \times 1}$ into eq.(\ref{eq:ffrec_real_part}), it leads to
 		\begin{equation}
 			\nu_{\text{Re}} = \frac{\text{Re}(e_i)^T J \text{Re}(e_i)}{\Vert \text{Re}(e_i)\Vert^2} \, .
 		\end{equation}
-	Because $\Vert e_i \Vert = c \Vert \text{Re}(e_i) \Vert$ with $c \in \mathbb{R_{+}}$ a general positive constant, we could get the proportionality between alignment score and the real part of eigenvalues $\text{Re}(\lambda_i)$ of $J$ :
+	Because $\Vert e_i \Vert = c \Vert \text{Re}(e_i) \Vert$ with $c \in \mathbb{R_{+}}$ a general positive constant, we could get the proportionality between alignment score $\nu_{\text{Re}}$ and the real part of eigenvalues $\text{Re}(\lambda_i)$ of $J$ :
 		\begin{equation}
 			\begin{split}
 				\nu_{\text{Re}} & = c \text{Re}\left( \frac{e_i}{\Vert e_i \Vert} \right)^T J \, \text{Re}\left( \frac{e_i}{\Vert e_i \Vert} \right) \\
@@ -210,13 +219,15 @@
 				& = c \text{Re}(\lambda_i) \, ,
 			\end{split}
 		\end{equation}
-	with $c$ general positive constant.
+	with $c$ a general positive constant.
 	
-	The positive correlation between alignment and real part of eigenvalues $\lambda_i$ could also be observed in representation in complex plane (figure \ref{fig:ffrec_real_part}). With increasing real part of eigenvalue, the size of alignment score also becomes larger. Furthermore, there is no correlation found in the direction of imaginary part of eigenvalues, since the alignment score only depends on the real part. 
+	The positive correlation between alignment and the real part of eigenvalues $\lambda_i$ could also be observed in representation in the complex plane (Figure \ref{fig:ffrec_real_part}). With increasing the real part of the eigenvalue, the size of the alignment score also becomes larger. 
+	%Therefore, the increase of the feedforward recurrent alignment score can be captured by an increase in the real part of eigenvalues.
+	A better alignment between inputs and a certain dominant activity pattern is thus the only reason for the increase in the feedforward recurrent alignment score. Since the alignment score only depends on the real part, there is no correlation found in the direction of the imaginary part of eigenvalues. 
+	\vspace{1cm}
+	\paragraph{Modification 2}: Apply the magnitude for each neuron input eq.(\ref{eq:ffrec_mag}).
 	
-	\paragraph{Modification 2}: Apply the magnitude for each neuron input (\ref{eq:ffrec_mag}).
-	
-	When the inputs are aligned to eigenvectors $e$ of $J$, the feedforward recurrent alignment could be expressed with $\vert e \vert := (\vert e_{i} \vert)_{i = 1, ..., n} \in \mathbb{C}^{n \times 1}$ after inserting into (\ref{eq:ffrec_mag}). As the euclidean norm of vector $\vert e \vert$ is the same as the norm directly on the complex eigenvector $\Vert e \Vert_2$, the final feedforward recurrent alignment score can be then formulated as following:
+	When the inputs are aligned to eigenvectors $e$ of interaction matrix $J$, the feedforward recurrent alignment could be modified with $\vert e \vert := (\vert e_{i} \vert)_{i = 1, ..., n} \in \mathbb{R}^{n \times 1}$. Since the euclidean norm of vector $\vert e \vert$ is the same as the norm directly on the complex eigenvector $\Vert e \Vert_2$, the final feedforward recurrent alignment score from eq.(\ref{eq:eq:ffrec_mag}) can be formulated as following:
 		\begin{equation}
 			\begin{split}
 				\nu_{\text{mag}} & = \frac{\vert e \vert^T J \vert e \vert}{\Vert e \Vert^2} \\
@@ -226,85 +237,93 @@
 		\end{equation}
 	where $e_i, e_j$ are the $i$-th and $j$-th element of the vector $e$, and $J_{ij}$ the matrix element at $i$-th row and $j$-th column. 
 	
-	Therefore, no direct correlation between the alignment score and eigenvalues $\lambda$ can be established. The lack of correlation is also represented in the complex plane (figure \ref{fig:ffrec_mag}). 
+	No direct proportionality between the alignment score and corresponding eigenvalues $\lambda$ can be established. The lack of correlation is also represented in the complex plane (Figure \ref{fig:ffrec_mag}). 
+	\vspace{1cm}
+	\paragraph{Modification 3}: Align the inputs to eigenvectors of symmetrized network eq.(\ref{eq:ffrec_symmetrized}).
 	
-	\paragraph{Modification 3}: Align the inputs to eigenvectors of symmetrized network (\ref{eq:ffrec_symmetrized}).
+	Instead of aligning the inputs to eigenvectors of original asymmetric RNNs and thinking about modifications of complex eigenvectors to calculate the feedforward recurrent alignment score, we now align the inputs to real eigenvectors $\tilde{e}$ from symmetrized interaction matrix $\tilde{J}$ as an approximation. However, the alignment score is still being projected to the original asymmetric RNNs defined in eq.(\ref{eq:ffrec_symmetrized}). 
+	Despite of original asymmetric interaction matrix for the feedforward recurrent alignment score, there is still a proportionality between the eigenvalues of the symmetrized network and alignment score, shown in Figure \ref{fig:ffrec_symmetrized}. 
 	
-	Instead of aligning the inputs to eigenvectors of original asymmetric recurrent network and thinking about modifications of eigenvectors to calculate the feedforward recurrent alignment score, we now directly align the inputs to real eigenvectors $\tilde{e}$ of symmetrized recurrent network $\tilde{J}$ as an approximation. However, the alignment score is projected to the original asymmetric recurrent network (\ref{eq:ffrec_symmetrized}). There is still a proportionality between the eigenvalues of symmetrized network and alignment score. 
+	The kept proportionality can also be obtained analytically. With the formulation of symmetrized interaction matrix through eq.(\ref{eq:symmetrized_J}), it follows with the help of definition for $\nu_{\text{sym}}$ from eq.(\ref{eq:ffrec_symmetrized}),
 	
-		\begin{SCfigure}[0.95][h] 
-			\centering
-			\caption{\textbf{Positive correlation between feedforward recurrent alignment score and eigenvalues of symmetrized network.} Project the inputs to the eigenvectors of symmetrized network to refer the development instead of the projection to the original asymmetric network. The correlation between the alignment score (y-axis) based on the original recurrent network to the eigenvalues of symmetrized network (x-axis) remains positive.}
-			\includegraphics[width=0.45\textwidth]{../figures/ffrec_eigval_symmetrized_J.png}
-			\label{fig:ffrec_symmetrized}
-		\end{SCfigure}
-	Since the symmetrized recurrent network $\tilde{J}$ is received by (\ref{eq:symmetrized_J}), the proportionality shown in figure \ref{fig:ffrec_symmetrized} can be obtained as the following:
 		\begin{equation}
 			\begin{split}
 				&\frac{\tilde{e}^T \tilde{J} \tilde{e}}{\Vert \tilde{e} \Vert^2} = \frac{\tilde{e}^T \frac{J + J^T}{2} \tilde{e}}{\Vert \tilde{e} \Vert^2} = \frac{1}{2} \left( \frac{\tilde{e}^T J \tilde{e}}{\Vert \tilde{e} \Vert^2} + \frac{\tilde{e}^T J^T \tilde{e}}{\Vert \tilde{e} \Vert^2} \right) \\
-				\Rightarrow \,  & 2 \frac{\tilde{e}^T \tilde{J} \tilde{e}}{\Vert \tilde{e} \Vert^2} - \frac{\tilde{e}^T J^T \tilde{e}}{\Vert \tilde{e} \Vert^2} = \frac{\tilde{e}^T J \tilde{e}}{\Vert \tilde{e} \Vert^2} \\
+				\Rightarrow \,  & 2 \frac{\tilde{e}^T \tilde{J} \tilde{e}}{\Vert \tilde{e} \Vert^2} - \frac{\tilde{e}^T J^T \tilde{e}}{\Vert \tilde{e} \Vert^2} = \frac{\tilde{e}^T J \tilde{e}}{\Vert \tilde{e} \Vert^2} \\ 
 				\Rightarrow \, & 2 \tilde{\lambda} - c = \frac{\tilde{e}^T J \tilde{e}}{\Vert \tilde{e} \Vert^2} \text{ with } c := \frac{\tilde{e}^T J^T \tilde{e}}{\Vert \tilde{e} \Vert^2} \in \mathbb{R} \text{ and $\tilde{\lambda}$ the corresponding eigenvalue of $\tilde{e}$} \\
 				\Rightarrow \, & \frac{\tilde{e}^T J \tilde{e}}{\Vert \tilde{e} \Vert^2} \propto \tilde{\lambda} \, .
 			\end{split}
 		\end{equation}
+	\begin{SCfigure}[0.95][h]
+		\centering
+		\caption{\textbf{Positive correlation between feedforward recurrent alignment score and eigenvalues of symmetrized network as modification for asymmetric RNNs.} Align the inputs to the eigenvectors of the symmetrized network while keeping feedforward recurrent alignment obtained by the original asymmetric interaction matrix with eq.(\ref{eq:ffrec_symmetrized}). The correlation between the alignment score (y-axis) to the corresponding eigenvalues of the symmetrized network (x-axis) remains positive.}
+		\includegraphics[width=0.45\textwidth]{../figures/ffrec_eigval_symmetrized_J.png}
+		\label{fig:ffrec_symmetrized}
+	\end{SCfigure}
 	
-	\paragraph{Conclusion} After the analysis above for all modifications, our expectation of contained positive correlation are kept when considering the real part (modification 1) and alignment with symmetrized recurrent network (modification 3). The variant with magnitude (modification 2) fails to fulfill the correlation. Thus, we will leave the modification 2 out without further analysis for response properties in the following section. 
+	\paragraph{Conclusion} After the analysis above for all modifications, our expectation of a contained positive correlation is kept when considering the real part (modification 1) and alignment with the symmetrized interaction matrix (modification 3). The variant with magnitude (modification 2) fails to fulfill the expected correlation. Thus, we will leave modification 2 out without further analysis of response properties in the following section. 
 	
 	\subsubsection{Representing Response Properties with modified Feedforward Recurrent Alignment} \label{sec:asym_ffrec_response}
 	
-	After verifying the expected correlation between feedforward recurrent alignment score and the network that the inputs are aligned to, we will check out if the remaining modifications could still reflect the four experimental observations listed at the beginning of the section \ref{sec:asymmetric_results} with remaining modification 1 and 3. 
+	After verifying the expected correlation between the feedforward recurrent alignment score and eigenvalues. We will check out if the remaining modifications 1 and 3 could still reflect the four experimental observations listed at the beginning of the section \ref{sec:asymmetric_results}. 
+	
+	When aligning the inputs to eigenvectors of the asymmetric recurrent network to test the feedforward recurrent alignment hypothesis,
 	\begin{itemize}
-		\item When aligning the inputs to the asymmetirc recurrent network to test the feedforward recurrent alignment hypothesis, the modification 1 considers the complex input only with real part of eigenvectors. 
-		\item The modification 3 aligns the inputs to symmetrized recurrent network but calculate the alignment score still with original asymmetric network. 
+		\item modification 1 considers only the real part of eigenvectors eq.(\ref{eq:ffrec_real_part}). 
+		\item modification 3 aligns the inputs to eigenvectors of the symmetrized interaction matrix but calculates the alignment score still with the original asymmetric network eq.(\ref{eq:ffrec_symmetrized}). 
 	\end{itemize}
 	
-	Besides, since the asymmetirc recurrent network is constructed with certain degree of symmetry (\ref{eq:asym_interaction_matrix}), we also controlled how much the degree of symmetry influences the results. 
+	For the modeling, the asymmetric RNNs are constructed with a certain degree of symmetry with eq.(\ref{eq:asym_interaction_matrix}). We therefore also controlled how much the degree of symmetry influences the results. 
 	
 	\paragraph{Trial-to-trial Correlation}
 	
-	Trial-to-trial correlation is the averaged correlations between trials (\ref{eq:ttc_sym}). The expectation is a positive correlation between feedforward recurrent alignment and trial-to-trial correlation, independent of the degree of symmetry. 
+	Trial-to-trial correlation is the averaged correlations between trials defined by eq.(\ref{eq:ttc_sym}). The expectation is a positive correlation between feedforward recurrent alignment and trial-to-trial correlation. Under varies degree of symmetry, the positive correlation should still be kept.
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width = \textwidth]{../figures/ttc_asym.pdf}
-			\caption{\textbf{Correlation between trial-to-trial correlation and feedforward recurrent alignment with asymmetric recurrent network inclusive the influence of symmetry.} For different degree of symmetry $a$, different color dots are applied shown in legend. The green color with $a=1.0$ illustrates the case of symmetric network. The most dark purple $a=0.0$ represents the asymmetric network without any influence of symmetry. The x-axis shows the alignment score calculated with considered modifications and the y-axis indicates the trial-to-trial correlation calculated with aligned inputs through (\ref{eq:ttc_sym}) \textbf{Left}: Result generated with modification 1 (only consider real part). \textbf{Right}: Result with modification 3 (symmetrized recurrent network).}
+			\caption{\textbf{Correlation between trial-to-trial correlation and feedforward recurrent alignment with asymmetric RNNs inclusive the influence of symmetry.} For different degrees of symmetry $a$, different color dots are applied shown in the legend. The green dots with $a=1.0$ illustrate the case of symmetric RNNs. The darkest purple dots $a=0.0$ represent the asymmetric network without any degree of symmetry. The x-axis shows the alignment score calculated with considered modifications 1 and 3, and the y-axis indicates the trial-to-trial correlation calculated with aligned inputs through eq.(\ref{eq:ttc_sym}) \textbf{Left}: Results generated with modification 1 (only consider real part). \textbf{Right}: Result with modification 3 (symmetrized interaction matrix).}
 			\label{fig:ttc_asym}
 		\end{figure}
-	The results (figure \ref{fig:ttc_asym}) point out that the trendy of positive correlation keeps while the network increases its asymmetry for both modifications 1 and 3. 
+	The results in Figure \ref{fig:ttc_asym} point out that the trend of positive correlation keeps while the network increases its asymmetry for both modifications 1 and 3. 
 	
-	However, when the network is fully asymmetric, the correlation has larger dispersion with modification 1 (only real part). We suspect that the reason is that in the case of full asymmetry, more information got lost because of only considering information from real part of aligned inputs. If there is certain degree of symmetry, a part of information during the alignment originates from the symmetric recurrent network and therefore for this part of alignment, no information get lost while only taking the real part of aligned inputs. Aligning to fully asymmetric recurrent network and only taking real part of aligned inputs, all neurons receive as a result incomplete information. Therefore, the correlation between evoked patterns will be disturbed mostly. 
+	However, when the network is fully asymmetric, the correlation has a larger dispersion with modification 1. We suspect that the reason is that in the case of full asymmetry, more information got lost if only considering information from the real part of aligned inputs. 
 	
-	In the case of modification 3 (align inputs to symmetrized network), the correlation is almost maintained over all degree of symmetry. 
+	If there is a certain degree of symmetry, a part of the information originates from the symmetric structure. For this part, no information gets lost when only taking the real part of aligned inputs. On the other hand, aligning to fully asymmetric RNNs ($a = 0.0$ in Figure \ref{fig:its_asym} left panel) and only taking the real part of aligned inputs, all neurons receive as a result incomplete information. Therefore, the correlation between evoked patterns will be disturbed mostly. 
+	
+	In the case of modification 3, the correlation is almost maintained the overall degree of symmetry as expected, shown in Figure \ref{fig:its_asym} right panel. 
 	
 	\paragraph{Intra-trial Stability}
 	
-	Intra-trial stability is the averaged time-delayed activity correlation inside one single trial. As the name indicates, it shows how stable the information is represented inside one trial. With the result from symmetric recurrent network, we expect a similar exponential positive correlation as in figure \ref{fig:its_ffrec_sym} also with the asymmetric recurrent network. The degree of symmetry should also not influence the result significantly since we assume that the hypothesis should also work well with asymmetric recurrent networks generally.
+	Intra-trial stability is the averaged time-delayed activity correlation inside one single trial quantified by eq.(\ref{eq:its_sym}). As the name indicates, it shows how stable the information is represented inside one trial. According to the result from symmetric RNNs, we expect a similar exponential positive correlation as in Figure \ref{fig:its_ffrec_sym} also with asymmetric RNNs. The degree of symmetry should also not influence the result significantly under the assumption that the hypothesis works well with asymmetric RNNs generally.
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=\textwidth]{../figures/its_asym.pdf}
-			\caption{\textbf{Correlation between intra-trial stability and feedforward recurrent alignment with asymmetric recurrent network considering the influence from degree of symmetry.} For multiple degrees of symmetry $a$, different color dots are applied shown in legend. From complete symmetric $a = 1.0$ (as control) to full asymmetric recurrent network, the corresponding feedforward recurrent alignment (x-axis) is plotted against the intra-trial stability (y-axis). \textbf{Left}: Result with modification 1 (only real part of aligned inputs). \textbf{Right}: Result with modification 3 (align input to symmetrized network).}
+			\caption{\textbf{Correlation between intra-trial stability and feedforward recurrent alignment with asymmetric RNNs considering the influence from the degree of symmetry.} For multiple degrees of symmetry $a$, different color dots are applied shown in the legend. From complete symmetric ($a = 1.0$ as the control group) to full asymmetric ($a = 0.0$) RNNs, the corresponding feedforward recurrent alignment (x-axis) is plotted against the intra-trial stability (y-axis). \textbf{Left}: Results with modification 1 (only real part of aligned inputs). \textbf{Right}: Results with modification 3 (align input to symmetrized network).}
 			\label{fig:its_asym}
 		\end{figure}
-	We suspect with the similar reason as in trial-to-trial correlation that for modification 1, the lost of imaginary part information of aligned inputs could lead to increased dispersion with larger asymmetry of network (figure \ref{fig:its_asym} left panel). 
+	We suspect with a similar reason as in trial-to-trial correlation that for modification 1, the loss of imaginary part information of aligned inputs could lead to increased dispersion with the network becoming more asymmetric (Figure \ref{fig:its_asym} left panel). 
 	
-	For modification 3, except for the expected exponential positive correlation between intra-trial stability and feedforward recurrent alignment score, we also observe that the dispersion is more noticeable with increased asymmetry. So, the degree of symmetry influence here more significant than in trial-to-trial correlation. Furthermore, similar to modification 1, although align inputs to the symmetrized network, the lost of information also got lost with the increased asymmetry. Imagine if having a total symmetric network, the result of symmetrization is the network itself and therefore no information is lost in eigenvectors. However, if having a fully asymmetric recurrent network, after symmetrization, information that stored in complex eigenvectors get transformed to lower dimension real eigenvectors completely. Thus, when align inputs to the symmetrized asymmetric network, transformed information could be the reason for larger dispersion. 
-	
+	For modification 3, the expected positive correlation between intra-trial stability and feedforward recurrent alignment score is kept. Besides, we also observe that the degree of symmetry influences here more than in trial-to-trial correlation (Figure \ref{fig:ttc_asym} right panel). It is perhaps because the intra-trial stability is more sensitive to the information lost than trial-to-trial correlation. With the increased asymmetry, more information got lost during symmetrization. Imagine if having a total symmetric network, the result of symmetrization is the network itself, and therefore no information is lost in eigenvectors. However, if having a fully asymmetric recurrent network, after symmetrization, information stored in complex eigenvectors gets transformed to lower dimension real eigenvectors. Thus, when aligning inputs to the symmetrized interactions, transformed information could be the reason for the influence of the degree of symmetry. 
+	\vspace{0.5cm}
 	\paragraph{Dimensionality}
 	
-	Dimensionality reflects the complexity of the information they encoded. A high dimensional activity pattern needs more orthogonal activity pattern for representation then a low dimensional activity pattern and thus indicates larger variability and higher complexity of contained information. Modification 1 and 3 change the eigenvectors for construction of input variance and the eigenvalues for calculation of effective dimensionality (section \ref{sec:modification_asym} eq. (\ref{eq:modifications_dim}), (\ref{eq:modification_eff_dim})). 
+	Dimensionality reflects the complexity of the information they encoded. A high dimensional activity pattern needs more orthogonal activity patterns for representation than a low dimensional activity pattern and thus indicates larger variability and higher complexity of contained information \cite{tragenap2023nature, bartolo2020dimensionality, badre2021dimensionality}. Modifications 1 and 3 change the eigenvectors for the construction of input covariance and the eigenvalues for analytical calculation of effective dimensionality (section \ref{sec:modification_asym} eq. (\ref{eq:modifications_dim}), (\ref{eq:modification_eff_dim})). 
 	
 	If both modifications work well, the results should be similar to result from symmetric recurrent network (figure \ref{fig:dim_sym}). Low degree of symmetry is allowed to lead to small range of dispersion, which however should still keep the tendency of decreased dimensionality with increased alignment score. % Refer calculation in method + Expectiations
-		\begin{figure} [H]
+	
+	% Reason for left: the analytical solution under assumption that the basis of Sigma_Dim are orthogonal-- got lost with Re(e). Therefore large difference between analytical and empirical solution. --> at this step the modification 1 is also not good. Could let out. 
+	With modification 1 (figure \ref{fig:dim_asym} left panel), the empirical dimensionality differs a lot from the analytical calculation of dimensionality. Besides, there is no significant correlation between dimensionality and feedforward recurrent alignment with empirical data. The reason for that could be the lost of orthogonality between the real part of eiegenvectors, that is 
+	\begin{equation}
+		e_i \perp e_j  \, \, \nRightarrow \text{Re}(e_i) \perp \text{Re}(e_j) \, \, \forall i, j = 1, ..., n \, .
+	\end{equation}
+	As a result, the covariance matrix $\Sigma^{\text{Dim}}$ (\ref{eq:modifications_dim}) is not necessarily constructed with orthogonal vectors anymore, which contradicts the assumption of reflecting dimensionality by projecting activity pattern on orthogonal patterns that are also applied to construct covariance matrix. 
+	
+		\begin{figure}[H]
 			\centering
 			\includegraphics[width=\textwidth]{../figures/dim_asym.pdf}
 			\caption{\textbf{Analytical and empirical effective dimensionality in correlation with feedforward recurrent alignment with asymmetric recurrent network. Impact on the correlation from the degree of symmetry in network.} The full symmetric recurrent network ($a = 1.0$) is control for other cases with $a < 1.0$. When $a = 0.0$, the recurrent network is fully asymmetric. The dots represents the empirical approximation for effective dimensionality (\ref{eq:dim_empirical_sym}). The lines are for the analytical calculation for dimensionality adjusted to modification 1 and 3 (section \ref{sec:modification_asym} eq. (\ref{eq:modifications_dim}), (\ref{eq:modification_eff_dim})). \textbf{Left}: Result with modification 1 (only real part of aligned inputs and eigenvalues for analytical dimensionality). \textbf{Right}: Result with modification 3 (align inputs and to symmetrized recurrent network).}
 			\label{fig:dim_asym}
 		\end{figure}
-	% Reason for left: the analytical solution under assumption that the basis of Sigma_Dim are orthogonal-- got lost with Re(e). Therefore large difference between analytical and empirical solution. --> at this step the modification 1 is also not good. Could let out. 
-	With modification 1 (figure \ref{fig:dim_asym} left panel), the empirical dimensionality differs a lot from the analytical calculation of dimensionality. Besides, there is no significant correlation between dimensionality and feedforward recurrent alignment with empirical data. The reason for that could be the lost of orthogonality between the real part of eiegenvectors, that is 
-		\begin{equation}
-			e_i \perp e_j  \, \, \nRightarrow \text{Re}(e_i) \perp \text{Re}(e_j) \, \, \forall i, j = 1, ..., n \, .
-		\end{equation}
-	As a result, the covariance matrix $\Sigma^{\text{Dim}}$ (\ref{eq:modifications_dim}) is not necessarily constructed with orthogonal vectors anymore, which contradicts the assumption of reflecting dimensionality by projecting activity pattern on orthogonal patterns that are also applied to construct covariance matrix. 
 	
 	With modification 3, the results fulfill largely the expectations: the negative correlation between dimensionality and feedforward recurrent alignment is kept in both analytical and empirical approximations. Little dispersion is due to the structural information lost when symmetrize the asymmetric recurrent network and align the inputs to symmetrized eigenvectors. 
 	
@@ -323,7 +342,7 @@
 		\end{SCfigure}
 	
 	The dispersion increases with the degree of asymmetry due to the increased information lost, but the general tendency that alignment of evoked activity pattern to spontaneous activity becomes larger when the alignment of inputs to symmetrized recurrent network is larger. With high degree of symmetry, e.g. $a = 0.75$, the correlation is significantly similar to it with total symmetric recurrent network.
-	
+	\vspace{0.5cm}
 	\paragraph{Conclusion}
 	After evaluating the rest modifications 1 and 3 with four perspectives of response properties, the modification 1 is filtered out because of the lack of orthogonality between eigenvectors after modification. The modification 3 performs at the end the best and could generally fulfill the expectations of correlations between the response properties and feedforward recurrent alignment. 
 	
