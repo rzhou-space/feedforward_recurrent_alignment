@@ -309,14 +309,14 @@
 	
 	Dimensionality reflects the complexity of the information they encoded. A high dimensional activity pattern needs more orthogonal activity patterns for representation than a low dimensional activity pattern and thus indicates larger variability and higher complexity of contained information \cite{tragenap2023nature, bartolo2020dimensionality, badre2021dimensionality}. Modifications 1 and 3 change the eigenvectors for the construction of input covariance and the eigenvalues for analytical calculation of effective dimensionality (section \ref{sec:modification_asym} eq. (\ref{eq:modifications_dim}), (\ref{eq:modification_eff_dim})). 
 	
-	If both modifications work well, the results should be similar to result from symmetric recurrent network (figure \ref{fig:dim_sym}). Low degree of symmetry is allowed to lead to small range of dispersion, which however should still keep the tendency of decreased dimensionality with increased alignment score. % Refer calculation in method + Expectiations
+	If both modifications work well, the results should be similar to results from symmetric RNNs (Figure \ref{fig:dim_sym}). A low degree of symmetry is allowed to lead to a small range of dispersion, which however should still keep the tendency of decreased dimensionality with increased feedforward recurrent alignment score. % Refer calculation in method + Expectiations
 	
 	% Reason for left: the analytical solution under assumption that the basis of Sigma_Dim are orthogonal-- got lost with Re(e). Therefore large difference between analytical and empirical solution. --> at this step the modification 1 is also not good. Could let out. 
-	With modification 1 (figure \ref{fig:dim_asym} left panel), the empirical dimensionality differs a lot from the analytical calculation of dimensionality. Besides, there is no significant correlation between dimensionality and feedforward recurrent alignment with empirical data. The reason for that could be the lost of orthogonality between the real part of eiegenvectors, that is 
+	With modification 1 (Figure \ref{fig:dim_asym} left panel), the empirical dimensionality differs a lot from the analytical calculation. Besides, there is no significant correlation between dimensionality and feedforward recurrent alignment with empirical data as long as asymmetric structure is included. The error between analytical and empirical approximations is significantly large. The reason for those phenomena could be the loss of orthogonality between the real part of eigenvectors, that is 
 	\begin{equation}
 		e_i \perp e_j  \, \, \nRightarrow \text{Re}(e_i) \perp \text{Re}(e_j) \, \, \forall i, j = 1, ..., n \, .
 	\end{equation}
-	As a result, the covariance matrix $\Sigma^{\text{Dim}}$ (\ref{eq:modifications_dim}) is not necessarily constructed with orthogonal vectors anymore, which contradicts the assumption of reflecting dimensionality by projecting activity pattern on orthogonal patterns that are also applied to construct covariance matrix. 
+	As a result, the covariance matrix $\Sigma^{\text{Dim}}$ from eq.(\ref{eq:modifications_dim}) is not necessarily constructed with orthogonal vectors anymore, which contradicts the assumption of reflecting dimensionality by projecting activity pattern on orthogonal patterns that are also applied to construct covariance matrix. 
 	
 		\begin{figure}[H]
 			\centering
