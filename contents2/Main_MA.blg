@@ -1,0 +1,68 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Main_MA.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: alpha.bst
+Reallocating 'name_of_file' (item size: 1) to 4 items.
+Database file #1: bib.bib
+Warning--entry type for "cosyne2023" isn't style-file defined
+--line 136 of file bib.bib
+Too many commas in name 1 of "H.N. Mulholland, S. Trägenap, M. Kaschube, G.B. Smith" for entry mulholland2023selective
+while executing---line 1185 of file alpha.bst
+Too many commas in name 1 of "H.N. Mulholland, S. Trägenap, M. Kaschube, G.B. Smith" for entry mulholland2023selective
+while executing---line 1185 of file alpha.bst
+Name 1 in "H. Mulholland, M. Kaschube, G. Smith," has a comma at the end for entry cosyne2023
+while executing---line 1185 of file alpha.bst
+Name 1 in "H. Mulholland, M. Kaschube, G. Smith," has a comma at the end for entry cosyne2023
+while executing---line 1185 of file alpha.bst
+Name 1 in "H. Mulholland, M. Kaschube, G. Smith," has a comma at the end for entry cosyne2023
+while executing---line 1250 of file alpha.bst
+Too many commas in name 1 of "H.N. Mulholland, S. Trägenap, M. Kaschube, G.B. Smith" for entry mulholland2023selective
+while executing---line 1250 of file alpha.bst
+Warning--there's a number but no volume in mulholland2023selective
+Warning--empty journal in imaizumi2018spontaneous
+Warning--empty year in kardarcortical
+Warning--empty journal in montgomery1997seeing
+Warning--there's a number but no volume in tragenap2023nature
+You've used 54 entries,
+            2543 wiz_defined-function locations,
+            898 strings with 14744 characters,
+and the built_in function-call counts, 23867 in all, are:
+= -- 2402
+> -- 1329
+< -- 12
++ -- 481
+- -- 475
+* -- 1968
+:= -- 4031
+add.period$ -- 162
+call.type$ -- 54
+change.case$ -- 385
+chr.to.int$ -- 54
+cite$ -- 59
+duplicate$ -- 779
+empty$ -- 1562
+format.name$ -- 527
+if$ -- 4677
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 53
+newline$ -- 273
+num.names$ -- 162
+pop$ -- 273
+preamble$ -- 1
+purify$ -- 441
+quote$ -- 0
+skip$ -- 661
+stack$ -- 0
+substring$ -- 1529
+swap$ -- 72
+text.length$ -- 12
+text.prefix$ -- 8
+top$ -- 0
+type$ -- 428
+warning$ -- 5
+while$ -- 239
+width$ -- 58
+write$ -- 694
+(There were 6 error messages)

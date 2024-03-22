@@ -1,0 +1,322 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{BYBOS95}
+
+\bibitem[Abb94]{abbott1994decoding}
+LF~Abbott.
+\newblock Decoding neuronal firing and modelling neural networks.
+\newblock {\em Quarterly reviews of biophysics}, 27(3):291--331, 1994.
+
+\bibitem[AC14]{ackman2014role}
+James~B Ackman and Michael~C Crair.
+\newblock Role of emergent neural activity in visual map development.
+\newblock {\em Current opinion in neurobiology}, 24:166--175, 2014.
+
+\bibitem[AG18]{avitan2018code}
+Lilach Avitan and Geoffrey~J Goodhill.
+\newblock Code under construction: neural coding over development.
+\newblock {\em Trends in Neurosciences}, 41(9):599--609, 2018.
+
+\bibitem[Bar75]{barlow1975visual}
+H~Bo Barlow.
+\newblock Visual experience and cortical development.
+\newblock {\em Nature}, 258(5532):199--204, 1975.
+
+\bibitem[BBKK21]{badre2021dimensionality}
+David Badre, Apoorva Bhandari, Haley Keglovits, and Atsushi Kikumoto.
+\newblock The dimensionality of neural representations for control.
+\newblock {\em Current Opinion in Behavioral Sciences}, 38:20--28, 2021.
+
+\bibitem[BDV{\etalchar{+}}21]{beiran2021shaping}
+Manuel Beiran, Alexis Dubreuil, Adrian Valente, Francesca Mastrogiuseppe, and
+  Srdjan Ostojic.
+\newblock Shaping dynamics with multiple populations in low-rank recurrent
+  networks.
+\newblock {\em Neural Computation}, 33(6):1572--1615, 2021.
+
+\bibitem[BMS{\etalchar{+}}23]{beiran2023parametric}
+Manuel Beiran, Nicolas Meirhaeghe, Hansem Sohn, Mehrdad Jazayeri, and Srdjan
+  Ostojic.
+\newblock Parametric control of flexible timing through low-dimensional neural
+  manifolds.
+\newblock {\em Neuron}, 111(5):739--753, 2023.
+
+\bibitem[BSMA20]{bartolo2020dimensionality}
+Ramon Bartolo, Richard~C Saunders, Andrew~R Mitz, and Bruno~B Averbeck.
+\newblock Dimensionality, information and learning in prefrontal cortex.
+\newblock {\em PLoS computational biology}, 16(4):e1007514, 2020.
+
+\bibitem[BYBOS95]{ben1995theory}
+Rani Ben-Yishai, R~Lev Bar-Or, and Haim Sompolinsky.
+\newblock Theory of orientation tuning in visual cortex.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  92(9):3844--3848, 1995.
+
+\bibitem[CGS98]{crair1998role}
+Michael~C Crair, Deda~C Gillespie, and Michael~P Stryker.
+\newblock The role of visual experience in the development of columns in cat
+  visual cortex.
+\newblock {\em Science}, 279(5350):566--570, 1998.
+
+\bibitem[CMVH17]{christie2017cortical}
+Ian~K Christie, Paul Miller, and Stephen~D Van~Hooser.
+\newblock Cortical amplification models of experience-dependent development of
+  selective columns and response sparsification.
+\newblock {\em Journal of neurophysiology}, 118(2):874--893, 2017.
+
+\bibitem[CSB96]{chapman1996development}
+Barbara Chapman, Michael~P Stryker, and Tobias Bonhoeffer.
+\newblock Development of orientation preference maps in ferret primary visual
+  cortex.
+\newblock {\em Journal of Neuroscience}, 16(20):6443--6453, 1996.
+
+\bibitem[CSFW17]{chaisangmongkon2017computing}
+Warasinee Chaisangmongkon, Sruthi~K Swaminathan, David~J Freedman, and
+  Xiao-Jing Wang.
+\newblock Computing by robust transience: how the fronto-parietal network
+  performs sequential, category-based decisions.
+\newblock {\em Neuron}, 93(6):1504--1517, 2017.
+
+\bibitem[CW01]{chiu2001spontaneous}
+Chiayu Chiu and Michael Weliky.
+\newblock Spontaneous activity in developing ferret visual cortex in vivo.
+\newblock {\em Journal of Neuroscience}, 21(22):8906--8914, 2001.
+
+\bibitem[CWF20]{chang2020experience}
+Jeremy~T Chang, David Whitney, and David Fitzpatrick.
+\newblock Experience-dependent reorganization drives development of a
+  binocularly unified cortical representation of orientation.
+\newblock {\em Neuron}, 107(2):338--350, 2020.
+
+\bibitem[DA05]{dayan2005theoretical}
+Peter Dayan and Laurence~F Abbott.
+\newblock {\em Theoretical neuroscience: computational and mathematical
+  modeling of neural systems}.
+\newblock MIT press, 2005.
+
+\bibitem[DKM{\etalchar{+}}95]{douglas1995recurrent}
+Rodney~J Douglas, Christof Koch, Misha Mahowald, Kevan~AC Martin, and Humbert~H
+  Suarez.
+\newblock Recurrent excitation in neocortical circuits.
+\newblock {\em Science}, 269(5226):981--985, 1995.
+
+\bibitem[DLD{\etalchar{+}}22]{dahmen2022global}
+David Dahmen, Moritz Layer, Lukas Deutz, Paulina~Anna D{\k{a}}browska, Nicole
+  Voges, Michael von Papen, Thomas Brochier, Alexa Riehle, Markus Diesmann,
+  Sonja Gr{\"u}n, et~al.
+\newblock Global organization of neuronal activity only requires unstructured
+  local connectivity.
+\newblock {\em Elife}, 11:e68422, 2022.
+
+\bibitem[DVB{\etalchar{+}}22]{dubreuil2022role}
+Alexis Dubreuil, Adrian Valente, Manuel Beiran, Francesca Mastrogiuseppe, and
+  Srdjan Ostojic.
+\newblock The role of population structure in computations through neural
+  dynamics.
+\newblock {\em Nature neuroscience}, 25(6):783--794, 2022.
+
+\bibitem[ES12]{espinosa2012development}
+J~Sebastian Espinosa and Michael~P Stryker.
+\newblock Development and plasticity of the primary visual cortex.
+\newblock {\em Neuron}, 75(2):230--249, 2012.
+
+\bibitem[EYG22]{eckmann2022synapse}
+Samuel Eckmann, Edward~James Young, and Julijana Gjorgjieva.
+\newblock Synapse-type-specific competitive hebbian learning forms functional
+  recurrent networks.
+\newblock {\em bioRxiv}, pages 2022--03, 2022.
+
+\bibitem[FI84]{fregnac1984development}
+Yves Fr{\'e}gnac and Michel Imbert.
+\newblock Development of neuronal selectivity in primary visual cortex of cat.
+\newblock {\em Physiological reviews}, 64(1):325--434, 1984.
+
+\bibitem[FO10]{feldheim2010visual}
+David~A Feldheim and Dennis~DM O’Leary.
+\newblock Visual map development: bidirectional signaling, bifunctional
+  guidance molecules, and competition.
+\newblock {\em Cold Spring Harbor perspectives in biology}, 2(11):a001768,
+  2010.
+
+\bibitem[FWS{\etalchar{+}}96]{feller1996requirement}
+Marla~B Feller, David~P Wellis, David Stellwagen, Frank~S Werblin, and Carla~J
+  Shatz.
+\newblock Requirement for cholinergic synaptic transmission in the propagation
+  of spontaneous retinal waves.
+\newblock {\em Science}, 272(5265):1182--1187, 1996.
+
+\bibitem[GG15]{gao2015simplicity}
+Peiran Gao and Surya Ganguli.
+\newblock On simplicity and complexity in the brave new world of large-scale
+  neuroscience.
+\newblock {\em Current opinion in neurobiology}, 32:148--155, 2015.
+
+\bibitem[GKBS97]{godecke1997development}
+Lmke G{\"o}decke, Dae-Shik Kim, Tobias Bonhoeffer, and Wolf Singer.
+\newblock Development of orientation preference maps in area 18 of kitten
+  visual cortex.
+\newblock {\em European Journal of Neuroscience}, 9(8):1754--1762, 1997.
+
+\bibitem[Goo16]{goodhill2016can}
+Geoffrey~J Goodhill.
+\newblock Can molecular gradients wire the brain?
+\newblock {\em Trends in neurosciences}, 39(4):202--211, 2016.
+
+\bibitem[GPN{\etalchar{+}}18]{gallego2018cortical}
+Juan~A Gallego, Matthew~G Perich, Stephanie~N Naufel, Christian Ethier, Sara~A
+  Solla, and Lee~E Miller.
+\newblock Cortical population activity within a preserved neural manifold
+  underlies multiple motor behaviors.
+\newblock {\em Nature communications}, 9(1):4233, 2018.
+
+\bibitem[HFC08]{huberman2008mechanisms}
+Andrew~D Huberman, Marla~B Feller, and Barbara Chapman.
+\newblock Mechanisms underlying development of visual maps and receptive
+  fields.
+\newblock {\em Annu. Rev. Neurosci.}, 31:479--509, 2008.
+
+\bibitem[HM]{cosyne2023}
+G.~Smith H.~Mulholland, M.~Kaschube.
+\newblock Mechanisms underlying the self-organization of patterned activity in
+  the developing visual cortex.
+
+\bibitem[HM23]{mulholland2023selective}
+M.~Kaschube G.B.~Smith H.N.~Mulholland, S.~Trägenap.
+\newblock Selective amplification of recurrent subnetworks in the developing
+  visual cortex.
+\newblock {\em Neuroscience 2023,
+  https://www.abstractsonline.com/pp8/#!/10892/presentation/29431},
+  (PSTR149.11.), 2023.
+
+\bibitem[HMF13]{harris2013cortical}
+Kenneth~D Harris and Thomas~D Mrsic-Flogel.
+\newblock Cortical connectivity and sensory coding.
+\newblock {\em Nature}, 503(7474):51--58, 2013.
+
+\bibitem[ILMR18]{imaizumi2018spontaneous}
+K~Imaizumi, CC~Lee, JN~MacLean, and ES~Ruthazer.
+\newblock Spontaneous activity in the sensory system. lausanne: Frontiers
+  media. doi: 10.3389.
+\newblock 2018.
+
+\bibitem[Kar]{kardarcortical}
+Mehran Kardar.
+\newblock The mammalian visual system.
+\newblock {\em
+  https://www.mit.edu/~kardar/research/seminars/CorticalMaps/VisualSystem.html}.
+
+\bibitem[Mil16]{miller2016canonical}
+Kenneth~D Miller.
+\newblock Canonical computations of cerebral cortex.
+\newblock {\em Current opinion in neurobiology}, 37:75--84, 2016.
+
+\bibitem[MO18]{mastrogiuseppe2018linking}
+Francesca Mastrogiuseppe and Srdjan Ostojic.
+\newblock Linking connectivity, dynamics, and computations in low-rank
+  recurrent neural networks.
+\newblock {\em Neuron}, 99(3):609--623, 2018.
+
+\bibitem[Mon97]{montgomery1997seeing}
+G~Montgomery.
+\newblock Seeing, hearing and smelling the world.
+\newblock 1997.
+
+\bibitem[MRB10]{machens2010functional}
+Christian~K Machens, Ranulfo Romo, and Carlos~D Brody.
+\newblock Functional, but not anatomical, separation of “what” and
+  “when” in prefrontal cortex.
+\newblock {\em Journal of Neuroscience}, 30(1):350--360, 2010.
+
+\bibitem[MSSN13]{mante2013context}
+Valerio Mante, David Sussillo, Krishna~V Shenoy, and William~T Newsome.
+\newblock Context-dependent computation by recurrent dynamics in prefrontal
+  cortex.
+\newblock {\em nature}, 503(7474):78--84, 2013.
+
+\bibitem[MWBS91]{meister1991synchronous}
+Markus Meister, Rachel~OL Wong, Denis~A Baylor, and Carla~J Shatz.
+\newblock Synchronous bursts of action potentials in ganglion cells of the
+  developing mammalian retina.
+\newblock {\em Science}, 252(5008):939--943, 1991.
+
+\bibitem[MYDF09]{marre2009reliable}
+Olivier Marre, Pierre Yger, Andrew~P Davison, and Yves Fr{\'e}gnac.
+\newblock Reliable recall of spontaneous activity patterns in cortical
+  networks.
+\newblock {\em Journal of neuroscience}, 29(46):14596--14606, 2009.
+
+\bibitem[Oh04]{oh2004learning}
+Se~Jong Oh.
+\newblock {\em Learning to segment texture in 2D vs. 3D: A comparative study}.
+\newblock PhD thesis, Texas A\&M University, 2004.
+
+\bibitem[PPV{\etalchar{+}}20]{peron2020recurrent}
+Simon Peron, Ravi Pancholi, Bettina Voelcker, Jason~D Wittenbach, H~Freyja
+  {\'O}lafsd{\'o}ttir, Jeremy Freeman, and Karel Svoboda.
+\newblock Recurrent interactions in local cortical circuits.
+\newblock {\em Nature}, 579(7798):256--259, 2020.
+
+\bibitem[PRFS98]{penn1998competition}
+Anna~A Penn, Patricio~A Riquelme, Marla~B Feller, and Carla~J Shatz.
+\newblock Competition in retinogeniculate patterning driven by spontaneous
+  activity.
+\newblock {\em Science}, 279(5359):2108--2112, 1998.
+
+\bibitem[RA06]{rajan2006eigenvalue}
+Kanaka Rajan and Larry~F Abbott.
+\newblock Eigenvalue spectra of random matrices for neural networks.
+\newblock {\em Physical review letters}, 97(18):188104, 2006.
+
+\bibitem[RBW{\etalchar{+}}13]{rigotti2013importance}
+Mattia Rigotti, Omri Barak, Melissa~R Warden, Xiao-Jing Wang, Nathaniel~D Daw,
+  Earl~K Miller, and Stefano Fusi.
+\newblock The importance of mixed selectivity in complex cognitive tasks.
+\newblock {\em Nature}, 497(7451):585--590, 2013.
+
+\bibitem[RM21]{read2021neural}
+Stephen~J Read and Lynn~Carol Miller.
+\newblock Neural network models of personality structure and dynamics.
+\newblock In {\em Measuring and Modeling Persons and Situations}, pages
+  499--538. Elsevier, 2021.
+
+\bibitem[SGS99]{schmidt1999matching}
+Kerstin~E Schmidt, Ralf~AW Galuske, and Wolf Singer.
+\newblock Matching the modules: Cortical maps and long-range intrinsic
+  connections in visual cortex during development.
+\newblock {\em Journal of neurobiology}, 41(1):10--17, 1999.
+
+\bibitem[SHW{\etalchar{+}}18]{smith2018distributed}
+Gordon~B Smith, Bettina Hein, David~E Whitney, David Fitzpatrick, and Matthias
+  Kaschube.
+\newblock Distributed network interactions and their emergence in developing
+  neocortex.
+\newblock {\em Nature neuroscience}, 21(11):1600--1608, 2018.
+
+\bibitem[SNMJ19]{sohn2019bayesian}
+Hansem Sohn, Devika Narain, Nicolas Meirhaeghe, and Mehrdad Jazayeri.
+\newblock Bayesian computation through cortical latent dynamics.
+\newblock {\em Neuron}, 103(5):934--947, 2019.
+
+\bibitem[Soc19]{Soch2019}
+et~al. Soch, Joram.
+\newblock Statproofbook/statproofbook.github.io: Statproofbook 2022 (version
+  2022).
+\newblock {\em Proof: Linear transformation theorem for the multivariate normal
+  distribution /Zenodo. https://doi.org/10.5281/ZENODO.4305949}, 2019.
+
+\bibitem[TWFK23]{tragenap2023nature}
+Sigrid Tr{\"a}genap, David~E Whitney, David Fitzpatrick, and Matthias Kaschube.
+\newblock The nature-nurture transform underlying the emergence of reliable
+  cortical representations.
+\newblock {\em bioRxiv}, (2022.11. 14.516507), 2023.
+
+\bibitem[WF07]{white2007vision}
+Leonard~E White and David Fitzpatrick.
+\newblock Vision and cortical map development.
+\newblock {\em Neuron}, 56(2):327--338, 2007.
+
+\bibitem[WNHJ18]{wang2018flexible}
+Jing Wang, Devika Narain, Eghbal~A Hosseini, and Mehrdad Jazayeri.
+\newblock Flexible timing by temporal scaling of cortical responses.
+\newblock {\em Nature neuroscience}, 21(1):102--110, 2018.
+
+\end{thebibliography}

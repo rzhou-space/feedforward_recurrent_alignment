@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{lmodern,amsmath,amssymb,amstext,amsfonts,mathrsfs,graphicx,caption, subcaption}
+\usepackage[width=14cm]{geometry}
+\usepackage[colorlinks,pdfpagelabels,pdfstartview = FitV,bookmarksnumbered = true, bookmarksopenlevel=section, linkcolor = black,hypertexnames = false,citecolor = black,pdfpagelabels=false]{hyperref}
+\usepackage{tablefootnote}
+%\usepackage{rotating}
+\usepackage{textcmds, enumitem}
+\usepackage{sidecap} %, indentfirst
+\usepackage[labelfont={bf,sf},font={small},labelsep=space]{caption}
+\usepackage{chngcntr} % 			** Damit die Bilder Tabellen und Gleichungen 
+\counterwithin{figure}{section}	%	** alle nach Kapiteln nummeriert sind.
+\counterwithin{table}{section}%		**
+\counterwithin{equation}{section}%	**	
+\usepackage{tabularx}
+
+\begin{document} %TODO: Die Liste noch aufräumen und sinnvoll zusammen ordnen!!!!!!!!!!!!!!
+	\section*{Symbols and Modeling Values}
+	
+	% $J$ \hspace{2cm} interaction matrix for recurrent network \\
+	% $n$ \hspace{2cm} number of neurons in recurrent network \\
+	% $R$ \hspace{2cm} radius for eigenvalue distribution \\
+	% $\lambda_i$ \hspace{2cm} original eigenvalues of recurrent interaction matrix $J$\\
+	
+	% \begin{table}[]
+		% \fontsize{12pt}{12pt}\selectfont{%
+			% \begin{tabular}{ll}
+				% $J$ & interaction matrix for recurrent network \\
+				% $n$ & number of neurons in recurrent network
+				% \end{tabular}%
+			% }
+		% \end{table}
+	\subsection*{List of Important Notations}
+	% Notations.
+	\begin{table}[H]
+		%\centering
+		\begin{tabularx}{\textwidth}{lX}
+			$a \in \mathbb{R}$ & degree of symmetry in construction of asymmetric RNNs in eq.(\ref{eq:asym_interaction_matrix}) \\
+			
+			$\beta_s \in \mathbb{R}$ & trial-to-trial correlation defined in rq.(\ref{eq:ttc_sym}) \\
+			
+			$\beta \in \mathbb{R}$ & parameter that defines the dimensionality in construction of covariance matrix for input. In varies contexts, there are $\beta_{\text{dim}}$, $\beta_{\text{spont}}$, and $\beta_{\text{Low}}$ with $\beta_{\text{Low}} < \beta_{\text{dim}} < \beta_{\text{spont}}$.\\
+			
+			$\bar{c}{(\Delta \tilde{t})} \in \mathbb{R}$ & intra-trial stability defined in eq.(\ref{eq:its_sym}) \\
+			
+			$d_{\text{eff}} \in \mathbb{R}$ & the linear effective dimensionality defined in eq.(\ref{eq:effective_dimensionality_analytical}). $d_{\text{eff, ana}}$ is the analytical formulation and $d_{\text{eff, emp}}$ the empirical for effective dimensionality \\
+			
+			$\gamma \in \mathbb{R}$ & the alignment of evoked activity to spontaneous activity\\ %with elements defined in eq.(\ref{eq:align_to_spont_act_sym}) \\
+			
+			$h \in \mathbb{R}^{n \times 1}$  & mean firing rates feedforward inputs to recurrent network. If not otherwise defined in contexts, characterizing generally the feedforward inputs.\\
+			
+			$\tilde{h} \in \mathbb{R}^{n \times 1}$ & feedforward inputs with modifications mentioned in section \ref{sec:modify_ffrec_alignment_score} \\
+			
+			$I_n \in \mathbb{R}^{n \times n}$ & identity matrix \\
+			
+			$J \in \mathbb{R}^{n \times n}$  & interaction matrix for recurrent network\\
+			
+			$n \in \mathbb{R}$  & number of neurons in recurrent network \\
+			
+			$N \in \mathbb{R}$ & number of trials \\
+			
+			$r \in \mathbb{R}^{n \times 1}$ & response from recurrent network \\
+			
+			%$\tau_r \in \mathbb{R}$ & time constant for recurrent network dynamic \\
+			
+			$r^* \in \mathbb{R}^{n \times 1}$ & steady state response from recurrent network determined by (\ref{eq:steady_state}) \\
+			
+			$R \in \mathbb{R}$  & radius for eigenvalue distribution \\
+			
+			%$\lambda_i \in \mathbb{R}$ or $\mathbb{C}$  & original eigenvalues of recurrent interaction matrix $J$\\
+			%$\Tilde{\lambda_i} \in \mathbb{R}$ or $\mathbb{C}$  & re-scaled eigenvalues of recurrent interaction matrix $J$ \\
+			
+			%$A \in \mathbb{R}^{n \times n}$ & Jacobian matrix of feedforward recurrent dynamics (\ref{eq:sym_response_ODE}) \\
+			
+			%$E \in \mathbb{R}^{n \times n}$ & matrix containing the eigenvectors of symmetric recurrent interaction matrix $J$ column-wise \\
+			
+			%$\Lambda \in \mathbb{R}^{n \times n}$ or $\mathbb{C}^{n \times n}$ & diagonal matrix containing the eigenvalues for recurrent interaction matrix $J$ on the diagonal \\
+			
+			$\sigma_{\text{trial}} \in \mathbb{R}$ & variance constant for trial-to-trial correlation \\
+			
+			$\sigma_{\text{time}} \in \mathbb{R}$ & variance constant for intra-trial stability \\
+			
+			$\Sigma \in \mathbb{R}^{n \times n}$ & covariance matrix for input patterns. There are $\Sigma^{\text{Dim}}$, $\Sigma_{\text{spont}}$, and $\Sigma_{\text{Low}}$ for different contexts.\\
+			
+			$\nu \in \mathbb{R}$ & feedforward recurrent alignment score\\
+			
+			$\nu^* \in \mathbb{R}^{n \times 1}$ & steady state for feedforward recurrent interaction during Hebbian learning of feedforward interaction \\
+			
+			$W \in \mathbb{R}^{n \times 1}$ & feedforward interaction matrix (vector) for feedforward recurrent network in section \ref{sec:Hebb_learn} \\
+			
+			% $\mu \in \mathbb{R}^{n \times 1}$ & mean vector for multivariate 
+			
+			$0_v \in \mathbb{R}^{n \times 1}$ & zero vector in length of number of neurons $n$ \\
+			
+			$\rho \in \mathbb{R}$ & projection ratio \\
+
+		\end{tabularx}
+	\end{table}
+	
+	
+	% Notation values.
+	\newpage
+	\subsection*{Modeling Values}
+
+	\begin{table}[H]
+		%\centering
+		\begin{tabular}{ll}
+			Notations \hspace{0.5cm} & Values \\
+			$n$ & 200 \\
+			$R$ & 0.85 \\
+			$\tau_r$ & 1 \\
+			$\sigma_{\text{trial}}$ & 0.05 \\
+			$\sigma_{\text{time}}$ & 0.3 \\
+			$M_{\text{dim}}$ & 50 \\
+			$M_{\text{spont}}$ & 100\\
+			$\Delta t$ & 0.1 \\
+			$\Delta \tilde{t}$ & 20\\
+			$T$ & 120\\
+			$N$ & 500 \\
+			$\beta_{\text{Low}}$ & 5\\
+			$\kappa$ & 5\\
+			$\beta_{\text{dim}}$ & 10\\
+			$\beta_{\text{spont}}$ & 20\\
+			$M_{\text{Low}}$ & 25\\
+			$T_{\text{Hebb}}$ & 50 \\
+			
+		\end{tabular}
+	\end{table}
+	
+\end{document}

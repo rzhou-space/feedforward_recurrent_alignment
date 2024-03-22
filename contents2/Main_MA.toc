@@ -1,0 +1,90 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction}{3}{section.4}%
+\contentsline {subsection}{\numberline {1.1}Introduction of Feedforward Recurrent Hypothesis}{3}{subsection.5}%
+\contentsline {subsection}{\numberline {1.2}Theoretical Exploration and Extensions}{5}{subsection.8}%
+\contentsline {section}{\numberline {2}Methods}{8}{section.10}%
+\contentsline {subsection}{\numberline {2.1}Symmetric Recurrent Network Model}{8}{subsection.11}%
+\contentsline {subsubsection}{\numberline {2.1.1}Symmetric Recurrent Interaction}{8}{subsubsection.15}%
+\contentsline {subsubsection}{\numberline {2.1.2}Response Steady State}{9}{subsubsection.19}%
+\contentsline {paragraph}{Existence of Steady State}{9}{section*.20}%
+\contentsline {paragraph}{Stability of Steady State}{9}{section*.23}%
+\contentsline {subsubsection}{\numberline {2.1.3}Feedforward Recurrent Alignment for Symmetric Interactions}{10}{subsubsection.30}%
+\contentsline {subsubsection}{\numberline {2.1.4}Response Properties for Evaluation}{11}{subsubsection.34}%
+\contentsline {paragraph}{Trial-to-trial correlation}{11}{section*.35}%
+\contentsline {paragraph}{Intra-trial stability}{12}{section*.41}%
+\contentsline {paragraph}{Dimensionality}{13}{section*.50}%
+\contentsline {paragraph}{Alignment with spontaneous activity}{15}{section*.60}%
+\contentsline {subsection}{\numberline {2.2}Asymmetric Recurrent Network Model}{16}{subsection.66}%
+\contentsline {subsubsection}{\numberline {2.2.1}Asymmetric Recurrent Interaction}{16}{subsubsection.70}%
+\contentsline {subsubsection}{\numberline {2.2.2}Modifications of Feedforward Recurrent Alignment for Asymmetric Interactions}{18}{subsubsection.77}%
+\contentsline {subsubsection}{\numberline {2.2.3}Related Modifications for Evaluation}{19}{subsubsection.85}%
+\contentsline {paragraph}{Monotony}{19}{section*.86}%
+\contentsline {paragraph}{Trial-to-trial correlation}{19}{section*.87}%
+\contentsline {paragraph}{Intra-trial stability}{20}{section*.90}%
+\contentsline {paragraph}{Dimensionality}{20}{section*.94}%
+\contentsline {paragraph}{Alignment to spontaneous activity}{21}{section*.97}%
+\contentsline {subsection}{\numberline {2.3}Low Rank Recurrent Network Model}{22}{subsection.99}%
+\contentsline {subsubsection}{\numberline {2.3.1}Construction of Low Rank Interactions}{22}{subsubsection.100}%
+\contentsline {paragraph}{Low-rank RNNs without random noise \cite {beiran2021shaping, dubreuil2022role}.}{22}{section*.101}%
+\contentsline {paragraph}{Low-rank RNNs with random noise \cite {mastrogiuseppe2018linking}.}{23}{section*.104}%
+\contentsline {subsubsection}{\numberline {2.3.2}Feedforward Recurrent Alignment Hypothesis with Low-rank RNNs}{24}{subsubsection.107}%
+\contentsline {paragraph}{Symmetric low-rank RNN}{24}{section*.108}%
+\contentsline {paragraph}{Asymmetric low-rank RNN}{24}{section*.110}%
+\contentsline {subsubsection}{\numberline {2.3.3}Evaluation of Feedforward Recurrent Alignment Hypothesis Based on Response Properties}{24}{subsubsection.111}%
+\contentsline {paragraph}{Symmetric low-rank RNNs}{25}{section*.112}%
+\contentsline {paragraph}{Asymmetric low-rank RNNs}{25}{section*.113}%
+\contentsline {subsection}{\numberline {2.4}Black Box Recurrent Network Model}{26}{subsection.114}%
+\contentsline {subsubsection}{\numberline {2.4.1}Approximation with White Noise Evoked Activity}{26}{subsubsection.115}%
+\contentsline {paragraph}{Monotony}{28}{section*.119}%
+\contentsline {paragraph}{Trial-to-trial correlation}{28}{section*.120}%
+\contentsline {paragraph}{Intra-trial stability}{28}{section*.123}%
+\contentsline {paragraph}{Dimensionality}{29}{section*.127}%
+\contentsline {paragraph}{Alignment between evoked activity and spontaneous activity}{29}{section*.132}%
+\contentsline {subsubsection}{\numberline {2.4.2}Iterative Approximation with Low Dimensional Inputs}{29}{subsubsection.136}%
+\contentsline {subsection}{\numberline {2.5}Hebbian Learning in Feedforward Recurrent Networks}{32}{subsection.145}%
+\contentsline {subsubsection}{\numberline {2.5.1}Model Setting}{33}{subsubsection.147}%
+\contentsline {subsubsection}{\numberline {2.5.2}Update Rules for Feedforward Network}{34}{subsubsection.152}%
+\contentsline {subsubsection}{\numberline {2.5.3}Projection of the Feedforward Weights on Eigenvectors}{35}{subsubsection.158}%
+\contentsline {subsubsection}{\numberline {2.5.4}Dynamics of Feedforward Recurrent Alignment}{36}{subsubsection.165}%
+\contentsline {section}{\numberline {3}Results}{39}{section.177}%
+\contentsline {subsection}{\numberline {3.1}Response Properties from symmetrical Recurrent Interaction Networks in Correlation with Feedforward Recurrent Alignment}{39}{subsection.178}%
+\contentsline {subsubsection}{\numberline {3.1.1}Trial-to-Trial Correlation increases with larger Alignment}{40}{subsubsection.181}%
+\contentsline {subsubsection}{\numberline {3.1.2}Intra-Trial Stability increases with larger Alignment}{41}{subsubsection.185}%
+\contentsline {subsubsection}{\numberline {3.1.3}Dimensionality decreases with larger Alignment}{42}{subsubsection.187}%
+\contentsline {subsubsection}{\numberline {3.1.4}Alignment to Spontaneous Activity Increases with larger Alignment}{44}{subsubsection.192}%
+\contentsline {subsection}{\numberline {3.2}Evaluation of Feedforward Recurrent Alignment Modulations for asymmetric Recurrent Interaction Networks}{46}{subsection.196}%
+\contentsline {subsubsection}{\numberline {3.2.1}Monotony of Feedforward Recurrent Alignment Score in dependence of Eigenvalues}{46}{subsubsection.197}%
+\contentsline {paragraph}{Modification 1}{47}{section*.201}%
+\contentsline {paragraph}{Modification 2}{48}{section*.204}%
+\contentsline {paragraph}{Modification 3}{48}{section*.206}%
+\contentsline {paragraph}{Conclusion}{49}{section*.209}%
+\contentsline {subsubsection}{\numberline {3.2.2}Representing Response Properties with modified Feedforward Recurrent Alignment}{49}{subsubsection.210}%
+\contentsline {paragraph}{Trial-to-trial Correlation}{50}{section*.211}%
+\contentsline {paragraph}{Intra-trial Stability}{51}{section*.213}%
+\contentsline {paragraph}{Dimensionality}{52}{section*.215}%
+\contentsline {paragraph}{Alignment to spontaneous activity}{53}{section*.218}%
+\contentsline {paragraph}{Conclusion}{54}{section*.220}%
+\contentsline {subsection}{\numberline {3.3}Modeling Feedforward Recurrent Alignment Hypothesis on Low-rank Recurrent Neural Networks (Low-rank RNNs)}{55}{subsection.221}%
+\contentsline {subsubsection}{\numberline {3.3.1}Evaluation of Feedforward Recurrent Alignment in symmetric Low-rank RNNs based on response properties}{55}{subsubsection.222}%
+\contentsline {paragraph}{Low-rank RNNs without random noise}{55}{section*.223}%
+\contentsline {paragraph}{Low-rank RNNs with random noise}{58}{section*.232}%
+\contentsline {paragraph}{Conclusion}{59}{section*.239}%
+\contentsline {subsubsection}{\numberline {3.3.2}Different Constructions influence the impact of rank in Asymmetric Low-rank RNNs based on Response Properties}{60}{subsubsection.240}%
+\contentsline {paragraph}{Low-rank RNNs without random noise}{60}{section*.241}%
+\contentsline {paragraph}{Low-rank RNNs with random noise}{62}{section*.252}%
+\contentsline {paragraph}{Conclusion}{64}{section*.258}%
+\contentsline {subsection}{\numberline {3.4}White Noise Evoked Activity Can Help to Approximate Dominant Activity Direction in Response Space for Unknown Asymmetric Recurrent Networks}{65}{subsection.259}%
+\contentsline {subsubsection}{\numberline {3.4.1}Input Alignment with White-noise-evoked Activity Pattern Support Previous Theoretical Frameworks}{65}{subsubsection.260}%
+\contentsline {paragraph}{Positive Monotonic Correlation between Feedforward Recurrent Alignment Score and Eigenvalues of White-noise-evoked Activity Pattern}{65}{section*.261}%
+\contentsline {paragraph}{Evaluation of Approximation with White Noise through Response Properties}{66}{section*.263}%
+\contentsline {subsubsection}{\numberline {3.4.2}Iterative Feedforward Recurrent Alignment from Low-dimensional Inputs Indicates Alignment Improvement}{67}{subsubsection.264}%
+\contentsline {subsection}{\numberline {3.5}Hebbian Learning of Feedforward Network Leads to Better Alignment between Feedforward Input and Recurrent Network}{70}{subsection.271}%
+\contentsline {subsubsection}{\numberline {3.5.1}Feedforward Weights are Determined by Dominant Eigenvectors after Learning}{70}{subsubsection.272}%
+\contentsline {subsubsection}{\numberline {3.5.2}Feedforward Recurrent Alignment Score Increases through Learning}{72}{subsubsection.274}%
+\contentsline {section}{\numberline {4}Discussion}{73}{section.276}%
+\contentsline {section}{\numberline {5}Outlook}{75}{section.282}%
+\contentsline {section}{Symbols and Modeling Values}{78}{section*.289}%
+\contentsline {section}{List of Figures}{79}{section*.290}%
+\contentsline {section}{Acknowledgements}{81}{section*.292}%
+\contentsline {section}{Supplementary material}{81}{section*.292}%
+\contentsline {section}{References}{82}{section*.293}%
