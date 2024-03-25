@@ -19,12 +19,13 @@
 	
 	\section{Methods}
 	% Introduction.
-	In this chapter, we will give an overview of the recurrent network (RNN) models for exploration of the feedforward recurrent alignment hypothesis that is evolved in this work. The firstly introduced symmetric network model builds the basis for modifications and extensions in other further models. The modified models will be introduced subsequently. Finally, we consider the role of learning could play in the feedforward recurrent alignment hypothesis. 
+	In this chapter, we will give an overview of the recurrent network (RNN) models for exploration in this work of the feedforward recurrent alignment hypothesis, which states that optimized alignment between feedforward and recurrent network can lead to reliable visual representations during development \cite{tragenap2023nature}. First, we introduce the symmetric network model as the basis for modifications and extensions in further models. Next, we modify these symmetric networks by applying other network structures and conditions. Finally, we consider the role learning could play in the feedforward recurrent alignment hypothesis. 
+	% The firstly introduced symmetric network model builds the basis for modifications and extensions in other further models. The modified models will be introduced subsequently. Finally, we consider the role of learning could play in the feedforward recurrent alignment hypothesis. 
 	
 	\subsection{Symmetric Recurrent Network Model} \label{sec:ffrec_sym}
 	% General Information about symmetric interaction network. 
-	Due to the well-understood mathematical characteristics of symmetric RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
-	Therefore, we first consider the basic case of having a symmetric recurrent network, which has a symmetric interaction matrix. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
+	Due to the well-understood mathematical characteristics of symmetric full-rank RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
+	Therefore, we first consider the basic case of having a symmetric recurrent network. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
 	% A figure for network construction.
 		\begin{figure}[H] 
 			%\centering
@@ -52,15 +53,20 @@
 		\begin{equation} \label{eq:gaussian_distribution}
 			{J_{ij}} \sim \mathcal{N}(0, 1).
 		\end{equation}
+	Since the interaction matrix is symmetric, its transpose equals to itself,
+		\begin{equation}
+			J_{ij} = J_{ji} \text{ or } J^T = J .
+		\end{equation}
 	Besides, $J$ has full rank equals the number of neurons $n$ involved in the RNN, 
 		\begin{equation}
-			\text{rank} (J) = n \, , 
+			\text{rank} (J) = n \, . 
 		\end{equation}
+	The number of eigenvectors therefore equals the number of neurons and all of their entries are real numbers. 
  	The eigenvalues of $J$ are limited by parameter $R < 1$ through normalization with the maximal original eigenvalue $\lambda_{\text{max}}$ form $J$, 
 		\begin{equation} \label{eq:eigval_normal}
 			\tilde{\lambda_i} = \frac{R \lambda_i}{\lambda_{\text{max}}} \, \, \, \, \, \forall i \, ,
 		\end{equation}
-	where $\{\lambda_i\}_{i=1, ..., n}$ are the original eigenvalues of $J$ and $\{\tilde{\lambda_i}\}_{i = 1,...,n}$ the re-scaled eigenvalues. As a result, the maximal eigenvalues after the re-scaling would take value $R <1$.  
+	where $\{\lambda_i\}_{i=1, ..., n}$ are the original eigenvalues of $J$ and $\{\tilde{\lambda_i}\}_{i = 1,...,n}$ the re-scaled eigenvalues. As a result, the maximal eigenvalues after the re-scaling would take value $R <1$. The re-scaling of eigenvalues guarantees the existence of a stable steady state for the network dynamics, which will be explained more in detail in the following section.
 	
 	\subsubsection{Response Steady State} \label{sec:steady_state_response_sym}
 	
@@ -84,7 +90,7 @@
 	where $I_n \in \mathbb{R}^{n \times n}$ the identity matrix. Since $J$ is full rank, the matrix $(I_n - J)$ is invertible. Therefore, the steady state exists.
 	
 	\paragraph{Stability of Steady State}
-	The dynamic eq.(\ref{eq:sym_response_ODE}) could also be written in an elementary expression:
+	The dynamic eq.(\ref{eq:sym_response_ODE}) could also be written in an element wise expression:
 		\begin{equation}
 			 f_i (r_1, ..., r_n) := \frac{\mathrm{d} r_i}{\mathrm{d} t} = - r_i + \sum_{j=1}^{n} J_{ij} r_j + h_i  \text{   for } i = 1, ..., n\, .
 		\end{equation}
@@ -100,9 +106,9 @@
 		\begin{equation} \label{eq:Jacobian_matrix}
 			A := 
 			 \begin{pmatrix}
-				\dfrac{\partial f_1}{\partial x_1} & \cdots & \dfrac{\partial f_1}{\partial x_n}\\
+				\dfrac{\partial f_1}{\partial r_1} & \cdots & \dfrac{\partial f_1}{\partial r_n}\\
 				\vdots                             & \ddots & \vdots\\
-				\dfrac{\partial f_n}{\partial x_1} & \cdots & \dfrac{\partial f_n}{\partial x_n}
+				\dfrac{\partial f_n}{\partial r_1} & \cdots & \dfrac{\partial f_n}{\partial r_n}
 			\end{pmatrix}
 			= - I_n + J \, .
 		\end{equation}
@@ -122,7 +128,9 @@
 	% TODO: The meaning of the feedforward recurrent alignment hypothesis (perhaps in the introduction better) 
 	%In which case will it be applied.
 	%TODO: The clarifying of mean firing rate in introduction perhaps?
-	Generally, the feedforward inputs can be considered as a firing rate distribution with a certain mean value and disturbed with some noise captured by variance. The mean firing rate is essential for characterizing the strength of inputs. We therefore consider mainly the mean firing rate of inputs. For the rest of the work, if mentioning feedforward inputs without further definition, we refer to the mean firing rate of inputs. 
+	We model the neural synaptic firing rate with Gaussian distribution. The feedforward inputs are multivariate normal distributed vectors with a certain mean vector $h \in \mathbb{R}^{n \times 1}$ and a covariance matrix. 
+	In this work, if mentioning feedforward inputs without further definition, we refer to their mean vectors. If aligning the feedforward inputs to certain activity patterns described by firing rate vectors, the mean vector of inputs $h$ is proportional to those vectors.
+	%Generally, the feedforward inputs can be considered as a firing rate distribution with a certain mean value and disturbed with some noise captured by variance. The mean firing rate is essential for characterizing the strength of inputs. We therefore consider mainly the mean firing rate of inputs. For the rest of the work, if mentioning feedforward inputs without further definition, we refer to the mean firing rate of inputs. 
 	
 	The alignment of a feedforward input $h \in \mathbb{R}^{n \times 1}$ with the recurrent network $J$ is defined as \cite{tragenap2023nature}
 		\begin{equation} \label{eq:ffrec_align}
@@ -233,9 +241,11 @@
 		\begin{equation} \label{eq:Sigma_dim}
 			\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) e_i e_i^T \, , 
 		\end{equation}
-	in which the parameter $M_{\text{dim}} := \kappa \beta_{\text{dim}}$ and $\beta_{\text{dim}}$ reflects the dimensionality \cite{tragenap2023nature} and $\kappa$ for determining the number of directions $e_i$ that contribute to the dimensionality. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as basis vectors $e_i$ for covariance matrix $\Sigma^{\text{Dim}}$ in eq.(\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order, 
+	in which the parameter $M_{\text{dim}}$ determined the number of eigenvectors that are taken into account to construct the matrix. The parameter $\beta_{\text{dim}}$ controls the dimensionality of the pattern, since it determines how flat the explained ratio curve will be \cite{tragenap2023nature}. 
+	%:= \kappa \beta_{\text{dim}}$ and $\beta_{\text{dim}}$ reflects the dimensionality \cite{tragenap2023nature} and $\kappa$ for determining the number of directions $e_i$ that contribute to the dimensionality.
+	 The index $L$ determines the first vector for the chosen set and starts from index $1$ to the number of half of the neuron number $\frac{n}{2}$. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as basis vectors $e_i$ for covariance matrix $\Sigma^{\text{Dim}}$ in eq.(\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order, 
 		\begin{equation} 
-			e_{\text{max}}, ..., e_i, \mathbf{e}_j, ..., e_{\text{min}} \, \, \text{such that} \, \, 	\lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
+			e_{\text{max}}, ..., e_i, e_j, ..., e_{\text{min}} \, \, \text{such that} \, \, 	\lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
 		\end{equation}
 	The exponential factor in eq.(\ref{eq:Sigma_dim}) simulates the exponential decay of variance ratio observed in data \cite{tragenap2023nature}. 
 	
@@ -252,23 +262,23 @@
 		\begin{equation} \label{eq:response_variance_ratio_dimensionality}
 			\lambda_i^{\text{Act}} = \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) \frac{1}{(1-\lambda_i)^2} \, ,
 		\end{equation}
-	for $i = L, ..., L+M$. %, due to the inverse transformation. 
+	for $i = L, ..., L+M_{\text{dim}}$. %, due to the inverse transformation. 
 %	 For the covariance $\Sigma^{\text{Dim}}$ from inputs, if having its eigenvalues $\lambda_i^{\text{Dim}}$, the eigenvalues $\lambda_i^{\text{Act}}$ of the steady state responses could be transformed based on the distribution (\ref{eq:response_distribution_dimensionality}). It leads to the following relation
 %		\begin{equation}
 %			\lambda_i^{\text{Act}} = \frac{1}{(1-\lambda_i^{\text{Dim}})^2} = \, . %TODO: the exp factors
 %		\end{equation}
 %	Therefore, the 
 	
-	Insert the eigenvalues of responses eq.(\ref{eq:response_variance_ratio_dimensionality}) in the formula for effective dimensionality to get the final formulation of dimensionality for responses with eigenvalues of $J$, 
+	Insert the eigenvalues of responses eq.(\ref{eq:response_variance_ratio_dimensionality}) in the eq.(\ref{eq:effective_dimensionality_analytical}) for effective dimensionality to get the final formulation of dimensionality for responses with eigenvalues of $J$, 
 		\begin{equation} \label{eq:dim_analytical_sym}
-			d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\lambda_i)^{-2}\right)^2}{\sum_{i=L}^{L+M} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\lambda_i)^{-4}} \, .
+			d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M_{\text{dim}}} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\lambda_i)^{-2}\right)^2}{\sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\lambda_i)^{-4}} \, .
 		\end{equation}
 	
 	The vector of explained variance ratios in the principal component analysis (PCA) is the normalized vector containing eigenvalues of the covariance matrix re-scaled by the largest eigenvalue in descending order, which then explains how much variance the corresponding principal component contributes. Therefore, another way to access the dimensionality is to empirically determine the explained ratio of generated data samples through PCA and insert the variance ratio into the definition of effective dimensionality, i.e.,
 		\begin{equation} \label{eq:dim_empirical_sym}
-			d_{\text{eff, emp}} = \frac{\left(\sum_{i=L}^{L+M}\text{var}_i\right)^2}{\sum_{i=L}^{L+M}\text{var}_i^2} 
+			d_{\text{eff, emp}} = \frac{\left(\sum_{i=L}^{L+M_{\text{dim}}}\text{var}_i\right)^2}{\sum_{i=L}^{L+M_{\text{dim}}}\text{var}_i^2} 
 		\end{equation}
-	with $\text{var}_i$ the $i$-th variance ratio. 
+	with $\text{var}_i$ the $i$-th variance ratio. The index $L$ determines the first vector for the chosen set and starts from index $1$ to the number of half of the neuron number.
 	
 	\paragraph{Alignment with spontaneous activity}
 	
@@ -288,8 +298,10 @@
 		\end{equation}
 	where $\Sigma_S$ is the covariance of pattern $S$. The final alignment, denoted as $\gamma$, between $S$ and $V$ is then the average value of alignment between spontaneous activity $S$ and all trials of evoked activity. 
 	
-	To model the inputs and responses, we assume that spontaneous activity was evoked by inputs from broad sources. Besides, since the spontaneous activity already exists almost a week before eye-opening for ferrets, we assume that they already fit into the activity space generated by recurrent network \cite{tragenap2023nature}. Therefore, the inputs would be explained by more directions (or eigenvectors) than stimuli-evoked responses as modeled before with eq.(\ref{eq:input_distribution_dimensionality}). The spontaneous activity then has a higher dimensionality. Since the parameter $\beta_{\text{dim}}$ in eq.(\ref{eq:input_distribution_dimensionality}) indicates the dimensionality, we could set for spontaneous activity higher dimensionality with $\beta_{\text{spont}} > \beta_{\text{dim}}$ to generate high dimensional inputs. 
-	Therefor, we than have the broad inputs $h^{\text{spont}} \in \mathbb{R}^{n \times 1}$ and spontaneous activity $r^{\text{spont}} \in \mathbb{R}^{n \times 1}$, which are both multivariate normal distributed vectors 
+	Since the spontaneous activity is proposed to already exist almost a week before eye-opening for ferrets, we assume that they already fit into the activity space generated by the recurrent network. The covariance matrix can therefore be constructed with eigenvectors of the recurrent network. Besides, spontaneous activity is assumed to be evoked by inputs from broad sources. As a result, a larger number of eigenvectors are applied for the covariance matrix than in eq.(\ref{eq:Sigma_dim}). 
+	%Therefore, the inputs would be explained by more directions (or eigenvectors) than stimuli-evoked responses as modeled before with eq.(\ref{eq:input_distribution_dimensionality}). 
+	Finally, the spontaneous activity is more variable than evoked activity and therefore has a higher dimensionality. Because the parameter $\beta_{\text{dim}}$ in eq.(\ref{eq:input_distribution_dimensionality}) indicates the dimensionality, we can set for spontaneous activity higher dimensionality with $\beta_{\text{spont}} > \beta_{\text{dim}}$ to generate high dimensional inputs \cite{tragenap2023nature}. 
+	Therefore, we than have the broad inputs $h^{\text{spont}} \in \mathbb{R}^{n \times 1}$ and spontaneous activity $r^{\text{spont}} \in \mathbb{R}^{n \times 1}$ generated from it, which are both multivariate normal distributed vectors 
 		\begin{equation}
 			h^{\text{spont}} \sim \mathcal{N}(0_v, \Sigma^{\text{spont}})
 		\end{equation}
@@ -297,10 +309,11 @@
 		\begin{equation}
 			r^{\text{spont}} \sim \mathcal{N}\left( 0_v, (I_n - J)^{-1} \Sigma^{\text{spont}}(I_n - J)^{-T}\right) \, .
 		\end{equation}
-	The covariance matrix $\Sigma^{\text{spont}}$ is constructed in the same way as $\Sigma^{\text{Dim}}$ only with $L=1$ and larger $\beta_{\text{spont}}$ for $M_{\text{spont}} := \kappa \beta_{\text{spont}}$, that is
+	The covariance matrix $\Sigma^{\text{spont}}$ is constructed in the same way as $\Sigma^{\text{Dim}}$ only with $L=1$ and larger $\beta_{\text{spont}}$, that is
 		\begin{equation} \label{eq:Sigma_spont}
 			\Sigma^{\text{spont}} := \sum_{i=1}^{M_{\text{spont}}+1} \text{exp}\left(\frac{-2(i-1)}{\beta_{\text{spont}}}\right) e_i e_i^T \, .
 		\end{equation}
+	$M_{\text{spont}}$ determines the number of eigenvectors that are taken into account for the construction of the covariance matrix for spontaneous activity, which is also larger than $M_{\text{dim}}$.
 	
 	\clearpage
 	\subsection{Asymmetric Recurrent Network Model} \label{sec:ffrec_asym}
@@ -350,7 +363,7 @@
 	Therefore, the eigenvalues for the Jacobian matrix $A$ is now $-I_n + \Lambda \in \mathbb{C}^{n \times n}$. 
 	
 	To determine the stability of steady state, we now have to consider the real part of Jacobian matrix $A =-I_n + \Lambda$. 
-	Criteria below are followed. If
+	Criteria below are followed: 
 		\begin{equation*}
 			\exists i: -1 + \text{Re}(\lambda_i) > 0 \Rightarrow \text{the steady state will be unstable.}
 		\end{equation*}
@@ -360,7 +373,7 @@
 		\end{equation*}
 	As a result, the responses converge to the steady state after enough long time, 
 		\begin{equation} \label{eq:asym_stable_fix_point}
-			\forall i: -1 + \text{Re}(\lambda_i) < 0 \, \,  \Rightarrow \, \, \text{lim}_{t \rightarrow \infty} r(t) = r^*
+			\forall i: -1 + \text{Re}(\lambda_i) < 0 \, \,  \Rightarrow \, \, \text{lim}_{t \rightarrow \infty} r(t) = r^* \, .
 		\end{equation}
 	Thus, we need to limit the range of eigenvalues for $J$ such that the real part of eigenvalues is limited by $R < 1$ and we could then apply the steady state for further analysis. The limitation could be achieved by dividing the complex eigenvalues by maximal absolute magnitude and re-scaled by $R$, 
 		\begin{equation} \label{eq:asym_normalization}
@@ -405,7 +418,7 @@
 	More than the four response properties that are considered in the case of symmetric recurrent interaction matrix, for a new definition of feedforward recurrent alignment score, the monotony of score and corresponding eigenvalues have to be verified. Following are more details about how modifications in section \ref{sec:modify_ffrec_alignment_score} influence the modeling of properties that are involved in the evaluation. 
 	
 	\paragraph{Monotony} For a certain eigenvector $e_i$, its corresponding eigenvalues $\lambda_i$ can reflect the strength of the response. % due to the response amplification %TODO: response amplification in methods!!. 
-	Dominant eigenvectors with large eigenvalues can therefore trigger strong response and suppress noise, leading to more reliable evoked activity. If the feedforward recurrent alignment score could well predict the reliability of evoked activities, inserting dominant eigenvectors should result in large alignment score values. Therefore, a large feedforward recurrent alignment score calculated with modified eigenvector $\tilde{h}$ should correspond with large eigenvalue. In other words, a monotonic positive correlation should exist between eigenvalues and feedforward recurrent alignment score inserting corresponding modified eigenvectors. When reliable responses occur, both feedforward recurrent alignment score and eigenvalue should be large.  
+	Dominant eigenvectors with large eigenvalues can therefore trigger strong response and suppress noise, leading to more reliable evoked activity. If the feedforward recurrent alignment score could well predict the reliability of evoked activities, inserting dominant eigenvectors should result in large alignment score values. Therefore, a large feedforward recurrent alignment score calculated with modified eigenvector $\tilde{h}$ from above section \ref{sec:modify_ffrec_alignment_score} should correspond with large eigenvalue. In other words, a monotonic positive correlation should exist between eigenvalues and feedforward recurrent alignment score inserting corresponding modified eigenvectors. When reliable responses occur, both feedforward recurrent alignment score and eigenvalue should be large.  
 	
 	\paragraph{Trial-to-trial correlation} 
 	Similar to the case with symmetric RNNs, the first characteristic that is evaluated is the trial-to-trial correlation. With above modifications in section \ref{sec:modify_ffrec_alignment_score}, the inputs are aligned with $\tilde{h}$ for all modifications. That is the mean vector for modeling the inputs by multivariate normal distribution is determined by $\tilde{h}$, 
@@ -444,10 +457,11 @@
   	  		\Sigma^{\text{Dim}} := \sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(\frac{2(i-L)}{\beta_{\text{dim}}}\right) \tilde{e}_i \tilde{e}_i^T \, .
   	  	\end{equation}
 		  	  	
- 	  Analogously, calculating the effective dimensionality analytically defined by eq.(\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
+ 	 Analogously, calculating the effective dimensionality analytically defined by eq.(\ref{eq:dim_analytical_sym}) but with $\tilde{\lambda}_i$,
   	  	  	\begin{equation} \label{eq:modification_eff_dim}
-  	  	  		d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M_{\text{dim}}} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-4}}
+  	  	  		d_{\text{eff, ana}} = \frac{\left(\sum_{i = L}^{L + M_{\text{dim}}} \text{exp}\left(-2 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-2}\right)^2}{\sum_{i=L}^{L+M_{\text{dim}}} \text{exp}\left(-4 \frac{i-L}{\beta_{\text{dim}}}\right)(1-\tilde{\lambda}_i)^{-4}} \, .
   	  	  	\end{equation}
+    The index $L$ determines the first vector for the chosen set and starts from index $1$ to the number of half of the neuron number.
 		  	  	
 	\paragraph{Alignment to spontaneous activity} % Modification due to dimensionality modification.
 	The same formulation of covariance matrix with a higher dimensionality $\beta_{\text{spont}}$ is used for generation of broader endogenous inputs for spontaneous activity, similar to section \ref{sec:response_properties_for_evaluation}. The same modifications above for dimensionality in eq.(\ref{eq:modifications_dim}) can be taken over into covariance matrix for endogenous inputs. The formulation of covariance matrix for spontaneous input is defined for symmetric RNNs in eq.(\ref{eq:Sigma_spont}). Applying the modifications above, insert therefore $\tilde{e}_i$ and receive  
