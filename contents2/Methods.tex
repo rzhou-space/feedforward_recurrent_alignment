@@ -19,13 +19,13 @@
 	
 	\section{Methods}
 	% Introduction.
-	In this chapter, we will give an overview of the recurrent network (RNN) models for exploration in this work of the feedforward recurrent alignment hypothesis, which states that optimized alignment between feedforward and recurrent network can lead to reliable visual representations during development \cite{tragenap2023nature}. First, we introduce the symmetric network model as the basis for modifications and extensions in further models. Next, we modify these symmetric networks by applying other network structures and conditions. Finally, we consider the role learning could play in the feedforward recurrent alignment hypothesis. 
+	In this chapter, we will give an overview of the recurrent neural network (RNN) models for exploration in this work of the feedforward recurrent alignment hypothesis, which states that optimized alignment between feedforward and recurrent network can lead to reliable visual representations during development \cite{tragenap2023nature}. First, we introduce the symmetric network model as the basis for modifications and extensions in further models. Next, we modify these symmetric networks by applying other network structures and conditions. Finally, we consider the potential role learning could play in the feedforward recurrent alignment hypothesis. 
 	% The firstly introduced symmetric network model builds the basis for modifications and extensions in other further models. The modified models will be introduced subsequently. Finally, we consider the role of learning could play in the feedforward recurrent alignment hypothesis. 
 	
 	\subsection{Symmetric Recurrent Network Model} \label{sec:ffrec_sym}
 	% General Information about symmetric interaction network. 
-	Due to the well-understood mathematical characteristics of symmetric full-rank RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
-	Therefore, we first consider the basic case of having a symmetric recurrent network. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
+	%Due to the well-understood mathematical characteristics of symmetric full-rank RNNs, they are often applied in models for neuroscience for a better understanding of certain dynamics.  
+	We first consider the basic case of having a full-rank symmetric recurrent network. For symmetric RNNs, if there is a connection between two neurons $n_i$ and $n_j$, the strength of the directed connection from the neuron $n_i$ to the neuron $n_j$ equals the directed connection from $n_j$ to $n_i$. 
 	% A figure for network construction.
 		\begin{figure}[H] 
 			%\centering
@@ -49,7 +49,7 @@
 	
 	\subsubsection{Symmetric Recurrent Interaction} \label{sec:symmetric_recurrent_interaction}
 	% Definition of recurrent interaction. And how they constructed in the model.
-	In the model, we consider a full rank real symmetric recurrent interaction matrix $J$ with Gaussian distributed entries with mean $0$ and variance $1$,
+	In the model, we consider a full rank real symmetric recurrent interaction matrix $J$ with random Gaussian distributed entries with mean $0$ and variance $1$,
 		\begin{equation} \label{eq:gaussian_distribution}
 			{J_{ij}} \sim \mathcal{N}(0, 1).
 		\end{equation}
@@ -57,16 +57,17 @@
 		\begin{equation}
 			J_{ij} = J_{ji} \text{ or } J^T = J .
 		\end{equation}
-	Besides, $J$ has full rank equals the number of neurons $n$ involved in the RNN, 
+	As $J$ is a full-rank matrix, its rank equals the number of neurons $n$ involved in the RNN, 
 		\begin{equation}
 			\text{rank} (J) = n \, . 
 		\end{equation}
 	The number of eigenvectors therefore equals the number of neurons and all of their entries are real numbers. 
- 	The eigenvalues of $J$ are limited by parameter $R < 1$ through normalization with the maximal original eigenvalue $\lambda_{\text{max}}$ form $J$, 
+ 	%The eigenvalues of $J$ are limited by parameter $R < 1$ through normalization with the maximal original eigenvalue $\lambda_{\text{max}}$ form $J$, 
+ 	The eigenvalues $\lambda_i$ are scaled such that the maximal eigenvalue $\lambda_{\text{max}} = R$ with
 		\begin{equation} \label{eq:eigval_normal}
 			\tilde{\lambda_i} = \frac{R \lambda_i}{\lambda_{\text{max}}} \, \, \, \, \, \forall i \, ,
 		\end{equation}
-	where $\{\lambda_i\}_{i=1, ..., n}$ are the original eigenvalues of $J$ and $\{\tilde{\lambda_i}\}_{i = 1,...,n}$ the re-scaled eigenvalues. As a result, the maximal eigenvalues after the re-scaling would take value $R <1$. The re-scaling of eigenvalues guarantees the existence of a stable steady state for the network dynamics, which will be explained more in detail in the following section.
+	where the parameter $R<1$ and $\{\lambda_i\}_{i=1, ..., n}$ are the original eigenvalues of $J$ and $\{\tilde{\lambda_i}\}_{i = 1,...,n}$ the re-scaled eigenvalues. The re-scaling of eigenvalues guarantees the existence of a stable steady state for the network dynamics, which will be explained more in detail in the following section.
 	
 	\subsubsection{Response Steady State} \label{sec:steady_state_response_sym}
 	
@@ -83,11 +84,11 @@
 			\tau_r \frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h \,  \overset{\tau_r = 1}{\Rightarrow} \, \frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h\, , 
 		\end{equation}
 	with the vector $r \in \mathbb{R}^{n \times 1}$ describing firing rate of neurons in the recurrent layer, the vector $h \in \mathbb{R}^{n \times 1}$ as feedforward inputs, and $\tau_r$ the time constant controlling the speed of dynamic. 
-	The steady state of the dynamic system eq.(\ref{eq:sym_response_ODE}) can be received by setting the ordinary differential equation to zero. For simplicity, the time constant is set to $1$. We then have the formulation for steady-state response $r^*$:
+	The steady state of the dynamic system eq.(\ref{eq:sym_response_ODE}) can be received by setting the ordinary differential equation to zero. For simplicity, the time constant $\tau_r$ is set to $1$. We then have the formulation for steady-state response $r^*$:
 		\begin{equation} \label{eq:steady_state}
 			\frac{\mathrm{d} r}{\mathrm{d} t} = -r + J \cdot r + h = 0 \Rightarrow r = (I_n - J)^{-1} \cdot h =: r^* \, ,
 		\end{equation}
-	where $I_n \in \mathbb{R}^{n \times n}$ the identity matrix. Since $J$ is full rank, the matrix $(I_n - J)$ is invertible. Therefore, the steady state exists.
+	where $I_n \in \mathbb{R}^{n \times n}$ is the identity matrix. Since $J$ is full rank, the matrix $(I_n - J)$ is invertible. Therefore, the steady state exists.
 	
 	\paragraph{Stability of Steady State}
 	The dynamic eq.(\ref{eq:sym_response_ODE}) could also be written in an element wise expression:
@@ -116,9 +117,9 @@
 		\begin{equation} \label{eq:steady_state_eigenvalues_sym}
 			(- I_n + J) E = - I_n \cdot E + J \cdot E = -I_n \cdot E + \Lambda \cdot E = (-I_n + \Lambda) E \, ,
 		\end{equation}
-	$\Lambda$ the diagonal matrix with eigenvalues $\{\lambda_i\}_{i = 1,...,n}$ of $J$ on its diagonal. This means, $\{-1 + \lambda_i\}_{i=1, ..., n}$ are eigenvalues for the Jacobian matrix A. 
+	where $\Lambda$ is the diagonal matrix with eigenvalues $\{\lambda_i\}_{i = 1,...,n}$ of $J$ on its diagonal. This means, $\{-1 + \lambda_i\}_{i=1, ..., n}$ are eigenvalues for the Jacobian matrix A. 
 	
-	The eigenvalues of the Jacobian matrix $A$ determine the stability of steady states. Here, since the matrix $A$ is symmetric, all its eigenvalues $-1 + \lambda_i, i = 1, ..., n$ are from $\mathbb{R}$. Because the eigenvalues $\lambda_i$ of matrix $J$ is limited by the parameter $R<1$, defined in eq.(\ref{eq:eigval_normal}), we have 
+	The eigenvalues of the Jacobian matrix $A$ determine the stability of steady states. Here, since the matrix $A$ is symmetric, all its eigenvalues $-1 + \lambda_i, i = 1, ..., n$ are from $\mathbb{R}$. Because the eigenvalues $\lambda_i$ of matrix $J$ are limited by the parameter $R<1$, defined in eq.(\ref{eq:eigval_normal}), we have 
 		\begin{equation} \label{eq:sym_stable_fix_point}
 			-1 + \lambda_i \overset{(\ref{eq:eigval_normal})}{<} -1 + 1 = 0 \, .
 		\end{equation}
@@ -128,6 +129,8 @@
 	% TODO: The meaning of the feedforward recurrent alignment hypothesis (perhaps in the introduction better) 
 	%In which case will it be applied.
 	%TODO: The clarifying of mean firing rate in introduction perhaps?
+	Here, we introduce the definition of the feedforward recurrent alignment score between the feedforward input and recurrent network. 
+	
 	We model the neural synaptic firing rate with Gaussian distribution. The feedforward inputs are multivariate normal distributed vectors with a certain mean vector $h \in \mathbb{R}^{n \times 1}$ and a covariance matrix. 
 	In this work, if mentioning feedforward inputs without further definition, we refer to their mean vectors. If aligning the feedforward inputs to certain activity patterns described by firing rate vectors, the mean vector of inputs $h$ is proportional to those vectors.
 	%Generally, the feedforward inputs can be considered as a firing rate distribution with a certain mean value and disturbed with some noise captured by variance. The mean firing rate is essential for characterizing the strength of inputs. We therefore consider mainly the mean firing rate of inputs. For the rest of the work, if mentioning feedforward inputs without further definition, we refer to the mean firing rate of inputs. 
@@ -136,7 +139,7 @@
 		\begin{equation} \label{eq:ffrec_align}
 			\nu := \frac{h^T J h}{\parallel h \parallel ^2}\, ,
 		\end{equation}	
-	where we consider the Euclidean norm without loss of generality. $T$ denotes the vector transpose. 
+	where we consider the Euclidean norm without loss of generality. $h^T$ denotes the vector transpose. 
 	If the inputs are aligned to the eigenvector $e_i$ of the recurrent interaction $J$, i.e. the feedforward input is proportional to the aligned eigenvector, 
 		\begin{equation} \label{eq:h_prop_eigvec}
 			h \propto e_i  \, ,
@@ -145,13 +148,13 @@
 		\begin{equation} \label{eq:ffrec_equals_eigval}
 			\nu = \frac{h^T J h}{\Vert h \Vert ^2} \propto \frac{{e_i}^T J e_i}{\Vert e_i \Vert^2} = \frac{\lambda_i {e_i}^T e_i}{\Vert e_i \Vert ^2} = \lambda_i \, .
 		\end{equation}
-	It is therefore observed that the maximal alignment was attained when the input is aligned to the eigenvector $e_{\text{max}}$ with maximal eigenvalue $\lambda_{\text{max}}$ \cite{tragenap2023nature}. 
+	Therefore, the alignment is maximal when the input is aligned to the eigenvector $e_{\text{max}}$ with the maximal eigenvalue $\lambda_{\text{max}}$ \cite{tragenap2023nature}. 
 	
 	\subsubsection{Response Properties for Evaluation} \label{sec:response_properties_for_evaluation}
 	% TODO:general introduction where does this come? Or should it be in the introduction instead?
 	% trial to trial correlation, intra-trial stability, dimensionality and alignment to spontaneous activity.
 	\paragraph{Trial-to-trial correlation} \label{para:ttc_sym}
-	Given the feedforward inputs that are from the same distribution for multiple trials, the correlation between responses from different trials indicates the reliability of the responses. A large correlation implies high reliability of the response generated by the RNN. 
+	Given the feedforward inputs that are from the same distribution for multiple trials, the correlation between different response-trials indicates the reliability of the responses. A large correlation implies high reliability of the response generated by the RNN. 
 	
 	Modeling the inputs $h \in \mathbb{R} ^{n \times 1}$ as multivariate normal distributions with mean vector $\mu \in \mathbb{R}^{n \times 1}$ and covariance matrix $\Sigma \in \mathbb{R}^{n \times n}$
 		\begin{equation} \label{eq:input_distribution}
@@ -184,7 +187,7 @@
 	
 	\paragraph{Intra-trial stability}
 	
-	It was observed that when presenting ongoing visual grating stimuli, the responses in the visually naive cortex have a stronger variation than they are after the visual experience. To reflect the variation of responses during the stimulation period, the quantity of "intra-trial stability" was defined \cite{tragenap2023nature}. 
+	It was observed that when presenting ongoing visual grating stimuli, the responses in the visually naive cortex have a stronger variation than after the visual experience. To reflect the variation of responses during the stimulation period, the quantity of "intra-trial stability" was defined \cite{tragenap2023nature}. 
 	
 	To model the time-dependent input $h(t) \in \mathbb{R}^{n \times 1}$ with mean vector $\mu$ and its evoked steady-state responses $r(t) \in \mathbb{R}^{n \times 1}$, the following stochastic differential equations are formulated
 		\begin{subequations} \label{eq:sde_intra_trial_stability}
@@ -204,7 +207,7 @@
 			\Delta \tilde{W}_t \sim \mathcal{N}(0_v, I_n) \, .
 		\end{equation}
 	
-	For an another step width $\Delta \tilde{t}$, the intra-trial stability $c(t, \Delta \tilde{t})$ was defined by the correlation between z-scored responses $\bar{r}$ at time $t$ and its delay at time $t + \Delta \tilde{t}$ 
+	For another step width $\Delta \tilde{t}$, the intra-trial stability $c(t, \Delta \tilde{t})$ was defined by the correlation between z-scored responses $\bar{r}$ at time $t$ and its delay at time $t + \Delta \tilde{t}$ 
 		\begin{equation}
 			c(t, \Delta \tilde{t}) := \bar{r}(t)^T \bar{r}(t + \Delta \tilde{t}) \, , 
 		\end{equation}
@@ -227,7 +230,7 @@
 	%A diverse response pattern corresponds with a broader distribution of the variance over principal components, leading to a higher-dimensional linear manifold. %TODO: lietrature
 	%The corresponding dimensionality for more diverse and variable response pattern is therefore higher \cite{tragenap2023nature}. %TODO: Is the understanding correct? Further literatures?
 	
-	Reduction in the diversity of modular patterns following the onset of experience was observed in the experiments with the primary visual cortex of ferrets. Through the projection of activity patterns into the space spanned by their leading principal components, it could be quantified that the early modular responses are more diverse, residing in a higher-dimensional linear manifold than those found in the experienced cortex following the onset of visual experience. This suggested that these initial modular patterns reflect a more flexible repertoire of network responses to visual input, fundamentally different from the experience cortex. To capture this trend, the linear "dimensionality" was defined and computed \cite{tragenap2023nature}. 
+	Reduction in the diversity of modular patterns following the onset of experience was observed in the experiments with the primary visual cortex of ferrets. Through the projection of activity patterns into the space spanned by their leading principal components, it could be quantified that the early modular responses are more diverse, residing in a higher-dimensional linear manifold than those found in the experienced cortex following the onset of visual experience. This suggested that these initial modular patterns reflect a more flexible repertoire of network responses to visual input, fundamentally different from the experience cortex. To capture this trend, the "linear dimensionality" was defined and computed \cite{tragenap2023nature}. 
 	
 	Given the multivariate normal distributed inputs $h \in \mathbb{R}^{n \times 1}$
 		\begin{equation} \label{eq:input_distribution_dimensionality}
@@ -243,7 +246,7 @@
 		\end{equation}
 	in which the parameter $M_{\text{dim}}$ determined the number of eigenvectors that are taken into account to construct the matrix. The parameter $\beta_{\text{dim}}$ controls the dimensionality of the pattern, since it determines how flat the explained ratio curve will be \cite{tragenap2023nature}. 
 	%:= \kappa \beta_{\text{dim}}$ and $\beta_{\text{dim}}$ reflects the dimensionality \cite{tragenap2023nature} and $\kappa$ for determining the number of directions $e_i$ that contribute to the dimensionality.
-	 The index $L$ determines the first vector for the chosen set and starts from index $1$ to the number of half of the neuron number $\frac{n}{2}$. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as basis vectors $e_i$ for covariance matrix $\Sigma^{\text{Dim}}$ in eq.(\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order, 
+	The index $L$ determines the first vector for the chosen set and starts from index $1$ to the number of half of the neuron number $\frac{n}{2}$. Since the eigenvectors of $J$ build a set of basis for $\mathbb{R}^n$, they could be chosen as basis vectors $e_i$ for covariance matrix $\Sigma^{\text{Dim}}$ in eq.(\ref{eq:Sigma_dim}). Hereby, the eigenvectors are ordered according to their eigenvalues in descending order, 
 		\begin{equation} 
 			e_{\text{max}}, ..., e_i, e_j, ..., e_{\text{min}} \, \, \text{such that} \, \, 	\lambda_{\text{max}} > ...> \lambda_i > \lambda_j > ... > \lambda_{\text{min}} \, .
 		\end{equation}
@@ -254,7 +257,7 @@
 		\begin{equation} \label{eq:effective_dimensionality_analytical}
 			d_{\text{eff}} := \frac{\left(\sum_{i} \lambda_i\right)^2}{\left( \sum_{i} \lambda_i^2\right)} \, ,
 		\end{equation}
-	where $\lambda_i$ the eigenvalues of a certain covariance matrix $\Sigma$ from an activity pattern distribution. Since as defined in eq.(\ref{eq:Sigma_dim}), eigenvectors $e_i$ of $\Sigma^{\text{Dim}}$ are also eigenvectors for $J$. The eigenvectors of a covariance matrix are also known as principal components. Therefore, the eigenvalues $\lambda_i^{\text{Dim}}$ for the covariance matrix $\Sigma^{\text{Dim}}$, also known as variance ratio, are re-scaled eigenvalues $\lambda_i$ of $J$ expressed as
+	where $\lambda_i$ are the eigenvalues of a covariance matrix $\Sigma$ from an activity pattern distribution. Since as defined in eq.(\ref{eq:Sigma_dim}), eigenvectors $e_i$ of $\Sigma^{\text{Dim}}$ are also eigenvectors for $J$. The eigenvectors of a covariance matrix are also known as principal components. Therefore, the eigenvalues $\lambda_i^{\text{Dim}}$ for the covariance matrix $\Sigma^{\text{Dim}}$, also known as variance ratio, are re-scaled eigenvalues $\lambda_i$ of $J$ expressed as
 		\begin{equation} \label{eq:eigval_sigma_dim}
 			\lambda_i^{\text{Dim}} = \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) \lambda_i \, .
 		\end{equation}
@@ -262,7 +265,7 @@
 		\begin{equation} \label{eq:response_variance_ratio_dimensionality}
 			\lambda_i^{\text{Act}} = \text{exp}\left(\frac{-2(i-L)}{\beta_{\text{dim}}}\right) \frac{1}{(1-\lambda_i)^2} \, ,
 		\end{equation}
-	for $i = L, ..., L+M_{\text{dim}}$. %, due to the inverse transformation. 
+	for $i = L, ..., L+M_{\text{dim}}$. Ans $L$ the index from $1$ to $\frac{n}{2}$ %, due to the inverse transformation. 
 %	 For the covariance $\Sigma^{\text{Dim}}$ from inputs, if having its eigenvalues $\lambda_i^{\text{Dim}}$, the eigenvalues $\lambda_i^{\text{Act}}$ of the steady state responses could be transformed based on the distribution (\ref{eq:response_distribution_dimensionality}). It leads to the following relation
 %		\begin{equation}
 %			\lambda_i^{\text{Act}} = \frac{1}{(1-\lambda_i^{\text{Dim}})^2} = \, . %TODO: the exp factors
@@ -282,17 +285,18 @@
 	
 	\paragraph{Alignment with spontaneous activity}
 	
-	The alignment of activity patterns to spontaneous activity reflects principally the size of overlaps between activity patterns and spontaneous activity pattern. 
+	% The alignment of activity patterns to spontaneous activity reflects principally the size of overlaps between activity patterns and spontaneous activity pattern. 
+	If projecting the evoked activity patterns into the space spanned by principal components of spontaneous activity patterns, the alignment of activity patterns to spontaneous activity reflects the size of overlaps between explained variance curves from evoked and spontaneous activity patterns. 
 	% is in principle the dimensionality explained by the principal components of spontaneous activity. 
-	Assuming having the evoked response pattern as $V$ and the spontaneous activity pattern as $S$, the projection of $V$ to $S$ could be quantified as the covariance matrix of $V$ explained by the principal components of $S$, which results a variance ratio vector with elements $v_i$ calculated as
+	Let $V$ be the evoked response pattern as and $S$ the spontaneous activity pattern, the projection of $V$ to $S$ could be quantified as the covariance matrix of $V$ explained by the principal components of $S$, which results in a variance ratio vector with elements $v_i$ calculated as
 	%we then have the variance of activity pattern $R$ explained by principal components of pattern $S$ expressed as a vector $\mathbf{v}$ with 
 		\begin{equation} \label{eq:var_explain_spont_act_sym}
 			v_i = \frac{p_{i, S}^T \cdot \Sigma_V \cdot p_{i, S}}{\text{Tr}(\Sigma_V)} \, , 
 		\end{equation}
-	for $i = 1, ..., n$. $p_{i, S}$ are the principal component of spontaneous activity and $\Sigma_V$ the covariance matrix of evoked activity. 
+	for $i = 1, ..., n$. $p_{i, S}$ are the principal components of spontaneous activity and $\Sigma_V$ the covariance matrix of the evoked activity. 
 	%TODO: the connections between variance explained and alignment. 
 	%It was observed in \cite{tragenap2023nature} that patterned visual experience is required to cause stable alignment between visual responses and the spontaneous activities, while naive visual responses show only loose alignment with spontaneous activities. To capture this change of property as a quantity instead of a vector as (\ref{label}), it had to firstly define the alignment between two activity patterns. The alignment of $R$ to $S$ was defined as the average of pattern $S$ explained by normalized trials $r_{i, R}$. The alignment between pattern $S$ and one trial $r_{i, R}$ from $R$ is defined as
-	Consider the projection of activity pattern $V$ in all directions of spontaneous pattern $S$ together to reflect the overall overlaps between two patterns, we calculate the alignment between a response trial $r_{i, V}$ form $V$ to the spontaneous pattern $S$ 
+	Consider the evoked activity pattern $V$ explained by all principal components of spontaneous pattern $S$ together to reflect the overall overlaps between two patterns, we calculate the alignment between a response trial $r_{i, V}$ from $V$ to the spontaneous pattern $S$ 
 		\begin{equation} \label{eq:align_to_spont_act_sym}
 			\gamma_i = \frac{r^T_{i, V} \cdot \Sigma_S \cdot r_{i,V}}{\Vert r_{i, V} \Vert^2 \text{Tr}(\Sigma_S)}\, ,
 		\end{equation}
@@ -318,7 +322,7 @@
 	\clearpage
 	\subsection{Asymmetric Recurrent Network Model} \label{sec:ffrec_asym}
 	% Reason for considering asymmetric networks.
-	Different from symmetric recurrent networks, asymmetric recurrent networks do not necessarily have symmetric interaction strength between two neurons. That is, if we have two neurons $n_i$ and $n_j$, the interaction strength from $n_i$ to $n_j$ can generally differ from the interaction strength from $n_j$ to $n_i$. Therefore, the network has more complex neural interactions and dynamics. Compared to a symmetric recurrent network, the asymmetric recurrent network reflects more general neural interactions and is thus more biologically realistic. 
+	Different from symmetric recurrent networks, asymmetric recurrent networks do not necessarily have symmetric interaction strength between two neurons. That is, if we have two neurons $n_i$ and $n_j$, the interaction strength from $n_i$ to $n_j$ can generally differ from the interaction strength from $n_j$ to $n_i$. Therefore, the network has more complex neural interactions and dynamics. Compared to a symmetric RNNs, the asymmetric RNNs is more biologically realistic because they allow asymmetric connections between neurons. 
 	
 	\begin{figure}[H] 
 		%\centering
@@ -379,17 +383,18 @@
 		\begin{equation} \label{eq:asym_normalization}
 			\tilde{\lambda}_i = \frac{R \lambda_i}{\text{max}\Vert\lambda\Vert} \, \, \, \, \, \forall i \, .
 		\end{equation}  
-	The distribution of eigenvalues is influenced by the parameter $a$, which determines the proportion of symmetric interaction. In the case of only having a symmetric interaction network, all eigenvalues are real, and therefore the distribution forms a line in the complex plane. On the other hand, if $J$ is only a general asymmetric interaction network, the distribution forms a circle \cite{rajan2006eigenvalue}. For $a$ between $0$ and $1$, the distribution is a symmetric ellipse. 
+	The distribution of eigenvalues is influenced by the parameter $a$, which determines the proportion of symmetric interaction. In the case of only having a symmetric interaction network, all eigenvalues are real, and therefore the distribution forms a line in the complex plane. On the other hand, if $J$ is only a general asymmetric interaction network, the distribution forms a circle \cite{rajan2006eigenvalue}. For $a$ between $0$ and $1$, the distribution is a symmetric ellipse \ref{fig:complex_eigval_distribution}. 
 		\begin{figure} [H]
 			\centering
-			\includegraphics[width=\textwidth]{../figures/asym_eigval_distribution.pdf}
+			\includegraphics[width=\textwidth]{../figures/asym_eigval_distribution(2).pdf}
 			\caption[Eigenvalue distribution in dependence of parameter $a$ in eq.(\ref{eq:asym_interaction_matrix})]{\textbf{Eigenvalue distribution in dependence of parameter $a$ in eq.(\ref{eq:asym_interaction_matrix}).} In general, an asymmetric matrix has eigenvalues in complex plane. The degree of symmetry determines the form of distribution from a line ($a = 1$, only real eigenvalues) to a full circle ($a = 0$) with radius $R < 1$. Between $a = 0$ and $a = 1$, the distribution is a symmetric ellipse along the line where imaginary part equals $0$. Subfigures from left to right show the eigenvalue distribution in the complex plane from $a = 1, 0.5,$ and $0$. The gray line marks the radius $-R$ and $R$. Here $R = 0.85 < 1$.}
+			\label{fig:complex_eigval_distribution}
 		\end{figure}
 	
 	\subsubsection{Modifications of Feedforward Recurrent Alignment for Asymmetric Interactions} \label{sec:modify_ffrec_alignment_score}
 	% Reason for modification.
 	% The three Hypothesis/Modification that were looked at. 
-	We want to have the similar quantification of feedforward recurrent alignment as for the symmetric interaction matrix (section \ref{sec:ffrec_definition}). However, when aligning the feedforward input to eigenvectors of asymmetric recurrent interaction network $J$ like in eq.(\ref{eq:ffrec_equals_eigval}), the result calculated with eq.(\ref{eq:ffrec_align}) is a complex number and can therefore be hardly interpreted. To embed such a sore with analogical idea, we deliberate the following modifications and try to evaluate the outcomes. 
+	The goal is to have the similar quantification of feedforward recurrent alignment as for the symmetric interaction matrix (section \ref{sec:ffrec_definition}). However, when aligning the feedforward input to eigenvectors of asymmetric recurrent interaction network $J$ like in eq.(\ref{eq:ffrec_equals_eigval}), the result calculated with eq.(\ref{eq:ffrec_align}) is a complex number and can therefore be hardly interpreted. To embed such a sore with analogical idea, we deliberate the following modifications and try to evaluate the outcomes. 
 	
 	Aligning feedforward input $h \in \mathbb{C}^{n \times 1}$ to the asymmetric interaction $J$, we consider:
 		\begin{enumerate}
@@ -415,7 +420,7 @@
 	% Change in dimensionality 
 	As for symmetric RNNs, four activity properties are taken into account to evaluate the feedforward recurrent alignment hypothesis with the measurement of the alignment score. In the case of asymmetric RNNs, the modified alignment scores (section \ref{sec:modify_ffrec_alignment_score}) are considered in the evaluation. 
 	
-	More than the four response properties that are considered in the case of symmetric recurrent interaction matrix, for a new definition of feedforward recurrent alignment score, the monotony of score and corresponding eigenvalues have to be verified. Following are more details about how modifications in section \ref{sec:modify_ffrec_alignment_score} influence the modeling of properties that are involved in the evaluation. 
+	Except for the four response properties that are considered in the case of symmetric recurrent interaction matrix, for the modified forms of feedforward recurrent alignment score, the monotony of score and corresponding eigenvalues have to be verified. Following are more details about how modifications in section \ref{sec:modify_ffrec_alignment_score} influence the modeling of properties that are involved in the evaluation. 
 	
 	\paragraph{Monotony} For a certain eigenvector $e_i$, its corresponding eigenvalues $\lambda_i$ can reflect the strength of the response. % due to the response amplification %TODO: response amplification in methods!!. 
 	Dominant eigenvectors with large eigenvalues can therefore trigger strong response and suppress noise, leading to more reliable evoked activity. If the feedforward recurrent alignment score could well predict the reliability of evoked activities, inserting dominant eigenvectors should result in large alignment score values. Therefore, a large feedforward recurrent alignment score calculated with modified eigenvector $\tilde{h}$ from above section \ref{sec:modify_ffrec_alignment_score} should correspond with large eigenvalue. In other words, a monotonic positive correlation should exist between eigenvalues and feedforward recurrent alignment score inserting corresponding modified eigenvectors. When reliable responses occur, both feedforward recurrent alignment score and eigenvalue should be large.  
@@ -443,11 +448,11 @@
 	\paragraph{Dimensionality}% Modification for the covariance matrix and analytical dimensionality. 
 	With symmetric interaction networks, the covariance matrix for the generation of inputs and responses is constructed with eigenvectors of the interaction matrix since they build up a set of basis for $\mathbb{R}^{n \times n}$. But with an asymmetric interaction matrix, the eigenvectors are the basis for $\mathbb{C}^{n \times n}$. If using complex eigenvectors, the inputs and responses will be complex without plausible interpretations. Therefore, the construction of the covariance matrix needs to be modified synchronously to have at least real vectors. 
 				  
-	The same problem exists also for the analytical calculation for effective dimensionality in  eq.(\ref{eq:effective_dimensionality_analytical}): we now have complex eigenvalues that lead to the dimensionality also complex. To overcome this problem, we work along the same modifications as above for covariance matrix.
+	The same problem exists also for the analytical calculation for effective dimensionality in  eq.(\ref{eq:effective_dimensionality_analytical}): we now have complex eigenvalues that lead to the dimensionality also complex. To overcome this problem, we work along the same modifications as above for the covariance matrix.
 				  
 	As a result, having $e_i \in \mathbb{C}^{n \times 1}$ eigenvectors and eigenvalues $\lambda_i \in \mathbb{C}$ of asymmetric interaction network $J$, we transfer complex eigenvectors and eigenvalues to real vectors and values based on section \ref{sec:modify_ffrec_alignment_score}: 
 	  \begin{itemize}
-			  	\item For modification \ref{sec:modicication_real_part} with eq.(\ref{eq:ffrec_real_part}), applying $\tilde{e}_i := \text{Re}(e_i)$ for construction covariance matrix and $\tilde{\lambda}_i := \text{Re}(\lambda_i)$ for calculation dimensionality.
+			  	\item For modification \ref{sec:modicication_real_part} with eq.(\ref{eq:ffrec_real_part}), applying $\tilde{e}_i := \text{Re}(e_i)$ for construction covariance matrix and $\tilde{\lambda}_i := \text{Re}(\lambda_i)$ for calculating dimensionality.
 			  	\item For modification \ref{sec:modification_magnitude} with eq.(\ref{eq:ffrec_mag}), applying magnitude for all entries in $e_i$ to formulate $\tilde{e}_i$ and  also magnitude of eigenvalues $\tilde{\lambda}_i := \vert \lambda_i \vert$. 
 			  	\item For modification \ref{sec:modification_symmetrized} with eq.(\ref{eq:ffrec_symmetrized}), applying eigenvectors $\tilde{e}_i$ and eigenvalues $\tilde{\lambda}_i$ from symmetrized interaction matrix $\tilde{J}$ by  eq.(\ref{eq:symmetrized_J}).
 	  \end{itemize}
@@ -472,9 +477,11 @@
 	\clearpage
 	\subsection{Low Rank Recurrent Network Model} \label{sec:low_rank_method}
 	% Reasons and importance for looking at low rank networks. (limitations of full rank RNN and advantages of low-rank RNN.)
-	Until now, we considered full-rank RNNs in both symmetric and asymmetric cases. Fully recurrent connectivity structure is one of the most popular and best-studied classes of network models. However, randomly connected networks display only very stereotyped responses to external inputs and can implement only a limited range of input-output computations \cite{mastrogiuseppe2018linking}. 
+	Until now, we considered full-rank RNNs in both symmetric and asymmetric cases. Fully recurrent connectivity structure is one of the most popular and best-studied classes of network models. However, randomly fully-connected networks display only very stereotyped responses to external inputs and can implement only a limited range of input-output computations \cite{mastrogiuseppe2018linking}. 
 	
-	Experimental large-scale neural recordings have established that the transformation of sensory stimuli into motor outputs relies on low-dimensional dynamics at the population level \cite{mastrogiuseppe2018linking}. Besides, actual cortical connectivity appears to be neither fully random nor fully structured \cite{harris2013cortical}. Understanding how low-dimensional computations on mixed, distributed representations emerge from the structure of the recurrent connectivity and inputs to cortical networks is still a major challenge with large potential \cite{mastrogiuseppe2018linking}. It could help to understand the neural computations at the level of dynamical systems that govern low-dimensional trajectories of collective neural activity \cite{beiran2021shaping}. 
+	Experimental large-scale neural recordings have established that the transformation of sensory stimuli into motor outputs relies on low-dimensional dynamics at the population level \cite{mastrogiuseppe2018linking}. 
+	%Besides, actual cortical connectivity appears to be neither fully random nor fully structured \cite{mastrogiuseppe2018linking}. 
+	Understanding how low-dimensional computations on mixed, distributed representations emerge from the structure of the recurrent connectivity and inputs to cortical networks is still a major challenge with large potential \cite{mastrogiuseppe2018linking}. Modeling with low-rank RNNs could help to understand the neural computations at the level of dynamical systems that govern low-dimensional trajectories of collective neural activity \cite{beiran2021shaping}. 
 	
 	Low-rank RNNs rely on connectivity matrices that are restricted to be low rank, which directly generates low-dimensional dynamics. The rank of the network determines the number of collective variables needed to provide a full description of the collective dynamics \cite{beiran2021shaping}. 
 	
@@ -489,7 +496,7 @@
 		\begin{figure}[H]
 			\centering
 			\includegraphics[width=0.6\textwidth]{../figures/low_rank_RNN_without_noise.jpg}
-			\caption[Low-rank recurrent networks (RNNs) constructed with distinct Gaussian distribution]{\textbf{Low-rank recurrent networks (RNNs) constructed with distinct Gaussian distribution \cite{beiran2023parametric}}. A low-rank matrix could be written as a sum of outer products of vectors that are Gaussian distributed. As a result, the connectivity matrix is a mixture of Gaussians. }
+			\caption[Low-rank recurrent networks (RNNs) constructed with distinct Gaussian distribution]{\textbf{Low-rank recurrent networks (RNNs) constructed with distinct Gaussian distribution without random noise}. A low-rank matrix could be written as a sum of outer products of vectors that are Gaussian distributed. As a result, the connectivity matrix is a mixture of Gaussians \cite{beiran2023parametric}. }
 			\label{fig:low_rank_RNN_without_noise}
 		\end{figure}
 	The connection matrix is constructed as a $n \times n$ dimensional matrix $J$ where $n$ is the number of neurons. Using singular value decomposition, the connectivity matrix with rank $G \ll n$ can be expressed as the sum of $G$ unit rank terms
@@ -502,8 +509,8 @@
 	Similar to the construction of low-rank connection matrix above (figure \ref{fig:low_rank_RNN_without_noise} defined by eq.(\ref{eq:low_rank_RNN_without_noise})), \cite{mastrogiuseppe2018linking} suggested that the connectivity matrix can be constructed with a part $P$ to be fixed and known and a random uncorrelated part.
 		\begin{figure} [H]
 			\centering
-			\includegraphics[width=0.75\textwidth]{../figures/low_rank_RNN_with_noise.pdf}
-			\caption[Low-rank recurrent networks (RNNs) constructed with fixed part and random noise]{\textbf{Low-rank recurrent networks (RNNs) constructed with fixed part and random noise \cite{mastrogiuseppe2018linking}.} The connectivity matrix is given by the sum of a structured, controlled matrix $P$ and an uncontrolled, random matrix. Except for the fixed and known part $P$, which is a mixture of uncorrelated Gaussians, the RNN is disturbed by random noise.}
+			\includegraphics[width=0.75\textwidth]{../figures/low_rank_RNN_with_noise(2).pdf}
+			\caption[Low-rank recurrent networks (RNNs) constructed with fixed part and random noise]{\textbf{Low-rank recurrent networks (RNNs) constructed with fixed part and random noise.} The connectivity matrix is given by the sum of a structured, controlled matrix $P$ and an uncontrolled, random matrix. Except for the fixed and known part $P$, which is a mixture of uncorrelated Gaussians, the RNN is disturbed by random noise \cite{beiran2023parametric, mastrogiuseppe2018linking}.}
 			\label{fig:low_rank_RNN_with_noise}
 		\end{figure}
 	The fixed part $P$ has the same construction as the network without noise in eq.(\ref{eq:low_rank_RNN_without_noise}). The uncontrolled random matrix can be generally constructed in a complex way with certain current-to-rate transfer function to lend more complexity \cite{mastrogiuseppe2018linking}. We denote the random noise part with $J_{\text{rand}}$. The low-rank RNN can be formulated as
@@ -545,7 +552,9 @@
 	\clearpage
 	\subsection{Black Box Recurrent Network Model} \label{sec:black_box_method}
 	% Background
-	Until now, we assume that we already know the structure of recurrent networks and evaluate the feedforward recurrent alignment hypothesis on the networks. However, in reality during the experiments, mostly only a small part of the network is known and the total structure of the network is mostly like a black box. As a result, dominant directions for generating reliable neural activity with networks are generally unknown. The feedforward recurrent alignment cannot use the dominant modes to characterize the development of feedforward recurrent network systems any more. 
+	Until now, we assume that we already know the structure of recurrent networks and evaluate the feedforward recurrent alignment hypothesis on the networks. So, we can use their eigenvectors for the alignment. However, in reality during the experiments, the total interaction structure of the network is difficult to access. 
+	%mostly only a small part of the network interactions is known and the total interaction structure of the network is mostly like a black box. 
+	As a result, dominant directions for generating reliable neural activity with networks are generally unknown. The feedforward recurrent alignment cannot use eigenvectors of interaction matrices to characterize the development of feedforward recurrent network systems anymore. So, we consider possible ways of approximating the dominant eigenvectors to still enable the modeling of feedforward recurrent alignment under the "black box" condition.
 	
 	% Motivation from multiple experiments. Literatures
 	It was pointed out that the reliability of evoked dynamics in recurrent networks is dependent on the stimulus used. As a consequence, a recurrent network would correspond to a set of stimuli that are more efficiently transmitted than others \cite{marre2009reliable}. 
@@ -556,16 +565,16 @@
 	% Explanation of the intuition. Want to approximate the dominant modes.
 	Therefore, we wonder if we could apply spontaneous-like activity to characterize the feedforward recurrent alignment. Without knowing the eigenvectors of the recurrent interactions, align feedforward inputs to the spontaneous-like activity patterns instead. This can be realized for general asymmetric RNNs with a further modification at modeling feedforward recurrent alignment. 
 	
-	To model the spontaneous-like activity, the lab of H.Mulholland \cite{cosyne2023} suggested on possible way with white noise. Thus, for aligning inputs to spontaneous-like activity, we model it with alignment to white-noise-evoked activity.  
+	To model the spontaneous-like activity, Mulholland et al. \cite{cosyne2023} suggested a possible way with white noise. Thus, for aligning inputs to spontaneous-like activity, we model it with alignment to white-noise-evoked activity.  
 	
 	Furthermore, we consider repeatedly applying the recurrently amplified spontaneous stimuli as inputs to discover the effect of repetitions of white-noise-evoked activity on feedforward recurrent alignment. 
 	
 	\subsubsection{Approximation with White Noise Evoked Activity} \label{sec:white_noise_approx_ffrec}% Low rank is here not necessary (could perhaps shortly in Appendix).
 	%TODO: distinguish the white noise evoked spontanous activity and modeled spontanous acttivity at alignment. Therefore from beginning change the sponatenous activity to white noise evoked ...
 	% TODO: Connection between white noise evoked activity and spontaneous activity.
-	With an unknown recurrent structure, which is in general asymmetric, it is then difficult to find the stimuli pattern such that the trial-to-trial correlation, intra-trial stability, and alignment between evoked activity to spontaneous activity are high while keeping dimensionality low. In other words, we cannot apply the eigenvectors of the recurrent interaction to align with inputs and then characterize the development of feedforward inputs leading to stable response properties. 
+	With an unknown recurrent structure, which is in general assume to be asymmetric, it is then difficult to find the stimuli pattern such that the trial-to-trial correlation, intra-trial stability, and alignment between evoked activity to spontaneous activity are high while keeping dimensionality low. In other words, we cannot apply the eigenvectors of the recurrent interaction to align with inputs and then characterize the development of feedforward inputs leading to stable response properties as before in section \ref{sec:ffrec_sym}, \ref{sec:ffrec_asym} and \ref{sec:low_rank_method}. So, we have to find an alternative to approximate the original dominant eigenvectors for feedforward recurrent inputs to align. 
 	
-	Alternatively, we align the inputs to white-noise-evoked activity and explore the response properties in correlation with feedforward recurrent alignment. 
+	The inputs are aligned to white-noise-evoked activity and explore the response properties in correlation with feedforward recurrent alignment. 
 		
 	% Definition of feedforward recurrent alignment with principal component.
 	White noise is modeled by multivariate normal distribution with mean vector the zero vector $0_v \in \mathbb{R}^{n \times 1}$ and covariance matrix the identity matrix $I_n \in \mathbb{R}^{n \times n}$, 
@@ -698,7 +707,7 @@
 	\clearpage
 	\subsection{Hebbian Learning in Feedforward Recurrent Networks} \label{sec:Hebb_learn}
 	% Following the iterative approximation from the last section. Motivation. The goal.
-	In the neocortex, which forms the convoluted outer surface of the human brain, neurons lie in six vertical layers highly coupled within cylindrical columns. There are multiple types of connections. Feedforward connections bring input to a given region from another region located at an earlier stage along a particular processing pathway. Recurrent synapses interconnect neurons within a particular region that are considered to be at the same stage along the processing pathway \cite{dayan2005theoretical}. 
+	In the neocortex, which forms the convoluted outer surface of the human brain, neurons lie in six vertical layers highly coupled within cylindrical columns. There are multiple types of connections between and inside those layers. Feedforward connections bring input to a given region from another region located at an earlier stage along a particular processing pathway. Recurrent synapses interconnect neurons within a particular region that are considered to be at the same stage along the processing pathway \cite{dayan2005theoretical}. 
 	
 	Until now, we only considered the recurrent layer under given feedforward inputs (Figure \ref{fig:symmetric_RNN}b and Figure \ref{fig:asymmetric_RNN}b). However, the feedforward inputs are also the outputs from the feedforward network. In this part of the work, we will expand the network structure to a feedforward recurrent network containing an input layer, feedforward interaction, and output layer connected by recurrent interactions.
 	
@@ -712,7 +721,7 @@
 	% Hebbian Learning and plasiticity.
 	Activity-dependent synaptic plasticity is widely believed to be the basic phenomenon underlying learning and memory, and it is also thought to play a crucial role in the development of neural circuits \cite{dayan2005theoretical}. To count on this essential characteristic of networks during their development, we integrate the plasticity in the network dynamic. 
 	
-	The fundamental rule for synaptic plasticity in learning and memory is called the Hebbian rule, raised by Donald Hebb in 1949. Hebb suggested that if input from neuron A often contributes to the firing of neuron B, then the synapse from A to B should be strengthened. In other words, neurons that fire together, wire together. The activity-dependent synaptic plasticity of the Hebbian type refers to the plasticity that is based on the correlation of pre-and postsynaptic firing \cite{dayan2005theoretical}. 
+	The fundamental rule for synaptic plasticity in learning and memory is called the Hebbian rule, raised by Donald Hebb in 1949. Hebb suggested that if input from neuron A often contributes to the firing of neuron B, then the synapse from A to B should be strengthened. Besides, neurons that fire together, should wire together. The activity-dependent synaptic plasticity of the Hebbian type refers to the plasticity that is based on the correlation of pre-and postsynaptic firing \cite{dayan2005theoretical}. 
 	
 	There are different types of training procedures for Hebbian-type plasticity, including unsupervised learning, supervised learning, reinforcement learning, and so on. we mainly focus on unsupervised learning. Unsupervised learning provides a model for the effects of experience on mature networks \cite{dayan2005theoretical}. Based on our network model (Figure \ref{fig:feedforward_recurrent_network}), we consider the case in which there are multiple postsynaptic neurons. 
 	
