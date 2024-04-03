@@ -50,7 +50,7 @@ class Eigval_Ffrec:
     def __init__(self, n, R, combi, a, b):
         self.neuron = n
         self.R = R
-        self.combi = combi # Equals 0: no combined interaction matrix/ 1,2: with combined interaction matrix.
+        self.combi = combi # Equals 0: no combined interaction matrix// 1,2: with combined interaction matrix.
         self.a = a # For the calculation of combined interaction matrix 1.
         self.b = b # For the calculation of combined interaction matrix 2.
         if self.combi == 0:
@@ -84,11 +84,17 @@ class Eigval_Ffrec:
         x = self.eigval.real
         y = self.eigval.imag
         #plt.title("Ffrec align in eigenvalue plane with h = Re($e_i$)")
-        plt.xlabel(r'Re($\lambda$)', fontsize=15)
-        plt.ylabel(r'Im($\lambda$)', fontsize=15)
+        plt.figure(figsize=(6, 5))
+        plt.xlabel(r'Re($\lambda$)', fontsize=18)
+        plt.ylabel(r'Im($\lambda$)', fontsize=18)
         plt.scatter(x, y, c=ffrec, cmap = "PuBuGn")
-        cbar = plt.colorbar()
+        cbar = plt.colorbar(ticks=[-0.5, 0, 0.5])
+        cbar.ax.tick_params(labelsize=15)
+        cbar.set_label('Feedforward recurrent alignment', rotation=270, fontsize=17, labelpad=20)
+        plt.xticks([-0.5, 0, 0.5], fontsize=15)
+        plt.yticks([-0.5, 0, 0.5], fontsize=15)
         #cbar.set_label("ffrec align", fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
 
         return ffrec
@@ -106,11 +112,17 @@ class Eigval_Ffrec:
         x = self.eigval.real
         y = self.eigval.imag
         #plt.title("Ffrec align in eigenvalue plane with h = |$e_i$|")
-        plt.xlabel(r"Re($\lambda$)", fontsize=15)
-        plt.ylabel(r"Im($\lambda$)", fontsize=15)
+        plt.figure(figsize=(6, 5))
+        plt.xlabel(r"Re($\lambda$)", fontsize=18)
+        plt.ylabel(r"Im($\lambda$)", fontsize=18)
         plt.scatter(x, y, c=ffrec, cmap = "PuBuGn")
-        cbar = plt.colorbar()
-        cbar.set_label("Feedforward recurrent alignment", fontsize=15, rotation=270, labelpad=15)
+        cbar = plt.colorbar(ticks=[-0.05, 0, 0.05, 0.1])
+        cbar.ax.tick_params(labelsize=15)
+        cbar.set_label('Feedforward recurrent alignment', rotation=270, fontsize=17, labelpad=20)
+        plt.xticks([-0.5, 0, 0.5], fontsize=15)
+        plt.yticks([-0.5, 0, 0.5], fontsize=15)
+        #cbar.set_label("ffrec align", fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
 
         return ffrec
@@ -139,9 +151,13 @@ class Eigval_Ffrec:
         #plt.xlabel("Re($\lambda$)")
         #plt.ylabel("Im($\lambda$)")
         #plt.scatter(x, y, c=ffrec, cmap = "PuBuGn")
-        plt.xlabel(r"$\tilde{\lambda}$", fontsize=15)
-        plt.ylabel("Feedforward recurrent alignment", fontsize=15)
-        plt.scatter(sym_eigval, ffrec)
+        plt.figure()
+        plt.xlabel(r"$\tilde{\lambda}$", fontsize=17)
+        plt.ylabel("Feedforward recurrent alignment", fontsize=17)
+        plt.scatter(sym_eigval, ffrec, alpha=0.5)
+        plt.xticks([-0.5, 0, 0.5], fontsize=15)
+        plt.yticks([-1, -0.5, 0, 0.5, 1], fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         #cbar = plt.colorbar()
         #cbar.set_label("ffrec align")
         plt.show()
@@ -187,17 +203,19 @@ class Eigval_Ffrec:
             ffrec[i] = FFRec_Alignment.ffrec_align(self, h_det, self.interaction)
 
         # Plot the correlation between odered eigenvalues and ffrec-alignments.
-        '''
-        plt.title("Ffrec align in eigenvalue plane with h = PCs from white noise")
-        plt.xlabel("variance ratio")
-        plt.ylabel("ffrec")
-        plt.scatter(variance_ratio, ffrec)
-        cbar = plt.colorbar()
-        cbar.set_label("ffrec align")
-        plt.show()
-        '''
 
-        return ffrec, variance_ratio  # ffrec-align calculated with original J, variance ratio from white noise.
+        #plt.title("Ffrec align in eigenvalue plane with h = PCs from white noise")
+        plt.figure(figsize=(6,5))
+        plt.xlabel("variance ratio", fontsize=18)
+        plt.ylabel("Feedforward recurrent alignment", fontsize=18)
+        plt.xticks([0, 30, 60, 90, 120], fontsize=15)
+        plt.yticks([-1, -0.5, 0, 0.5, 1], fontsize=15)
+        plt.scatter(variance_ratio, ffrec, alpha=0.5)
+        #cbar = plt.colorbar()
+        #cbar.set_label("ffrec align")
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
+        plt.show()
+        #return ffrec, variance_ratio  # ffrec-align calculated with original J, variance ratio from white noise.
 
 
 
@@ -289,21 +307,18 @@ class Eigval_Ffrec:
 
 
 
-
-
-
-
-
 ############################################################################################################
 if __name__ == "__main__":
     n_neuron = 200
     R = 0.85
     num_sample = 500
 
-    plots = Eigval_Ffrec(n_neuron, R, 1, 0.2, 0.5)
-    plots.real_eigval_ffrec()
-    plots.mag_eigval_ffrec()
-    plots.sym_eigval_ffrec()
-    # plots.noise_eigval_ffrec(num_sample)
+    plots = Eigval_Ffrec(n_neuron, R, 0, 0.2, 0.5)
+    #plots.real_eigval_ffrec()
+    #plots.mag_eigval_ffrec()
+    #plots.sym_eigval_ffrec()
+    plots.noise_eigval_ffrec(num_sample)
     # plots.all_plots(num_sample)
+
+
 

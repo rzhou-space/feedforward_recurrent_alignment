@@ -99,16 +99,20 @@ class LowRank:
 
     def eigval_distribution(self):
         eigvals = np.linalg.eigvalsh(self.interaction) # Eigenvalues are real numbers.
-        plt.figure()
+        plt.figure(figsize=(6,5))
         plt.scatter(eigvals, np.zeros(len(eigvals)))
         plt.yticks([])
+        plt.xticks([0, self.R], fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
-        return eigvals
+        #return eigvals
 
 
 
 class NoisedLowRank_1D:
-
+    """
+    Construct the low-rank matrix with rank 1 and random noise.
+    """
     def __init__(self, n, R):
         self.neuron = n
         self.R = R

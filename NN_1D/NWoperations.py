@@ -172,13 +172,16 @@ class TrialToTrialCor:
         :param align_vec: the numpy array containing align values from sorted alignment.
         :return: a scatter plot with x-axis the ordered alignment score = eigenvalues and y-axis the ttc values.
         """
-        plt.figure()
+        plt.figure(figsize=(6,5))
         plt.scatter(align_vec, ttc_vec, alpha=0.5)
         #plt.axvline(x = 0, color = "black")
         #plt.axvline(x = self.R, color = "red", label = "align = R = "+str(self.R))
-        plt.xlabel("Feedforward recurrent alignment", fontsize=15)
-        plt.ylabel("Trial to trial correlation", fontsize = 15)
+        plt.xlabel("Feedforward recurrent alignment", fontsize=18)
+        plt.ylabel("Trial-to-trial correlation", fontsize = 18)
+        plt.xticks([-0.5, 0, 0.5], fontsize=15)
+        plt.yticks([0, 0.5, 1], fontsize=15)
         #plt.legend()
+        plt.savefig("F:/Downloads/fig_ttc.pdf", bbox_inches='tight')
         plt.show()
 
 
@@ -317,13 +320,16 @@ class IntraTrialStab:
         """
         Plot the intra trial stability against the feedforward recurrent alignment.
         """
-        plt.figure()
+        plt.figure(figsize=(6,5))
         #plt.title("Intra Trial Stability")
-        plt.xlabel("Feedforward recurrent alignment", fontsize = 15)
-        plt.ylabel("Intra Trial Stability", fontsize = 15)
+        plt.xlabel("Feedforward recurrent alignment", fontsize = 18)
+        plt.ylabel("Intra-trial Stability", fontsize = 18)
         #plt.yscale("log")
         #plt.xlim(-self.R-0.1, self.R+0.1)
         plt.scatter(ffrec_align, mean_stab, alpha=0.5)
+        plt.xticks([-0.5, 0, 0.5], fontsize=15)
+        plt.yticks([0, 0.5, 1], fontsize=15)
+        plt.savefig("F:/Downloads/fig_its.pdf", bbox_inches='tight')
         plt.show()
 
 
@@ -423,14 +429,16 @@ class Dimensionality:
         # L = 1.
         var_aligned = self.align_eigvec(kappa, beta, 1, num_sample)[:20]
         var_random = self.align_random(kappa, beta, 1, num_sample)[:20]
-        plt.figure()
+        plt.figure(figsize=(6,5))
         #plt.title("Variance Ratio of Aligned and Random Inputs")
-        plt.xlabel("PC Index", fontsize=15)
-        plt.ylabel("Variance ratio", fontsize=15)
+        plt.xlabel("PC Index", fontsize=18)
+        plt.ylabel("Variance ratio", fontsize=18)
         plt.plot([i for i in range(1, 21)], var_aligned, c="red", label = "Maximal aligned")
         plt.plot([i for i in range(1, 21)], var_random, c="green", label = "Random aligned")
-        plt.xticks([1, 5, 10, 15, 20])
+        plt.xticks([1, 5, 10, 15, 20], fontsize=15)
+        plt.yticks([0, 0.1, 0.2, 0.3], fontsize=15)
         plt.legend(fontsize=15)
+        plt.savefig("F:/Downloads/fig_dim.pdf", bbox_inches='tight')
         plt.show()
 
 
@@ -517,15 +525,18 @@ class Dimensionality:
         '''
 
         # If the relationship between L and feedforward alignment is linear.
-        plt.figure()
+        plt.figure(figsize=(6,5))
         #plt.title("feedforward alignment against dimensionality")
-        plt.xlabel("Feedforward recurrent alignment", fontsize = 15)
-        plt.ylabel("Dimensionality", fontsize = 15)
+        plt.xlabel("Feedforward recurrent alignment", fontsize = 18)
+        plt.ylabel("Dimensionality", fontsize = 18)
 
-        #plt.plot(np.linspace(0,self.R,int(n_neuron/2)), np.flip(dim_ffrec[1]), c = "green", label = "analytical")
-        plt.scatter(np.flip(ffrec_ana), np.flip(dim_ffrec), c = "green", label = "analytical")
-        plt.scatter(np.flip(ffrec_empir), np.flip(dim_ffrec_empir), label = "empirical", alpha=0.5)
+        #plt.plot(np.linspace(0,self.R,int(n_neuron/2)), np.flip(dim_ffrec[1]), c = "green", label = "Analytical")
+        plt.scatter(np.flip(ffrec_ana), np.flip(dim_ffrec), c = "green", label = "Analytical")
+        plt.scatter(np.flip(ffrec_empir), np.flip(dim_ffrec_empir), label = "Empirical", alpha=0.5)
+        plt.xticks([0, self.R], fontsize=15)
+        plt.yticks([2,4,6,8,10], fontsize=15)
         plt.legend(fontsize=15)
+        plt.savefig("F:/Downloads/fig_dim.pdf", bbox_inches='tight')
         plt.show()
 
 
@@ -696,15 +707,18 @@ class AlignmentSpontaneousAct:
         pc_index = [i for rep in range(num_stimuli) for i in range(1,21)] # A list with 1,...,20 repeat num_stimuli times.
 
         # Lineplot with confidence interval.
-        plt.figure()
+        plt.figure(figsize=(6, 5))
         #plt.title("Alignment of evoked to spontaneous activity")
-        plt.xlabel("Spontaneous Activity PC index ", fontsize=15)
-        plt.ylabel("variance ratio", fontsize=15)
-        sns.lineplot(x=pc_index, y=all_spont, color="red", label="spontaneous")
-        sns.lineplot(x=pc_index, y=all_align, color="blue", label="maximal aligned")
-        sns.lineplot(x=pc_index, y=all_rand, color="green", label="random aligned")
+        plt.xlabel("Spontaneous Activity PC index ", fontsize=18)
+        plt.ylabel("Variance ratio", fontsize=18)
+        sns.lineplot(x=pc_index, y=all_spont, color="red", label="Spontaneous")
+        sns.lineplot(x=pc_index, y=all_align, color="blue", label="Maximal aligned")
+        sns.lineplot(x=pc_index, y=all_rand, color="green", label="Random aligned")
         plt.xticks(range(1, 21, 4))
         plt.legend(fontsize=15)
+        plt.xticks(fontsize=18)
+        plt.yticks([0.0, 0.1, 0.2, 0.3], fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
 
 
@@ -840,13 +854,16 @@ class AlignmentSpontaneousAct:
 
     def plot_align_to_ffrec(self, ffrec, pattern_align):
         #ffrec_align = self.all_ffrec()
-        plt.figure()
+        plt.figure(figsize=(6,5))
         #plt.title("Spontaneous Alignment against Feedforward Recurrent Alignment")
-        plt.xlabel("Feedforward recurrent alignment", fontsize=15)
-        plt.ylabel("Alignment to spont. Activity", fontsize = 15)
+        plt.xlabel("Feedforward recurrent alignment", fontsize=18)
+        plt.ylabel("Alignment to spont. Activity", fontsize = 18)
         plt.scatter(np.flip(ffrec), np.flip(pattern_align), alpha=0.5)
         #plt.scatter(np.linspace(0,self.R,int(n_neuron/2)), np.flip(pattern_align), alpha=0.5)
         #plt.xlim(-self.R, self.R+0.1) # For the case of rescaled x-axis.
+        plt.xticks([0, 0.4, 0.8], fontsize=15)
+        plt.yticks([0, 0.05, 0.1, 0.15], fontsize=15)
+        plt.savefig("F:/Downloads/fig_align.pdf", bbox_inches='tight')
         plt.show()
 
 
@@ -875,7 +892,7 @@ if __name__ == "__main__":
     network_noise_low_rand_sym = NoisedLowRank_1D(n_neuron, R)
     network_noise_low_rand_sym_nD = NoisedLowRank_nD(n_neuron, R, 100)
 
-    '''
+
     # Results from trial to trial correlation.
 
     ttc_Obj = TrialToTrialCor(n_neuron, R, network_noise_low_rand_sym)
@@ -894,12 +911,12 @@ if __name__ == "__main__":
     ttc_vec = sort_align[0]
     ffrec_align = sort_align[1]
     ttc_Obj.scatter_plot(ffrec_align, ttc_vec)
-    '''
 
+    '''
 
     # Results from intra trial stability.
 
-    its_Obj = IntraTrialStab(n_neuron, R, network_low_rank_sym)
+    its_Obj = IntraTrialStab(n_neuron, R, network_noise_low_rand_sym)
     
     # fig 4c upper. 
     #r_rand = its_Obj.rand_align(dt_euler, T, sigma_time)[:,12]
@@ -912,8 +929,9 @@ if __name__ == "__main__":
     mean_stab = sort_its[1]
     print(ffrec_align)
     its_Obj.plot_stab(ffrec_align, mean_stab)
+
+
     
-    '''
     # Results from dimensionality.
     
     dim_obj = Dimensionality(n_neuron, R, network_noise_low_rand_sym)
@@ -924,7 +942,7 @@ if __name__ == "__main__":
     # fig 4d below.
     dim_obj.plot_dim_to_ffrec(kappa, beta_dim, num_sample)
 
-    
+
     # Results from Alignment to spontaneous activity.
     
     align_spont_obj = AlignmentSpontaneousAct(n_neuron, R, network_noise_low_rand_sym)
@@ -947,6 +965,8 @@ if __name__ == "__main__":
     ffrec, align_scores = align_spont_obj.align_to_ffrec_alter(kappa, beta_spont, num_sample, beta_dim)
     align_spont_obj.plot_align_to_ffrec(ffrec, align_scores)
     '''
+
+
 
 
 

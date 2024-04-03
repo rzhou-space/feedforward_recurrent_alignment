@@ -101,16 +101,23 @@ class CombiAsymNet:
         # Extract imaginary part.
         imag = new_eigenvals.imag
 
-        plt.figure()
+        plt.figure(figsize=(4, 4))
         plt.scatter(real, imag, alpha=0.5)
         plt.axvline(x = self.R, c = "grey")#, label = "R="+str(self.R))
         plt.axvline(x = - self.R, c = "grey")
         plt.axhline(y = self.R, c = "grey")
         plt.axhline(y = -self.R, c = "grey")
+        plt.xlim(-1, 1)
+        plt.ylim(-1, 1)
+        #ax = plt.gca()
+        #ax.set_aspect('equal', adjustable='box')
+        plt.xticks([-1, 0, 1], fontsize=15)
+        plt.yticks([-1, 0, 1], fontsize=15)
         #plt.title("Eigenvalue distribution, a="+str(self.a))
         #plt.xlabel("Real Part", fontsize=15)
         #plt.ylabel("Imaginary Part", fontsize=15)
         #plt.legend()
+        plt.axis('scaled')
         plt.show()
 
         return new_eigenvals
@@ -160,7 +167,7 @@ class LowRank:
         real = eigvals.real
         imag = eigvals.imag
 
-        plt.figure()
+        plt.figure(figsize=(6,5))
         plt.scatter(real, imag, alpha=0.5)
         #plt.axvline(x = self.R, c = "red", label = "R="+str(self.R))
         #plt.axvline(x = -self.R, c = "red")
@@ -168,10 +175,14 @@ class LowRank:
         #plt.axhline(y = -self.R, c = "red")
         #plt.title("Eigenvalue distribution")
         #plt.xlabel("Real Part", fontsize=20)
-        plt.ylabel("Imaginary Part", fontsize=20)
         plt.xlim(-self.R-0.1, self.R+0.1)
         plt.ylim(-self.R-0.1, self.R+0.1)
+        #plt.xlabel("Real Part", fontsize=20, labelpad=15)
+        plt.xticks([-self.R, 0, self.R], fontsize=15)
+        #plt.ylabel("Imaginary Part", fontsize=20)
+        plt.yticks([-0.5, 0, 0.5], fontsize=15)
         #plt.legend()
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
 
         return eigvals
@@ -216,16 +227,18 @@ class NoisedLowRank:
         eigvals = np.linalg.eigvals(self.interaction)
         real = eigvals.real
         imag = eigvals.imag
-        plt.figure()
+        plt.figure(figsize=(6,5))
         plt.scatter(real, imag, alpha=0.5)
-        plt.axvline(x = self.R, c = "red", label = "R="+str(self.R))
-        plt.axvline(x = -self.R, c = "red")
-        plt.axhline(y = self.R, c = "red")
-        plt.axhline(y = -self.R, c = "red")
-        plt.title("Eigenvalue distribution")
-        plt.xlabel("Real Part")
-        plt.ylabel("Imaginary Part")
-        plt.legend()
+        #plt.axvline(x = self.R, c = "red", label = "R="+str(self.R))
+        #plt.axvline(x = -self.R, c = "red")
+        #plt.axhline(y = self.R, c = "red")
+        #plt.axhline(y = -self.R, c = "red")
+        #plt.title("Eigenvalue distribution")
+        #plt.xlabel("Real Part", fontsize=18)
+        plt.xticks([-self.R, 0, self.R], fontsize=18)
+        plt.ylabel("Imaginary Part", fontsize=15)
+        plt.yticks([-0.5, 0, 0.5], fontsize=15)
+        #plt.legend()
         plt.show()
 
 
@@ -290,30 +303,33 @@ class CombiAsymNet2:
 if __name__ == "__main__":
     n_neuron = 200 # With 1000 for better effect of eigval distribution picture.
     R = 0.85
-
+    '''
     #network = AsymLinearRecurrentNet(n_neuron, R)
     #J = network.interaction
     #print(J)
     #eigval = network.eigval_distribution()
     #print(network.eigval)
-    '''
+
     # J = a*J_sym + (1-a)*J_asym
-    combi_net = CombiAsymNet(n_neuron, 0, R)
+    combi_net = CombiAsymNet(n_neuron, 1, R)
     J = combi_net.interaction
     combi_net.eigval_dist()
-    '''
+    
     lowrank = LowRank(n_neuron, 1, R, 1, 1)
     print(lowrank.eigval_distribution())
-    '''
+    
     # J = J_sym + (1-b)*J_asym
     combi_net2 = CombiAsymNet2(n_neuron, 0.5, R)
     J2 = combi_net2.interaction
     print(J2.shape)
     combi_net2.eigval_dist() # Hier has the problem that the rescaling of redius would not be hold.
-    
-    noise_low_rank = NoisedLowRank(n_neuron, 1, R)
-    noise_low_rank.eigval_distribution()
     '''
+    lowrank = LowRank(n_neuron, 10, R, 1, 1)
+    lowrank.eigval_distribution()
+
+    #noise_low_rank = NoisedLowRank(n_neuron, 1, R)
+    #noise_low_rank.eigval_distribution()
+
 
 
 

@@ -873,8 +873,13 @@ if __name__ == "__main__":
     ttc_ttc = sym_ttc[1]
     #print(ttc_ffrec)
     #print(ttc_ttc)
+    plt.figure(figsize=(6,5))
     plt.scatter(ttc_ffrec, ttc_ttc, alpha=0.5)
-    #plt.xlabel()
+    #plt.xlabel("Feedforward recurrent alignment", fontsize=20, labelpad=15)
+    plt.ylabel("Trial-to-trial correlation", fontsize=20)
+    plt.xticks([-5, 0, 5], fontsize=15)
+    plt.yticks([0.5, 1], fontsize=15)
+    plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
     plt.show()
 
     '''

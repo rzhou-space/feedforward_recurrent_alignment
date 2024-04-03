@@ -470,8 +470,12 @@ class FfrecTimeDevelop_1D:
         #sum_term = self.recurrent_interaction @ self.steady_inter \
         #            + self.steady_inter.T  @ self.recurrent_interaction
         #factor = W_t.T @ sum_term @ W_t
-        factor = 2 * W_t.T @ self.trans_rec_inter @ W_t - 2 * W_t.T @ self.recurrent_interaction \
-                 @ W_t @ W_t.T @ self.steady_inter @ W_t
+
+        #factor = 2 * W_t.T @ self.trans_rec_inter @ W_t - 2 * W_t.T @ self.recurrent_interaction \
+        #         @ W_t @ W_t.T @ self.steady_inter @ W_t
+
+        factor = W_t.T @ self.trans_rec_inter.T @ W_t + W_t.T @ self.trans_rec_inter @ W_t -\
+                 2 * W_t.T @ self.recurrent_interaction @ W_t @ W_t.T @ self.steady_inter @ W_t
         return factor
 
     def time_update(self, delta_t, T, W0=None):
@@ -509,11 +513,14 @@ class FfrecTimeDevelop_1D:
             all_factor += update[2].tolist()
 
         x_axis = [i for rep in range(repeats) for i in range(int(T/delta_t) + 1)]
-        plt.figure()
-        sns.lineplot(x=x_axis, y=all_ffrec, label="ffrec")
-        sns.lineplot(x=x_axis, y=all_factor, label="derivative")
-        plt.xlabel("time")
-        plt.legend()
+        plt.figure(figsize=(6,5))
+        sns.lineplot(x=x_axis, y=all_ffrec, label="Feedforward recurrent \n alignment")
+        sns.lineplot(x=x_axis, y=all_factor, label="Derivative")
+        plt.xlabel("Time units", fontsize=18)
+        plt.xticks([0, 10, 20, 30, 40, 50], fontsize=15)
+        plt.yticks([0, 0.4, 0.8, 1.2, 1.6], fontsize=15)
+        plt.legend(fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
 
     def weight_derivative(self, delta_t, T):
@@ -553,13 +560,15 @@ class FfrecTimeDevelop_1D:
             all_coeff += proj_coeff
         # plot the statistics.
         plt.figure()
-        plt.title("Projection Ration of the first 20 eigenvectors")
-        plt.xlabel("time")
-        plt.ylabel("Ratio")
-        #plt.xticks()
+        #plt.title("Projection Ration of the first 20 eigenvectors")
+        plt.xlabel("Time units", fontsize=18)
+        plt.ylabel("Ratio", fontsize=18)
         # x-axis for lineplot.
         steps = [i for rep in range(repeats) for i in range(len(t_list))]
         sns.lineplot(x=steps, y=all_coeff)
+        plt.xticks(fontsize=15)
+        plt.yticks([0.2, 0.6, 1.0], fontsize=15)
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
         return all_coeff
 
@@ -1023,8 +1032,8 @@ if __name__ == "__main__":
     time_exp_1D = FfrecTimeDevelop_1D(output_n=n, R=R)
     W0 = time_exp_1D.feedforward_interaction
     #print(time_exp_1D.weight_derivative(0.1, 10))
-    time_exp_1D.plot_time_update_statistics(50,0.1, 4)
-    #eigv_proj = time_exp_1D.all_W_projection_statistic(10, delta_t=0.1, total_T=5)
+    #time_exp_1D.plot_time_update_statistics(50,0.1, 5)
+    time_exp_1D.all_W_projection_statistic(50, delta_t=0.1, total_T=5)
 
 
 

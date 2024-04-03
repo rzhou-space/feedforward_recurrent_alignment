@@ -341,9 +341,9 @@ class BlackBox:
         plt.show()
 
     def plot_ffrec_step_multi_dim(self, num_step, kappa, beta_list, num_sample):
-        plt.figure()
-        plt.xlabel("step")
-        plt.ylabel("ffrec")
+        plt.figure(figsize=(6,5))
+        plt.xlabel("Step", fontsize=18)
+        plt.ylabel("Feedforward recurrent alignment", fontsize=18)
         for beta_dim in beta_list:
             cov_sigma = self.sigma_spont(kappa, beta_dim, self.orthobasis)
             all_ffrec = [] # Stores at each step num_sample of ffrec value.
@@ -353,9 +353,11 @@ class BlackBox:
                 all_ffrec += self.align_ffrec(n_turn, cov_sigma, num_sample).tolist()
                 x_step += [n_turn] * num_sample # Repeat n_turn for num_step times.
             # Lineplot with error interval.
-            sns.lineplot(x=x_step, y=all_ffrec, label="dim = "+ str(beta_dim))
-            plt.xticks(range(1,num_step))
-        plt.legend()
+            sns.lineplot(x=x_step, y=all_ffrec) #, label="dim = "+ str(beta_dim))
+            plt.xticks([1, 20, 40, 60, 80, 100], fontsize=15)
+            plt.yticks([0.7, 0.76, 0.82], fontsize=15)
+        #plt.legend()
+        plt.savefig("F:/Downloads/fig.pdf", bbox_inches='tight')
         plt.show()
 
 # TODO: Only firstly for real recurrent interaction network. Test and plot.
@@ -429,8 +431,8 @@ if __name__ == "__main__":
     #print(test.mean_ffrec_step_multi_dim(5, kappa, [10, 20, 40], num_sample))
     #test.plot_mean_ffrec_step_multi_dim(5, kappa, [10, 20, 40], num_sample)
 
-    test.plot_ffrec_step_multi_dim(5, kappa, [10, 20, 40], num_sample)
-    test_asym.plot_ffrec_step_multi_dim(5, kappa, [10, 20, 40], num_sample)
+    #test.plot_ffrec_step_multi_dim(5, kappa, [10, 20, 40], num_sample)
+    test_asym.plot_ffrec_step_multi_dim(100, kappa, [5], num_sample)
 
 
 
